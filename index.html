@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f9f6f1">
+  <meta name="referrer" content="no-referrer">
   <title>Keily &amp; Nathan | Lee + Valdez</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,6 +12,7 @@
   <style>
     :root { --cream: #f9f6f1; --blue: #dcebf3; --clay: #aa5944; --ink: #32302c; --sand: #ede5d8; }
     * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
     html { scroll-behavior: smooth; }
     body { margin: 0; color: var(--ink); background: var(--cream); font-family: 'Cormorant Garamond', 'Noto Serif KR', Georgia, serif; font-size: 21px; }
     button { font: inherit; }
@@ -34,12 +36,50 @@
     .card p:last-child { margin-bottom: 0; }
     .quote { font-size: clamp(25px, 3vw, 34px); color: var(--clay); }
     .small { font-size: 18px; }
+    body.invitation-closed { overflow: hidden; }
+    .invitation-cover { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; overflow-y: auto; padding: 35px 18px; text-align: center; background: radial-gradient(circle at 15% 18%, #e5eff3, transparent 38%), radial-gradient(circle at 85% 80%, #ecd7ca, transparent 40%), var(--cream); transition: opacity .55s ease, visibility .55s ease; }
+    .invitation-cover.is-opening { opacity: 0; visibility: hidden; }
+    .cover-content { width: min(100%, 570px); }
+    .cover-top { color: var(--clay); font-size: 17px; letter-spacing: .2em; text-transform: uppercase; }
+    .cover-title { margin: 14px 0 38px; font-size: clamp(48px, 9vw, 82px); font-weight: 400; line-height: 1; }
+    .cover-subtitle { margin: 25px 0 0; color: var(--clay); font-size: 22px; }
+    .envelope-button { display: block; width: min(100%, 420px); margin: 0 auto; padding: 0; background: transparent; border: 0; cursor: pointer; color: var(--ink); }
+    .envelope-button:focus-visible { outline: 3px solid var(--clay); outline-offset: 8px; }
+    .envelope { position: relative; display: grid; place-items: center; width: 100%; aspect-ratio: 1.5; filter: drop-shadow(0 18px 18px rgba(80,64,48,.18)); transition: transform .4s ease; }
+    .envelope-button:hover .envelope { transform: translateY(-7px); }
+    .envelope-back { position: absolute; inset: 0; background: #eee0d0; border: 1px solid #c9b3a0; }
+    .envelope-flap { position: absolute; inset: 0 0 auto; height: 55%; background: #f4e7d8; clip-path: polygon(0 0,100% 0,50% 100%); filter: drop-shadow(0 2px 2px rgba(80,64,48,.12)); z-index: 2; transform-origin: 50% 0; transition: transform .65s ease; }
+    .envelope-front { position: absolute; inset: 0; background: #ead9c7; clip-path: polygon(0 0,50% 49%,100% 0,100% 100%,0 100%); border: 1px solid #c9b3a0; z-index: 3; }
+    .envelope-seal { position: relative; z-index: 4; display: grid; place-items: center; width: 72px; height: 72px; margin-top: 24%; border-radius: 50%; background: var(--clay); color: white; font-size: 25px; box-shadow: 0 3px 10px rgba(80,64,48,.2); transition: opacity .3s ease; }
+    .invitation-cover.is-opening .envelope-flap { transform: rotateX(180deg); }
+    .invitation-cover.is-opening .envelope-seal { opacity: 0; }
+    .tap-label { display: block; margin-top: 22px; color: var(--clay); font-size: 23px; }
+    .rsvp-form { max-width: 520px; margin: 18px auto 0; text-align: left; }
+    .rsvp-form label { display: block; margin: 17px 0 6px; font-size: 19px; }
+    .rsvp-form input, .rsvp-form select, .rsvp-form textarea { width: 100%; min-height: 45px; padding: 10px 12px; border: 1px solid #bcae9f; border-radius: 5px; background: white; color: var(--ink); font: 18px 'Cormorant Garamond', 'Noto Serif KR', serif; }
+    .rsvp-form textarea { min-height: 86px; resize: vertical; }
+    .rsvp-form button { display: block; margin: 25px auto 0; padding: 11px 38px; background: var(--clay); color: white; border: 0; border-radius: 4px; cursor: pointer; }
+    .rsvp-form button:disabled { opacity: .6; cursor: wait; }
+    .rsvp-status { color: var(--clay); min-height: 30px; }
     footer { background: var(--sand); padding: 55px 20px; text-align: center; }
     footer p { margin: 8px; }
     @media (max-width: 500px) { header { padding: 14px 16px; } .brand { font-size: 17px; } .languages button { font-size: 15px; padding: 4px 6px; } main section { padding-top: 60px; padding-bottom: 60px; } }
   </style>
 </head>
 <body>
+  <div class="invitation-cover" id="invitationCover" role="dialog" aria-modal="true" aria-labelledby="coverTitle" hidden>
+    <div class="cover-content">
+      <div class="cover-top" data-key="coverTop">You're invited</div>
+      <h2 class="cover-title" id="coverTitle">Keily &amp; Nathan</h2>
+      <button class="envelope-button" id="openInvitation" type="button" aria-label="Tap to open the invitation">
+        <span class="envelope" aria-hidden="true">
+          <span class="envelope-back"></span><span class="envelope-flap"></span><span class="envelope-front"></span><span class="envelope-seal">K + N</span>
+        </span>
+        <span class="tap-label" data-key="tapLabel">Tap to open your invitation</span>
+      </button>
+      <p class="cover-subtitle">환영합니다 · Welcome · Bienvenidos</p>
+    </div>
+  </div>
   <header>
     <a class="brand" href="#top">LEE + VALDEZ</a>
     <nav class="languages" aria-label="Language">
@@ -76,7 +116,30 @@
     </section>
     <section>
       <h2 data-key="rsvpTitle">RSVP</h2>
-      <div class="card"><p data-key="rsvpText">RSVP will open soon. Please check back for details.</p></div>
+      <div class="card">
+        <p id="rsvpIntro" data-key="rsvpText">RSVP will open soon. Please check back for details.</p>
+        <p id="householdGreeting" hidden></p>
+        <p id="rsvpStatus" class="rsvp-status" role="status" aria-live="polite"></p>
+        <form id="rsvpForm" class="rsvp-form" hidden>
+          <label for="attendance" data-key="attendLabel">Will you attend?</label>
+          <select id="attendance" required>
+            <option value="" data-key="chooseAnswer">Choose an answer</option>
+            <option value="attending" data-key="yesAnswer">Joyfully accepts</option>
+            <option value="declined" data-key="noAnswer">Regretfully declines</option>
+          </select>
+          <div id="guestDetails" hidden>
+            <label for="guestCount" data-key="countLabel">Number attending</label>
+            <select id="guestCount"></select>
+            <label for="guestNames" data-key="namesLabel">Names of guests attending (optional)</label>
+            <textarea id="guestNames" maxlength="300" rows="2"></textarea>
+            <label for="dietaryNotes" data-key="dietLabel">Dietary needs (optional)</label>
+            <textarea id="dietaryNotes" maxlength="500" rows="2"></textarea>
+          </div>
+          <label for="rsvpMessage" data-key="messageLabel">Message for us (optional)</label>
+          <textarea id="rsvpMessage" maxlength="500" rows="2"></textarea>
+          <button id="sendRsvp" type="submit" data-key="sendLabel">Send RSVP</button>
+        </form>
+      </div>
     </section>
   </main>
   <footer>
@@ -85,21 +148,94 @@
   </footer>
   <script>
     const translations = {
-      en: { eyebrow: 'A celebration of love and family', invite: 'Together with our families, we look forward to celebrating with you.', storyTitle: 'Our Story', storyText: 'Our story is coming soon.', detailsTitle: 'Wedding Details', detailsText: 'Date, venue, and schedule details are coming soon.', registryTitle: 'Registry', registryText: 'Your presence means the world to us. Registry details are coming soon.', rsvpTitle: 'RSVP', rsvpText: 'RSVP will open soon. Please check back for details.' },
-      es: { eyebrow: 'Una celebración de amor y familia', invite: 'Junto con nuestras familias, esperamos celebrar con ustedes.', storyTitle: 'Nuestra Historia', storyText: 'Nuestra historia estará disponible pronto.', detailsTitle: 'Detalles de la Boda', detailsText: 'Pronto compartiremos la fecha, el lugar y el programa.', registryTitle: 'Mesa de Regalos', registryText: 'Su presencia significa mucho para nosotros. Pronto compartiremos los detalles de la mesa de regalos.', rsvpTitle: 'Confirmar Asistencia', rsvpText: 'Pronto podrán confirmar su asistencia. Vuelvan para más detalles.' },
-      ko: { eyebrow: '사랑과 가족을 위한 축하', invite: '가족과 함께 여러분을 모시고 기쁜 날을 축하하고 싶습니다.', storyTitle: '우리의 이야기', storyText: '우리의 이야기를 곧 들려드릴게요.', detailsTitle: '결혼식 안내', detailsText: '날짜와 장소, 일정은 곧 안내해 드리겠습니다.', registryTitle: '선물 안내', registryText: '함께해 주시는 것만으로도 큰 선물입니다. 자세한 내용은 곧 안내해 드리겠습니다.', rsvpTitle: '참석 여부', rsvpText: '참석 여부 확인은 곧 시작됩니다. 나중에 다시 방문해 주세요.' }
+      en: { coverTop: "You're invited", tapLabel: 'Tap to open your invitation', eyebrow: 'A celebration of love and family', invite: 'Together with our families, we look forward to celebrating with you.', storyTitle: 'Our Story', storyText: 'Our story is coming soon.', detailsTitle: 'Wedding Details', detailsText: 'Date, venue, and schedule details are coming soon.', registryTitle: 'Registry', registryText: 'Your presence means the world to us. Registry details are coming soon.', rsvpTitle: 'RSVP', rsvpText: 'Please use your personal invitation link to RSVP.', attendLabel: 'Will you attend?', chooseAnswer: 'Choose an answer', yesAnswer: 'Joyfully accepts', noAnswer: 'Regretfully declines', countLabel: 'Number attending', namesLabel: 'Names of guests attending (optional)', dietLabel: 'Dietary needs (optional)', messageLabel: 'Message for us (optional)', sendLabel: 'Send RSVP', loading: 'Loading your invitation…', saving: 'Saving your response…', saved: 'Thank you! Your RSVP has been saved. You can return to this link to change it.', unavailable: 'RSVP is temporarily unavailable. Please try again later.', missing: 'We could not find this invitation. Please check your personal link.', greeting: 'Welcome, {name}. Your invitation is for up to {count} guests.' },
+      es: { coverTop: 'Estás invitado', tapLabel: 'Toca para abrir la invitación', eyebrow: 'Una celebración de amor y familia', invite: 'Junto con nuestras familias, esperamos celebrar con ustedes.', storyTitle: 'Nuestra Historia', storyText: 'Nuestra historia estará disponible pronto.', detailsTitle: 'Detalles de la Boda', detailsText: 'Pronto compartiremos la fecha, el lugar y el programa.', registryTitle: 'Mesa de Regalos', registryText: 'Su presencia significa mucho para nosotros. Pronto compartiremos los detalles de la mesa de regalos.', rsvpTitle: 'Confirmar Asistencia', rsvpText: 'Usa tu enlace personal para confirmar tu asistencia.', attendLabel: '¿Nos acompañarás?', chooseAnswer: 'Elige una respuesta', yesAnswer: 'Sí, asistiré', noAnswer: 'No podré asistir', countLabel: 'Número de asistentes', namesLabel: 'Nombres de los asistentes (opcional)', dietLabel: 'Necesidades alimentarias (opcional)', messageLabel: 'Un mensaje para nosotros (opcional)', sendLabel: 'Enviar respuesta', loading: 'Cargando tu invitación…', saving: 'Guardando tu respuesta…', saved: '¡Gracias! Guardamos tu respuesta. Puedes volver a este enlace para cambiarla.', unavailable: 'Las confirmaciones no están disponibles por el momento. Inténtalo de nuevo más tarde.', missing: 'No encontramos esta invitación. Revisa tu enlace personal.', greeting: 'Bienvenidos, {name}. Su invitación es para un máximo de {count} personas.' },
+      ko: { coverTop: '초대합니다', tapLabel: '초대장을 눌러 열어 주세요', eyebrow: '사랑과 가족을 위한 축하', invite: '가족과 함께 여러분을 모시고 기쁜 날을 축하하고 싶습니다.', storyTitle: '우리의 이야기', storyText: '우리의 이야기를 곧 들려드릴게요.', detailsTitle: '결혼식 안내', detailsText: '날짜와 장소, 일정은 곧 안내해 드리겠습니다.', registryTitle: '선물 안내', registryText: '함께해 주시는 것만으로도 큰 선물입니다. 자세한 내용은 곧 안내해 드리겠습니다.', rsvpTitle: '참석 여부', rsvpText: '참석 여부를 알려 주시려면 개인 초대 링크를 사용해 주세요.', attendLabel: '참석하시나요?', chooseAnswer: '선택해 주세요', yesAnswer: '참석합니다', noAnswer: '참석하지 못합니다', countLabel: '참석 인원', namesLabel: '참석자 이름 (선택)', dietLabel: '식이 제한 사항 (선택)', messageLabel: '전하고 싶은 말 (선택)', sendLabel: '참석 여부 보내기', loading: '초대장을 불러오는 중…', saving: '답변을 저장하는 중…', saved: '감사합니다! 답변을 저장했습니다. 이 링크에서 답변을 수정할 수 있습니다.', unavailable: '현재 참석 여부를 저장할 수 없습니다. 나중에 다시 시도해 주세요.', missing: '초대장을 찾을 수 없습니다. 개인 링크를 확인해 주세요.', greeting: '{name}님, 초대 인원은 최대 {count}명입니다.' }
     };
     function setLanguage(lang) {
       if (!translations[lang]) lang = 'en';
       document.documentElement.lang = lang;
       document.querySelectorAll('[data-key]').forEach(el => { el.textContent = translations[lang][el.dataset.key]; });
       document.querySelectorAll('[data-lang]').forEach(button => { button.setAttribute('aria-pressed', String(button.dataset.lang === lang)); });
+      document.getElementById('openInvitation').setAttribute('aria-label', translations[lang].tapLabel);
       try { localStorage.setItem('weddingLanguage', lang); } catch (_) {}
+      if (loadedInvite) {
+        document.getElementById('householdGreeting').textContent = translations[lang].greeting.replace('{name}', loadedInvite.household_name).replace('{count}', loadedInvite.max_guests);
+      }
     }
     document.querySelectorAll('[data-lang]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
     let savedLanguage = 'en';
     try { savedLanguage = localStorage.getItem('weddingLanguage') || 'en'; } catch (_) {}
+    // After deploying the Worker, paste its workers.dev URL here (no trailing slash).
+    const API_BASE = '';
+    const inviteToken = new URLSearchParams(window.location.hash.slice(1)).get('invite');
+    let loadedInvite = null;
     setLanguage(savedLanguage);
+    const cover = document.getElementById('invitationCover');
+    cover.hidden = false;
+    document.body.classList.add('invitation-closed');
+    document.getElementById('openInvitation').focus();
+    document.getElementById('openInvitation').addEventListener('click', () => {
+      cover.classList.add('is-opening');
+      const finish = () => {
+        cover.hidden = true;
+        document.body.classList.remove('invitation-closed');
+        const hero = document.getElementById('top');
+        hero.tabIndex = -1;
+        hero.focus({ preventScroll: true });
+      };
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) finish();
+      else window.setTimeout(finish, 650);
+    });
+    const statusLine = document.getElementById('rsvpStatus');
+    const attendance = document.getElementById('attendance');
+    const guestDetails = document.getElementById('guestDetails');
+    attendance.addEventListener('change', () => { guestDetails.hidden = attendance.value !== 'attending'; });
+    async function send(path, data) {
+      const response = await fetch(API_BASE + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), cache: 'no-store' });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Request failed');
+      return result;
+    }
+    if (inviteToken && API_BASE) {
+      statusLine.textContent = translations[document.documentElement.lang].loading;
+      send('/invite', { token: inviteToken }).then(invite => {
+        loadedInvite = invite;
+        const countSelect = document.getElementById('guestCount');
+        for (let i = 1; i <= invite.max_guests; i++) countSelect.add(new Option(String(i), String(i)));
+        attendance.value = invite.attendance || '';
+        countSelect.value = String(invite.guest_count || 1);
+        document.getElementById('guestNames').value = invite.guest_names || '';
+        document.getElementById('dietaryNotes').value = invite.dietary_notes || '';
+        document.getElementById('rsvpMessage').value = invite.message || '';
+        guestDetails.hidden = attendance.value !== 'attending';
+        document.getElementById('householdGreeting').hidden = false;
+        document.getElementById('rsvpForm').hidden = false;
+        document.getElementById('rsvpIntro').hidden = true;
+        statusLine.textContent = '';
+        setLanguage(document.documentElement.lang);
+      }).catch(error => {
+        statusLine.textContent = translations[document.documentElement.lang][error.message === 'Invitation not found' ? 'missing' : 'unavailable'];
+      });
+    }
+    document.getElementById('rsvpForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const button = document.getElementById('sendRsvp');
+      button.disabled = true;
+      statusLine.textContent = translations[document.documentElement.lang].saving;
+      try {
+        await send('/rsvp', {
+          token: inviteToken, attendance: attendance.value,
+          guest_count: attendance.value === 'attending' ? Number(document.getElementById('guestCount').value) : 0,
+          guest_names: document.getElementById('guestNames').value,
+          dietary_notes: document.getElementById('dietaryNotes').value,
+          message: document.getElementById('rsvpMessage').value,
+        });
+        statusLine.textContent = translations[document.documentElement.lang].saved;
+      } catch {
+        statusLine.textContent = translations[document.documentElement.lang].unavailable;
+      } finally { button.disabled = false; }
+    });
   </script>
 </body>
 </html>
