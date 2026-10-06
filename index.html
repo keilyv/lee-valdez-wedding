@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f9f6f1">
+  <title>Keily &amp; Nathan | Lee + Valdez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Serif+KR:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --cream: #f9f6f1; --blue: #dcebf3; --clay: #aa5944; --ink: #32302c; --sand: #ede5d8; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--cream); font-family: 'Cormorant Garamond', 'Noto Serif KR', Georgia, serif; font-size: 21px; }
+    button { font: inherit; }
+    a { color: inherit; }
+    header { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px clamp(20px, 7vw, 90px); background: var(--cream); }
+    .brand { font-size: 23px; font-weight: 600; letter-spacing: .09em; text-decoration: none; white-space: nowrap; }
+    .languages { display: flex; gap: 4px; }
+    .languages button { background: transparent; border: 1px solid transparent; border-radius: 20px; padding: 5px 10px; cursor: pointer; font-size: 17px; }
+    .languages button[aria-pressed="true"] { border-color: var(--clay); color: var(--clay); }
+    .hero { min-height: min(760px, 85vh); display: grid; place-items: center; text-align: center; padding: 80px 20px; background: radial-gradient(circle at 78% 18%, #d8e8f2, transparent 40%), radial-gradient(circle at 18% 85%, #edd6ca, transparent 42%), var(--cream); }
+    .eyebrow { letter-spacing: .22em; text-transform: uppercase; color: var(--clay); font-size: 17px; }
+    h1 { font-size: clamp(65px, 11vw, 150px); line-height: .85; font-weight: 400; margin: 22px 0 30px; }
+    h1 span { display: block; font-size: .42em; margin: 10px 0; }
+    .hero p { margin: 12px auto; max-width: 600px; }
+    .welcome { color: var(--clay); margin-top: 40px !important; }
+    main section { padding: 85px clamp(24px, 10vw, 160px); text-align: center; }
+    main section:nth-child(even) { background: var(--blue); }
+    h2 { font-weight: 400; font-size: clamp(40px, 5vw, 64px); margin: 0 0 20px; }
+    .card { max-width: 760px; margin: 0 auto; padding: clamp(25px, 5vw, 55px); background: rgba(255,255,255,.74); border: 1px solid rgba(170,89,68,.16); }
+    .card p { margin: 0 auto 16px; line-height: 1.5; }
+    .card p:last-child { margin-bottom: 0; }
+    .quote { font-size: clamp(25px, 3vw, 34px); color: var(--clay); }
+    .small { font-size: 18px; }
+    footer { background: var(--sand); padding: 55px 20px; text-align: center; }
+    footer p { margin: 8px; }
+    @media (max-width: 500px) { header { padding: 14px 16px; } .brand { font-size: 17px; } .languages button { font-size: 15px; padding: 4px 6px; } main section { padding-top: 60px; padding-bottom: 60px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="#top">LEE + VALDEZ</a>
+    <nav class="languages" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="es" aria-pressed="false">ES</button>
+      <button type="button" data-lang="ko" aria-pressed="false">한국어</button>
+    </nav>
+  </header>
+  <div class="hero" id="top">
+    <div>
+      <div class="eyebrow" data-key="eyebrow">A celebration of love and family</div>
+      <h1>Keily <span>&amp;</span> Nathan</h1>
+      <p data-key="invite">Together with our families, we look forward to celebrating with you.</p>
+      <p class="welcome">환영합니다 · Welcome · Bienvenidos</p>
+    </div>
+  </div>
+  <main>
+    <section>
+      <h2 data-key="storyTitle">Our Story</h2>
+      <div class="card">
+        <p class="quote">서로 다른 길, 하나의 여정.<br>Different paths, one journey.<br>Diferentes caminos, un mismo destino.</p>
+        <p class="small" data-key="storyText">Our story is coming soon.</p>
+      </div>
+    </section>
+    <section>
+      <h2 data-key="detailsTitle">Wedding Details</h2>
+      <div class="card">
+        <p data-key="detailsText">Date, venue, and schedule details are coming soon.</p>
+      </div>
+    </section>
+    <section>
+      <h2 data-key="registryTitle">Registry</h2>
+      <div class="card"><p data-key="registryText">Your presence means the world to us. Registry details are coming soon.</p></div>
+    </section>
+    <section>
+      <h2 data-key="rsvpTitle">RSVP</h2>
+      <div class="card"><p data-key="rsvpText">RSVP will open soon. Please check back for details.</p></div>
+    </section>
+  </main>
+  <footer>
+    <p>LEE + VALDEZ</p>
+    <p>감사합니다 · Thank you · Gracias</p>
+  </footer>
+  <script>
+    const translations = {
+      en: { eyebrow: 'A celebration of love and family', invite: 'Together with our families, we look forward to celebrating with you.', storyTitle: 'Our Story', storyText: 'Our story is coming soon.', detailsTitle: 'Wedding Details', detailsText: 'Date, venue, and schedule details are coming soon.', registryTitle: 'Registry', registryText: 'Your presence means the world to us. Registry details are coming soon.', rsvpTitle: 'RSVP', rsvpText: 'RSVP will open soon. Please check back for details.' },
+      es: { eyebrow: 'Una celebración de amor y familia', invite: 'Junto con nuestras familias, esperamos celebrar con ustedes.', storyTitle: 'Nuestra Historia', storyText: 'Nuestra historia estará disponible pronto.', detailsTitle: 'Detalles de la Boda', detailsText: 'Pronto compartiremos la fecha, el lugar y el programa.', registryTitle: 'Mesa de Regalos', registryText: 'Su presencia significa mucho para nosotros. Pronto compartiremos los detalles de la mesa de regalos.', rsvpTitle: 'Confirmar Asistencia', rsvpText: 'Pronto podrán confirmar su asistencia. Vuelvan para más detalles.' },
+      ko: { eyebrow: '사랑과 가족을 위한 축하', invite: '가족과 함께 여러분을 모시고 기쁜 날을 축하하고 싶습니다.', storyTitle: '우리의 이야기', storyText: '우리의 이야기를 곧 들려드릴게요.', detailsTitle: '결혼식 안내', detailsText: '날짜와 장소, 일정은 곧 안내해 드리겠습니다.', registryTitle: '선물 안내', registryText: '함께해 주시는 것만으로도 큰 선물입니다. 자세한 내용은 곧 안내해 드리겠습니다.', rsvpTitle: '참석 여부', rsvpText: '참석 여부 확인은 곧 시작됩니다. 나중에 다시 방문해 주세요.' }
+    };
+    function setLanguage(lang) {
+      if (!translations[lang]) lang = 'en';
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-key]').forEach(el => { el.textContent = translations[lang][el.dataset.key]; });
+      document.querySelectorAll('[data-lang]').forEach(button => { button.setAttribute('aria-pressed', String(button.dataset.lang === lang)); });
+      try { localStorage.setItem('weddingLanguage', lang); } catch (_) {}
+    }
+    document.querySelectorAll('[data-lang]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
+    let savedLanguage = 'en';
+    try { savedLanguage = localStorage.getItem('weddingLanguage') || 'en'; } catch (_) {}
+    setLanguage(savedLanguage);
+  </script>
+</body>
+</html>
