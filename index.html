@@ -45,7 +45,7 @@
     .botanical.marigold { width: clamp(105px, 14vw, 175px); bottom: -32px; right: -28px; transform: rotate(10deg); }
     .cover-content .botanical.plum { width: clamp(185px, 29vw, 310px); }
     .cover-content .botanical.plum { top: -90px; left: -85px; }
-    .envelope .botanical.marigold { width: clamp(85px, 11vw, 120px); bottom: -17px; right: -19px; z-index: 8; transform: rotate(10deg); }
+    .envelope .botanical.marigold { width: clamp(85px, 11vw, 120px); bottom: -17px; right: -19px; z-index: 2; transform: rotate(10deg); }
     .fine-rule { width: 105px; height: 1px; background: var(--clay); opacity: .45; margin: 28px auto; }
     .photo-moment { min-height: 650px; display: grid; place-items: center; background: linear-gradient(145deg, #dcebf3 0%, #f9f0e7 52%, #edd7ca 100%); }
     .photo-moment::before { content: ''; position: absolute; inset: 28px; border: 1px solid rgba(173,97,75,.25); }
@@ -77,25 +77,20 @@
     .cover-top { color: var(--clay); font-size: 17px; letter-spacing: .2em; text-transform: uppercase; }
     .cover-title { margin: 17px 0 48px; font-size: clamp(54px, 9vw, 84px); font-weight: 400; line-height: 1; }
     .cover-subtitle { margin: 25px 0 0; color: var(--clay); font-size: 22px; }
-    .envelope-button { display: block; width: min(100%, 720px); margin: 0 auto; padding: 0; background: transparent; border: 0; cursor: pointer; color: var(--ink); }
+    .envelope-button { display: block; width: min(100%, 720px); margin: 0 auto; padding: 0; background: transparent; border: 0; cursor: pointer; color: var(--ink); perspective: 1200px; }
     .envelope-button:focus-visible { outline: 3px solid var(--clay); outline-offset: 8px; }
-    .envelope { position: relative; display: grid; place-items: center; width: 100%; aspect-ratio: 1600 / 1036; filter: drop-shadow(0 24px 28px rgba(70,51,49,.27)); transition: transform .4s ease; perspective: 700px; }
+    .envelope { position: relative; width: 100%; aspect-ratio: 1600 / 1036; transform-style: preserve-3d; transition: transform .9s cubic-bezier(.22,.7,.25,1); }
     .envelope-button:hover .envelope { transform: translateY(-7px); }
-    .envelope-back { position: absolute; inset: 0; background: #b2dcfd; }
-    .envelope-letter { position: absolute; z-index: 1; top: 10%; left: 8%; width: 84%; height: 83%; padding-top: 22%; background: #fffdf7; border: 1px solid #d3c2b8; color: var(--clay); font-size: 29px; box-shadow: 0 2px 9px rgba(68,56,50,.16); transition: transform .8s ease .07s; }
-    .envelope-letter small { display: block; margin-top: 10px; font-size: 15px; text-transform: uppercase; letter-spacing: .14em; }
-    .envelope-front, .envelope-seal { position: absolute; inset: 0; background: url('images/envelope.png') center / 125% auto no-repeat; }
-    .envelope-front { z-index: 2; clip-path: polygon(0 0,50% 50%,100% 0,100% 100%,0 100%); }
-    .envelope-seal-patch { position: absolute; z-index: 3; left: 50%; top: 50%; width: 24%; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%,-50%); background: #b2dcfd; }
-    .envelope-flap { position: absolute; z-index: 4; inset: 0; clip-path: polygon(0 0,100% 0,50% 50%); background: linear-gradient(155deg,#8fc2f2,#b4dcfa 65%,#a8d2f7); transform-origin: 50% 0; backface-visibility: visible; transition: transform .9s cubic-bezier(.4,0,.2,1) .15s; }
-    .envelope-seal { z-index: 5; clip-path: circle(14% at 50% 50%); transition: opacity .32s ease; }
-    .envelope-monogram { position: absolute; z-index: 6; left: 50%; top: 50%; width: 14%; height: 18%; object-fit: contain; transform: translate(-50%,-50%); transition: opacity .32s ease; }
-    .envelope-recipient { position: absolute; z-index: 7; bottom: 8%; left: 50%; box-sizing: border-box; width: min(68%, 390px); transform: translateX(-50%); padding: 8px 12px 10px; background: rgba(255,252,245,.92); border: 1px solid rgba(173,97,75,.45); outline: 1px solid rgba(173,97,75,.25); outline-offset: -5px; box-shadow: 0 3px 11px rgba(70,51,49,.13); transition: opacity .32s ease; }
+    .envelope-button.is-flipped .envelope { transform: rotateY(180deg); }
+    .envelope-button.is-flipped:hover .envelope { transform: translateY(-7px) rotateY(180deg); }
+    .envelope-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 24px 28px rgba(70,51,49,.27); }
+    .envelope-address { display: grid; place-items: center; background: linear-gradient(145deg,#99cbf5,#b8dcfa 65%,#a2cff4); border: 1px solid rgba(104,160,205,.45); }
+    .envelope-address::before { content: ''; position: absolute; inset: 12px; border: 1px solid rgba(255,255,255,.65); pointer-events: none; }
+    .envelope-recipient { position: relative; box-sizing: border-box; width: min(70%, 420px); padding: clamp(14px,3vw,26px); background: rgba(255,252,245,.92); border: 1px solid rgba(173,97,75,.45); box-shadow: 0 8px 22px rgba(70,51,49,.13); }
     .envelope-recipient-label { display: block; color: var(--clay); font-size: 13px; letter-spacing: .17em; text-transform: uppercase; }
-    .envelope-recipient-name { display: block; color: #57453d; font-size: clamp(18px, 2.6vw, 30px); line-height: 1.05; overflow-wrap: anywhere; }
-    .invitation-cover.is-opening .envelope-flap { transform: rotateX(180deg); }
-    .invitation-cover.is-opening .envelope-letter { transform: translateY(-27%); }
-    .invitation-cover.is-opening .envelope-seal, .invitation-cover.is-opening .envelope-monogram, .invitation-cover.is-opening .envelope-recipient { opacity: 0; }
+    .envelope-recipient-name { display: block; color: #57453d; font-size: clamp(23px, 3.2vw, 38px); line-height: 1.05; overflow-wrap: anywhere; }
+    .envelope-seal-side { transform: rotateY(180deg); background: url('images/envelope.png') center / 125% auto no-repeat; }
+    .envelope-monogram { position: absolute; left: 50%; top: 50%; width: 14%; height: 18%; object-fit: contain; transform: translate(-50%,-50%); }
     .tap-label { display: block; margin-top: 22px; color: var(--clay); font-size: 23px; }
     .rsvp-form { max-width: 520px; margin: 18px auto 0; text-align: left; }
     .rsvp-form label { display: block; margin: 17px 0 6px; font-size: 19px; }
@@ -127,12 +122,11 @@
       .cover-title { font-size: clamp(44px, 12vw, 62px); line-height: 1.05; margin: 14px 0 28px; }
       .envelope-button { width: min(100%, 430px); }
       .envelope .botanical.marigold { width: 62px; bottom: 0; right: -8px; }
-      .envelope-recipient { bottom: 6%; width: 70%; padding: 5px 7px 7px; }
+      .envelope-recipient { width: 76%; padding: 12px; }
       .envelope-recipient-label { font-size: 10px; }
-      .envelope-recipient-name { font-size: clamp(15px, 4.3vw, 22px); }
+      .envelope-recipient-name { font-size: clamp(17px, 5vw, 25px); }
       .tap-label { margin-top: 20px; font-size: 18px; }
       .cover-subtitle { margin-top: 18px; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
-      .envelope-letter { padding-top: 20%; font-size: 23px; }
       .photo-moment { min-height: 580px; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
@@ -144,11 +138,12 @@
       <img class="botanical plum" src="images/plum-blossoms.png" alt="" aria-hidden="true">
       <div class="cover-top" data-key="coverTop">You're invited</div>
       <h2 class="cover-title" id="coverTitle">Keily &amp; Nathan</h2>
-      <button class="envelope-button" id="openInvitation" type="button" aria-label="Tap to open the invitation">
+      <button class="envelope-button" id="openInvitation" type="button" aria-label="Tap to flip your invitation">
         <span class="envelope" aria-hidden="true">
-          <span class="envelope-back"></span><span class="envelope-letter">Keily &amp; Nathan<small data-key="letterText">A celebration of love</small></span><span class="envelope-front"></span><span class="envelope-seal-patch"></span><span class="envelope-flap"></span><span class="envelope-seal"></span><img class="envelope-monogram" src="images/k-and-n.png" alt=""><span class="envelope-recipient" id="coverRecipient" hidden><span class="envelope-recipient-label" data-key="recipientLabel">For</span><span class="envelope-recipient-name" id="coverRecipientName"></span></span><img class="botanical marigold" src="images/marigolds.png" alt="">
+          <span class="envelope-face envelope-address"><span class="envelope-recipient" id="coverRecipient"><span class="envelope-recipient-label" data-key="recipientLabel">To</span><span class="envelope-recipient-name" id="coverRecipientName">Our guest</span></span></span>
+          <span class="envelope-face envelope-seal-side"><img class="envelope-monogram" src="images/k-and-n.png" alt=""><img class="botanical marigold" src="images/marigolds.png" alt=""></span>
         </span>
-        <span class="tap-label" data-key="tapLabel">Tap to open your invitation</span>
+        <span class="tap-label" data-key="tapLabel">Tap to flip your invitation</span>
       </button>
       <p class="cover-subtitle">환영합니다 · Welcome · Bienvenidos</p>
     </div>
@@ -266,13 +261,23 @@
     Object.assign(translations.ko, {
       letterText: '사랑을 축하하며', recipientLabel: '받는 분', momentKicker: '기억에 남을 순간', momentText: '두 가족, 두 문화, 하나의 아름다운 시작.', storyKicker: '우리의 여정', detailsKicker: '결혼식', dateTitle: '날짜', dateText: '곧 안내해 드립니다', venueTitle: '장소', venueText: '곧 안내해 드립니다', mapText: '장소가 정해지면 여기에서 길 안내를 확인하실 수 있습니다.', timelineKicker: '처음부터 끝까지 함께', timelineTitle: '우리의 하루', timelineOne: '결혼식', timelineTwo: '함께하는 축하', timelineThree: '춤과 추억', timeSoon: '시간과 장소는 추후 안내', registryKicker: '감사의 마음으로', rsvpKicker: '함께해 주시길 바랍니다'
     });
+    Object.assign(translations.en, { recipientLabel: 'To:', flipLabel: 'Tap to flip the envelope', guestFallback: 'Our guest' });
+    Object.assign(translations.es, { recipientLabel: 'Para:', flipLabel: 'Toca para voltear el sobre', guestFallback: 'Nuestros invitados' });
+    Object.assign(translations.ko, { recipientLabel: '받는 분:', flipLabel: '봉투를 눌러 뒤집어 주세요', guestFallback: '소중한 손님' });
+    function updateEnvelopePrompt() {
+      const prompt = translations[document.documentElement.lang][envelopeFlipped ? 'tapLabel' : 'flipLabel'];
+      document.querySelector('.tap-label').textContent = prompt;
+      const recipient = loadedInvite && !envelopeFlipped ? `${translations[document.documentElement.lang].recipientLabel} ${loadedInvite.household_name}. ` : '';
+      document.getElementById('openInvitation').setAttribute('aria-label', recipient + prompt);
+    }
     function setLanguage(lang) {
       if (!translations[lang]) lang = 'en';
       document.documentElement.lang = lang;
       document.querySelectorAll('[data-key]').forEach(el => { el.textContent = translations[lang][el.dataset.key]; });
       document.querySelectorAll('[data-guest-number]').forEach(label => { label.textContent = translations[lang].nameItemLabel.replace('{number}', label.dataset.guestNumber); });
       document.querySelectorAll('[data-lang]').forEach(button => { button.setAttribute('aria-pressed', String(button.dataset.lang === lang)); });
-      document.getElementById('openInvitation').setAttribute('aria-label', translations[lang].tapLabel);
+      document.getElementById('coverRecipientName').textContent = loadedInvite ? loadedInvite.household_name : translations[lang].guestFallback;
+      updateEnvelopePrompt();
       try { localStorage.setItem('weddingLanguage', lang); } catch (_) {}
       if (loadedInvite) {
         document.getElementById('householdGreeting').textContent = translations[lang].greeting.replace('{name}', loadedInvite.household_name).replace('{count}', loadedInvite.max_guests);
@@ -285,12 +290,23 @@
     const API_BASE = 'https://lee-valdez-rsvp.keilyv.workers.dev';
     const inviteToken = new URLSearchParams(window.location.hash.slice(1)).get('invite');
     let loadedInvite = null;
+    let envelopeFlipped = false;
+    let flipReady = true;
     setLanguage(savedLanguage);
     const cover = document.getElementById('invitationCover');
     cover.hidden = false;
     document.body.classList.add('invitation-closed');
     document.getElementById('openInvitation').focus();
     document.getElementById('openInvitation').addEventListener('click', () => {
+      if (!envelopeFlipped) {
+        envelopeFlipped = true;
+        flipReady = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        document.getElementById('openInvitation').classList.add('is-flipped');
+        updateEnvelopePrompt();
+        if (!flipReady) window.setTimeout(() => { flipReady = true; }, 900);
+        return;
+      }
+      if (!flipReady || cover.classList.contains('is-opening')) return;
       cover.classList.add('is-opening');
       const finish = () => {
         cover.hidden = true;
@@ -346,6 +362,7 @@
         loadedInvite = invite;
         document.getElementById('coverRecipientName').textContent = invite.household_name;
         document.getElementById('coverRecipient').hidden = false;
+        updateEnvelopePrompt();
         for (let i = 1; i <= invite.max_guests; i++) countSelect.add(new Option(String(i), String(i)));
         attendance.value = invite.attendance || '';
         countSelect.value = String(invite.guest_count || 1);
