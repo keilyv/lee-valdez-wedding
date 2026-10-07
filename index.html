@@ -76,6 +76,7 @@
     .sponsor-card h3 { margin: 0 0 9px; font-size: 32px; font-weight: 500; }
     .sponsor-card p { max-width: 340px; margin: 0 auto; line-height: 1.4; color: #735c54; }
     .sponsor-card .sponsor-names { margin: 0 auto 11px; color: var(--ink); font-size: 26px; font-style: italic; line-height: 1.2; }
+    .sponsor-card p[data-key$="Text"] { max-width: 400px; font-size: 19px; line-height: 1.5; }
     .sponsor-names span { color: var(--clay); font-style: normal; }
     .attire-grid { max-width: 850px; margin: 0 auto; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
     .attire-card { padding: 38px 28px; background: rgba(255,253,248,.84); border: 1px solid rgba(173,97,75,.2); }
@@ -84,7 +85,7 @@
     .attire-card h3 { margin: 0 0 8px; font-size: 32px; font-weight: 500; }
     .attire-card p { max-width: 320px; margin: 0 auto; line-height: 1.4; }
     body.invitation-closed { overflow: hidden; }
-    .invitation-cover { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; align-items: safe center; overflow-y: auto; padding: 35px 18px; text-align: center; background: repeating-linear-gradient(112deg,rgba(255,255,255,.04) 0 4%,rgba(255,255,255,.55) 7%,rgba(205,188,174,.12) 11%,rgba(255,255,255,.07) 17%), radial-gradient(ellipse at 20% 14%,#fffefb 0%,transparent 51%), radial-gradient(ellipse at 85% 79%,#e5d8d3 0%,transparent 48%), linear-gradient(135deg,#f5f1eb,#e6dfd8 42%,#fffdf7 66%,#e1d4ce); transition: opacity .85s ease 1.35s, visibility 0s linear 2.25s; }
+    .invitation-cover { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; align-items: safe center; overflow-y: auto; padding: 35px 18px; text-align: center; background: repeating-linear-gradient(112deg,rgba(255,255,255,.04) 0 4%,rgba(255,255,255,.55) 7%,rgba(205,188,174,.12) 11%,rgba(255,255,255,.07) 17%), radial-gradient(ellipse at 20% 14%,#fffefb 0%,transparent 51%), radial-gradient(ellipse at 85% 79%,#e5d8d3 0%,transparent 48%), linear-gradient(135deg,#f5f1eb,#e6dfd8 42%,#fffdf7 66%,#e1d4ce); transition: opacity .75s ease .8s, visibility 0s linear 1.6s; }
     .invitation-cover::before { content: ''; position: absolute; inset: -15%; pointer-events: none; transform: rotate(-18deg); background: linear-gradient(90deg,transparent 16%,rgba(255,255,255,.46) 38%,transparent 49%,rgba(177,160,153,.12) 61%,transparent 80%); }
     .invitation-cover.is-opening { opacity: 0; visibility: hidden; }
     .cover-content { box-sizing: border-box; position: relative; width: min(100%, 860px); padding: 55px 10px 35px; }
@@ -108,21 +109,12 @@
     .envelope-recipient { position: relative; width: 82%; padding: 0 12px; }
     .envelope-recipient-name { display: block; color: #27445e; font: clamp(46px, 6vw, 76px)/1.2 'Great Vibes', 'Cormorant Garamond', 'Noto Serif KR', cursive; overflow-wrap: anywhere; text-shadow: 0 2px 2px rgba(255,255,255,.6); }
     .envelope-seal-side { transform: rotateY(180deg); }
-    .seal-letter { position: absolute; z-index: 1; top: 12%; left: 10%; width: 80%; height: 76%; padding-top: 22%; background: #fffdf7; border: 1px solid #d3c2b8; color: var(--clay); font-size: clamp(20px,3vw,32px); box-shadow: 0 2px 9px rgba(68,56,50,.16); transition: transform .8s ease .35s; }
+    .seal-letter { position: absolute; z-index: 7; top: 12%; left: 10%; width: 80%; height: 76%; padding-top: 22%; background: #fffdf7; border: 1px solid #d3c2b8; color: var(--clay); font-size: clamp(20px,3vw,32px); box-shadow: 0 2px 9px rgba(68,56,50,.16); opacity: 0; transform: translateY(8%) scale(.96); transition: opacity .35s ease .12s, transform .85s ease .05s; }
     .seal-letter small { display: block; margin-top: 8px; font-size: 15px; text-transform: uppercase; letter-spacing: .14em; }
-    .seal-body, .seal-closed, .seal-flap { position: absolute; inset: 0; }
-    .seal-body { z-index: 2; clip-path: polygon(0 0,50% 50%,100% 0,100% 100%,0 100%); background: linear-gradient(140deg,#8fc3f3,#b1d9fa 55%,#91c4f2); }
-    .seal-body::before, .seal-body::after { content: ''; position: absolute; inset: 0; background: #a7d1f6; }
-    .seal-body::before { clip-path: polygon(0 0,50% 50%,0 100%); }
-    .seal-body::after { clip-path: polygon(100% 0,50% 50%,100% 100%); }
-    .seal-flap { z-index: 3; clip-path: polygon(0 0,100% 0,50% 50%); background: linear-gradient(155deg,#8fc2f2,#b4dcfa 65%,#a8d2f7); transform-origin: 50% 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: transform .75s cubic-bezier(.4,0,.2,1) .12s; }
-    .seal-body, .seal-flap { visibility: hidden; }
-    .seal-closed { z-index: 5; background: url('images/envelope.png') center / 125% auto no-repeat; transition: opacity .3s ease .08s; }
+    .seal-closed { position: absolute; inset: 0; z-index: 5; background: url('images/envelope.png') center / 125% auto no-repeat; transition: opacity .5s ease .12s; }
     .envelope-monogram { position: absolute; z-index: 6; left: 50%; top: 50%; width: 14%; height: 18%; object-fit: contain; transform: translate(-50%,-50%); transition: opacity .25s ease; }
-    .envelope-button.is-opening .seal-body, .envelope-button.is-opening .seal-flap { visibility: visible; }
     .envelope-button.is-opening .seal-closed, .envelope-button.is-opening .envelope-monogram { opacity: 0; }
-    .envelope-button.is-opening .seal-flap { transform: rotateX(160deg); }
-    .envelope-button.is-opening .seal-letter { transform: translateY(-26%); }
+    .envelope-button.is-opening .seal-letter { opacity: 1; transform: translateY(-23%) scale(1); }
     .tap-label { display: block; margin-top: 22px; color: var(--clay); font-size: 23px; }
     .rsvp-form { max-width: 520px; margin: 18px auto 0; text-align: left; }
     .rsvp-form label { display: block; margin: 17px 0 6px; font-size: 19px; }
@@ -175,7 +167,7 @@
           <span class="envelope-face envelope-address"><span class="envelope-recipient" id="coverRecipient"><span class="envelope-recipient-name" id="coverRecipientName">Our guest</span></span></span>
           <span class="envelope-face envelope-seal-side">
             <span class="seal-letter">Keily &amp; Nathan<small data-key="letterText">A celebration of love</small></span>
-            <span class="seal-body"></span><span class="seal-flap"></span><span class="seal-closed"></span>
+            <span class="seal-closed"></span>
             <img class="envelope-monogram" src="images/k-and-n.png" alt="">
           </span>
         </span>
@@ -244,10 +236,10 @@
       <h2 data-key="sponsorsTitle">Our Sponsors</h2>
       <p class="section-intro" data-key="sponsorsIntro">The special people who stand beside us as our next chapter begins.</p>
       <div class="sponsors-grid">
-        <div class="sponsor-card"><h3 data-key="sponsorVigilTitle">Velation</h3><p class="sponsor-names">Lupita Benitez <span>&amp;</span> Ricardo Espinosa</p><p data-key="sponsorVigilText">Our sponsors hold us in prayer and guide us as married life begins.</p></div>
-        <div class="sponsor-card"><h3 data-key="sponsorRingsTitle">Rings</h3><p class="sponsor-names">Denisse Mora <span>&amp;</span> Canwin Tso</p><p data-key="sponsorRingsText">Two rings symbolize our lifelong love and fidelity.</p></div>
-        <div class="sponsor-card"><h3 data-key="sponsorCoinsTitle">Coins</h3><p class="sponsor-names">Olivia Jimenez <span>&amp;</span> Martin Jimenes</p><p data-key="sponsorCoinsText">Thirteen blessed coins symbolize our promise to share and care for one another. One tradition links them to Christ and the twelve apostles.</p></div>
-        <div class="sponsor-card"><h3 data-key="sponsorLassoTitle">Lasso</h3><p class="sponsor-names" data-key="sponsorLassoNames">To be announced</p><p data-key="sponsorLassoText">A figure eight around our shoulders symbolizes our lasting union.</p></div>
+        <div class="sponsor-card"><h3 data-key="sponsorVigilTitle">Velation</h3><p class="sponsor-names">Lupita Benitez <span>&amp;</span> Ricardo Espinosa</p><p data-key="sponsorVigilText">Just as the velation symbolizes the unveiling of a new life together, our sponsors stand beside us, holding us in prayer and guiding our steps. They are witnesses to our commitment, offering wisdom, encouragement, and support as we enter the sacred covenant of marriage. Their presence ensures that the promise behind the veil is embraced with faith, love, and enduring guidance.</p></div>
+        <div class="sponsor-card"><h3 data-key="sponsorRingsTitle">Rings</h3><p class="sponsor-names">Denisse Mora <span>&amp;</span> Canwin Tso</p><p data-key="sponsorRingsText">The two rings are a sacred symbol of eternal love, fidelity, and spiritual unity, reflecting both our personal commitment and the joining of our families. Their circular shape represents unending love, while the priest’s blessing during Mass gives them religious significance, making each ring a token of devotion and a visible affirmation of shared cultural, familial, and spiritual bonds.</p></div>
+        <div class="sponsor-card"><h3 data-key="sponsorCoinsTitle">Coins</h3><p class="sponsor-names">Olivia Jimenez <span>&amp;</span> Martin Jimenes</p><p data-key="sponsorCoinsText">One of our most symbolic traditions: the groom gives the bride 13 gold coins blessed by the priest. These coins represent Christ and the twelve apostles, and symbolize the groom’s promise to support his wife and our mutual commitment to shared prosperity.</p></div>
+        <div class="sponsor-card"><h3 data-key="sponsorLassoTitle">Lasso</h3><p class="sponsor-names" data-key="sponsorLassoNames">To be announced</p><p data-key="sponsorLassoText">After the vows, a rosary, ribbon, or floral garland is draped in a figure eight around both shoulders, symbolizing our eternal union. It is placed by the lasso sponsors and remains through the ceremony.</p></div>
       </div>
     </section>
     <section>
@@ -331,10 +323,10 @@
       brideParentsTitle: 'Parents of the Bride', brideParentsText: 'Your love has been part of every step that led Keily here.',
       groomParentsTitle: 'Parents of the Groom', groomParentsText: 'Your love has been part of every step that led Nathan here.',
       sponsorsKicker: 'With love and gratitude', sponsorsTitle: 'Our Sponsors', sponsorsIntro: 'The special people who stand beside us as our next chapter begins.',
-      sponsorVigilTitle: 'Velation', sponsorVigilText: 'Our sponsors hold us in prayer and guide us as married life begins.',
-      sponsorLassoTitle: 'Lasso', sponsorLassoNames: 'To be announced', sponsorLassoText: 'A figure eight around our shoulders symbolizes our lasting union.',
-      sponsorRingsTitle: 'Rings', sponsorRingsText: 'Two rings symbolize our lifelong love and fidelity.',
-      sponsorCoinsTitle: 'Coins', sponsorCoinsText: 'Thirteen blessed coins symbolize our promise to share and care for one another. One tradition links them to Christ and the twelve apostles.',
+      sponsorVigilTitle: 'Velation', sponsorVigilText: 'Just as the velation symbolizes the unveiling of a new life together, our sponsors stand beside us, holding us in prayer and guiding our steps. They are witnesses to our commitment, offering wisdom, encouragement, and support as we enter the sacred covenant of marriage. Their presence ensures that the promise behind the veil is embraced with faith, love, and enduring guidance.',
+      sponsorLassoTitle: 'Lasso', sponsorLassoNames: 'To be announced', sponsorLassoText: 'After the vows, a rosary, ribbon, or floral garland is draped in a figure eight around both shoulders, symbolizing our eternal union. It is placed by the lasso sponsors and remains through the ceremony.',
+      sponsorRingsTitle: 'Rings', sponsorRingsText: 'The two rings are a sacred symbol of eternal love, fidelity, and spiritual unity, reflecting both our personal commitment and the joining of our families. Their circular shape represents unending love, while the priest’s blessing during Mass gives them religious significance, making each ring a token of devotion and a visible affirmation of shared cultural, familial, and spiritual bonds.',
+      sponsorCoinsTitle: 'Coins', sponsorCoinsText: 'One of our most symbolic traditions: the groom gives the bride 13 gold coins blessed by the priest. These coins represent Christ and the twelve apostles, and symbolize the groom’s promise to support his wife and our mutual commitment to shared prosperity.',
       attireKicker: 'Dress for the celebration', attireTitle: 'Required Attire', attireIntro: "We'd love to celebrate with everyone dressed in our wedding colors.",
       attireWomenTitle: 'Women', attireWomenText: 'Please wear royal blue.', attireMenTitle: 'Men', attireMenText: 'Please wear a black suit or tuxedo with a royal blue tie or bow tie.'
     });
@@ -343,10 +335,10 @@
       brideParentsTitle: 'Padres de la Novia', brideParentsText: 'Su amor ha acompañado a Keily en cada paso hasta este día.',
       groomParentsTitle: 'Padres del Novio', groomParentsText: 'Su amor ha acompañado a Nathan en cada paso hasta este día.',
       sponsorsKicker: 'Con amor y gratitud', sponsorsTitle: 'Padrinos y Madrinas', sponsorsIntro: 'Personas muy especiales que nos acompañan al comenzar esta nueva etapa.',
-      sponsorVigilTitle: 'Padrinos de Velación', sponsorVigilText: 'Nos acompañan en oración y nos guían al comenzar nuestra vida de casados.',
-      sponsorLassoTitle: 'El Lazo', sponsorLassoNames: 'Por confirmar', sponsorLassoText: 'Un lazo en forma de ocho sobre nuestros hombros simboliza nuestra unión duradera.',
-      sponsorRingsTitle: 'Los Anillos', sponsorRingsText: 'Dos anillos simbolizan nuestro amor y fidelidad para toda la vida.',
-      sponsorCoinsTitle: 'Las Arras', sponsorCoinsText: 'Trece monedas bendecidas simbolizan nuestra promesa de compartir y cuidarnos mutuamente. Una tradición las relaciona con Cristo y los doce apóstoles.',
+      sponsorVigilTitle: 'Padrinos de Velación', sponsorVigilText: 'Así como la velación simboliza el comienzo de una nueva vida juntos, nuestros padrinos nos acompañan en oración y guían nuestros pasos. Son testigos de nuestro compromiso y nos ofrecen sabiduría, ánimo y apoyo al entrar en la sagrada alianza del matrimonio. Su presencia nos recuerda vivir la promesa que hay detrás del velo con fe, amor y guía constante.',
+      sponsorLassoTitle: 'El Lazo', sponsorLassoNames: 'Por confirmar', sponsorLassoText: 'Después de los votos, se coloca un rosario, una cinta o una guirnalda de flores en forma de ocho sobre los hombros de ambos, simbolizando nuestra unión eterna. Los padrinos de lazo lo colocan y permanece durante la ceremonia.',
+      sponsorRingsTitle: 'Los Anillos', sponsorRingsText: 'Los dos anillos son un símbolo sagrado de amor eterno, fidelidad y unión espiritual; reflejan tanto nuestro compromiso como la unión de nuestras familias. Su forma circular representa un amor sin fin, y la bendición del sacerdote durante la misa les da significado religioso. Cada anillo es una muestra de devoción y un reflejo visible de los lazos culturales, familiares y espirituales que compartimos.',
+      sponsorCoinsTitle: 'Las Arras', sponsorCoinsText: 'En una de nuestras tradiciones más simbólicas, el novio entrega a la novia 13 monedas de oro bendecidas por el sacerdote. Representan a Cristo y los doce apóstoles, y simbolizan la promesa del novio de apoyar a su esposa y nuestro compromiso mutuo de compartir la prosperidad.',
       attireKicker: 'Viste para celebrar', attireTitle: 'Código de vestimenta', attireIntro: 'Nos encantará celebrar con todos vestidos con los colores de nuestra boda.',
       attireWomenTitle: 'Mujeres', attireWomenText: 'Por favor, vistan de azul rey.', attireMenTitle: 'Hombres', attireMenText: 'Por favor, usen traje negro o esmoquin con corbata o moño azul rey.'
     });
@@ -355,10 +347,10 @@
       brideParentsTitle: '신부 부모님', brideParentsText: '부모님의 사랑이 케일리가 오늘 이 자리에 오기까지 모든 걸음을 함께했습니다.',
       groomParentsTitle: '신랑 부모님', groomParentsText: '부모님의 사랑이 네이선이 오늘 이 자리에 오기까지 모든 걸음을 함께했습니다.',
       sponsorsKicker: '사랑과 감사의 마음으로', sponsorsTitle: '결혼식 후견인', sponsorsIntro: '새로운 길을 시작하는 저희 곁을 지켜 주시는 소중한 분들입니다.',
-      sponsorVigilTitle: '결혼식 축복', sponsorVigilText: '기도로 저희와 함께하며 부부로서의 첫걸음을 이끌어 주십니다.',
-      sponsorLassoTitle: '혼인 라소', sponsorLassoNames: '추후 안내', sponsorLassoText: '두 사람의 어깨를 감싸는 8자 모양의 끈은 오래도록 이어질 하나 됨을 상징합니다.',
-      sponsorRingsTitle: '결혼반지', sponsorRingsText: '두 개의 반지는 평생 함께할 사랑과 신의를 상징합니다.',
-      sponsorCoinsTitle: '혼인 동전', sponsorCoinsText: '축복받은 열세 개의 동전은 함께 나누고 돌보겠다는 약속을 상징합니다. 한 전통에서는 예수님과 열두 사도를 뜻합니다.',
+      sponsorVigilTitle: '결혼식 축복', sponsorVigilText: '벨라시온이 두 사람의 새로운 삶을 여는 것을 상징하듯, 후견인들은 곁에서 저희를 위해 기도하고 걸음을 이끌어 주십니다. 혼인의 신성한 약속을 맺는 저희의 증인이 되어 지혜와 격려, 응원을 전해 주십니다. 그분들의 사랑과 꾸준한 인도는 베일 뒤에 담긴 약속을 믿음으로 지켜 나가게 해 줍니다.',
+      sponsorLassoTitle: '혼인 라소', sponsorLassoNames: '추후 안내', sponsorLassoText: '서약 후 묵주, 리본 또는 꽃장식을 두 사람의 어깨에 8자 모양으로 둘러 영원한 결합을 상징합니다. 라소 후견인들이 이를 걸어 주며 예식 동안 그대로 둡니다.',
+      sponsorRingsTitle: '결혼반지', sponsorRingsText: '두 반지는 영원한 사랑과 신의, 영적인 하나 됨을 나타내는 거룩한 상징으로, 저희의 약속과 두 가족의 결합을 담고 있습니다. 끝없는 원의 모양은 변치 않는 사랑을 뜻하며, 미사 중 사제의 축복은 반지에 종교적 의미를 더합니다. 반지는 헌신의 표시이자 저희가 나누는 문화와 가족, 신앙의 유대를 보여 줍니다.',
+      sponsorCoinsTitle: '혼인 동전', sponsorCoinsText: '상징적인 전통에 따라 신랑은 사제의 축복을 받은 금화 13개를 신부에게 건넵니다. 동전은 그리스도와 열두 사도를 뜻하며, 아내를 돌보겠다는 신랑의 약속과 함께 풍요를 나누겠다는 두 사람의 다짐을 상징합니다.',
       attireKicker: '함께 빛나는 날', attireTitle: '필수 복장 안내', attireIntro: '결혼식 색상에 맞춰 함께해 주시면 감사하겠습니다.',
       attireWomenTitle: '여성', attireWomenText: '로열 블루 색상 의상을 입어 주세요.', attireMenTitle: '남성', attireMenText: '검은색 정장 또는 턱시도에 로열 블루 넥타이 또는 나비넥타이를 착용해 주세요.'
     });
@@ -410,12 +402,13 @@
       const finish = () => {
         cover.hidden = true;
         document.body.classList.remove('invitation-closed');
+        window.scrollTo({ top: 0, behavior: 'instant' });
         const hero = document.getElementById('top');
         hero.tabIndex = -1;
         hero.focus({ preventScroll: true });
       };
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) finish();
-      else window.setTimeout(finish, 2300);
+      else window.setTimeout(finish, 1700);
     });
     const statusLine = document.getElementById('rsvpStatus');
     const attendance = document.getElementById('attendance');
