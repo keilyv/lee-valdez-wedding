@@ -8,7 +8,7 @@
   <title>Keily &amp; Nathan | Lee + Valdez</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Serif+KR:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&family=Noto+Serif+KR:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root { --cream: #faf6ef; --blue: #dcebf3; --clay: #ad614b; --ink: #38342f; --sand: #ede5d8; --line: #ceb8a9; }
     * { box-sizing: border-box; }
@@ -69,11 +69,15 @@
     .timeline-item h3 { margin: 0; font-size: 31px; font-weight: 500; }
     .timeline-item p { margin: 2px 0; color: #735c54; font-size: 18px; }
     body.invitation-closed { overflow: hidden; }
-    .invitation-cover { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; align-items: safe center; overflow-y: auto; padding: 35px 18px; text-align: center; background: repeating-linear-gradient(112deg,rgba(255,255,255,.04) 0 4%,rgba(255,255,255,.55) 7%,rgba(205,188,174,.12) 11%,rgba(255,255,255,.07) 17%), radial-gradient(ellipse at 20% 14%,#fffefb 0%,transparent 51%), radial-gradient(ellipse at 85% 79%,#e5d8d3 0%,transparent 48%), linear-gradient(135deg,#f5f1eb,#e6dfd8 42%,#fffdf7 66%,#e1d4ce); transition: opacity 1.15s ease .35s, visibility 0s linear 1.5s; }
+    .invitation-cover { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; align-items: safe center; overflow-y: auto; padding: 35px 18px; text-align: center; background: repeating-linear-gradient(112deg,rgba(255,255,255,.04) 0 4%,rgba(255,255,255,.55) 7%,rgba(205,188,174,.12) 11%,rgba(255,255,255,.07) 17%), radial-gradient(ellipse at 20% 14%,#fffefb 0%,transparent 51%), radial-gradient(ellipse at 85% 79%,#e5d8d3 0%,transparent 48%), linear-gradient(135deg,#f5f1eb,#e6dfd8 42%,#fffdf7 66%,#e1d4ce); transition: opacity .85s ease 1.05s, visibility 0s linear 1.9s; }
     .invitation-cover::before { content: ''; position: absolute; inset: -15%; pointer-events: none; transform: rotate(-18deg); background: linear-gradient(90deg,transparent 16%,rgba(255,255,255,.46) 38%,transparent 49%,rgba(177,160,153,.12) 61%,transparent 80%); }
     .invitation-cover.is-opening { opacity: 0; visibility: hidden; }
     .cover-content { box-sizing: border-box; position: relative; width: min(100%, 860px); padding: 55px 10px 35px; }
     .cover-content > :not(.botanical) { position: relative; z-index: 1; }
+    .cover-languages { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 0 auto 26px; }
+    .cover-languages button { padding: 6px 14px; border: 1px solid rgba(173,97,75,.35); border-radius: 20px; background: rgba(255,253,248,.82); color: var(--ink); cursor: pointer; font-size: 16px; }
+    .cover-languages button[aria-pressed="true"] { background: var(--clay); color: white; }
+    .cover-languages button:focus-visible { outline: 2px solid var(--clay); outline-offset: 3px; }
     .cover-top { color: var(--clay); font-size: 17px; letter-spacing: .2em; text-transform: uppercase; }
     .cover-title { margin: 17px 0 48px; font-size: clamp(54px, 9vw, 84px); font-weight: 400; line-height: 1; }
     .cover-subtitle { margin: 25px 0 0; color: var(--clay); font-size: 22px; }
@@ -86,11 +90,22 @@
     .envelope-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 24px 28px rgba(70,51,49,.27); }
     .envelope-address { display: grid; place-items: center; background: linear-gradient(145deg,#99cbf5,#b8dcfa 65%,#a2cff4); border: 1px solid rgba(104,160,205,.45); }
     .envelope-address::before { content: ''; position: absolute; inset: 12px; border: 1px solid rgba(255,255,255,.65); pointer-events: none; }
-    .envelope-recipient { position: relative; box-sizing: border-box; width: min(70%, 420px); padding: clamp(14px,3vw,26px); background: rgba(255,252,245,.92); border: 1px solid rgba(173,97,75,.45); box-shadow: 0 8px 22px rgba(70,51,49,.13); }
-    .envelope-recipient-label { display: block; color: var(--clay); font-size: 13px; letter-spacing: .17em; text-transform: uppercase; }
-    .envelope-recipient-name { display: block; color: #57453d; font-size: clamp(23px, 3.2vw, 38px); line-height: 1.05; overflow-wrap: anywhere; }
-    .envelope-seal-side { transform: rotateY(180deg); background: url('images/envelope.png') center / 125% auto no-repeat; }
-    .envelope-monogram { position: absolute; left: 50%; top: 50%; width: 14%; height: 18%; object-fit: contain; transform: translate(-50%,-50%); }
+    .envelope-recipient { position: relative; width: 82%; padding: 0 12px; }
+    .envelope-recipient-name { display: block; color: #27445e; font: clamp(46px, 6vw, 76px)/1.2 'Great Vibes', 'Cormorant Garamond', 'Noto Serif KR', cursive; overflow-wrap: anywhere; text-shadow: 0 2px 2px rgba(255,255,255,.6); }
+    .envelope-seal-side { transform: rotateY(180deg); }
+    .seal-letter { position: absolute; z-index: 1; top: 12%; left: 10%; width: 80%; height: 76%; padding-top: 22%; background: #fffdf7; border: 1px solid #d3c2b8; color: var(--clay); font-size: clamp(20px,3vw,32px); box-shadow: 0 2px 9px rgba(68,56,50,.16); transition: transform .9s ease .25s; }
+    .seal-letter small { display: block; margin-top: 8px; font-size: 15px; text-transform: uppercase; letter-spacing: .14em; }
+    .seal-body, .seal-closed { position: absolute; inset: 0; background: url('images/envelope.png') center / 125% auto no-repeat; }
+    .seal-body { z-index: 2; clip-path: polygon(0 0,50% 50%,100% 0,100% 100%,0 100%); }
+    .seal-patch { position: absolute; z-index: 3; left: 50%; top: 50%; width: 24%; aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; background: #b2dcfd; }
+    .seal-flap { position: absolute; z-index: 4; inset: 0; clip-path: polygon(0 0,100% 0,50% 50%); background: linear-gradient(155deg,#8fc2f2,#b4dcfa 65%,#a8d2f7); transform-origin: 50% 0; transition: transform .9s cubic-bezier(.4,0,.2,1) .25s; }
+    .seal-body, .seal-patch, .seal-flap { visibility: hidden; }
+    .seal-closed { z-index: 5; transition: opacity .2s ease .12s; }
+    .envelope-monogram { position: absolute; z-index: 6; left: 50%; top: 50%; width: 14%; height: 18%; object-fit: contain; transform: translate(-50%,-50%); transition: opacity .25s ease; }
+    .envelope-button.is-opening .seal-body, .envelope-button.is-opening .seal-patch, .envelope-button.is-opening .seal-flap { visibility: visible; }
+    .envelope-button.is-opening .seal-closed, .envelope-button.is-opening .envelope-monogram { opacity: 0; }
+    .envelope-button.is-opening .seal-flap { transform: rotateX(180deg); }
+    .envelope-button.is-opening .seal-letter { transform: translateY(-25%); }
     .tap-label { display: block; margin-top: 22px; color: var(--clay); font-size: 23px; }
     .rsvp-form { max-width: 520px; margin: 18px auto 0; text-align: left; }
     .rsvp-form label { display: block; margin: 17px 0 6px; font-size: 19px; }
@@ -122,11 +137,11 @@
       .cover-title { font-size: clamp(44px, 12vw, 62px); line-height: 1.05; margin: 14px 0 28px; }
       .envelope-button { width: min(100%, 430px); }
       .envelope .botanical.marigold { width: 62px; bottom: 0; right: -8px; }
-      .envelope-recipient { width: 76%; padding: 12px; }
-      .envelope-recipient-label { font-size: 10px; }
-      .envelope-recipient-name { font-size: clamp(17px, 5vw, 25px); }
+      .envelope-recipient { width: 84%; padding: 0 8px; }
+      .envelope-recipient-name { font-size: clamp(32px, 10vw, 50px); }
       .tap-label { margin-top: 20px; font-size: 18px; }
       .cover-subtitle { margin-top: 18px; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
+      .seal-letter { padding-top: 19%; font-size: 23px; }
       .photo-moment { min-height: 580px; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
@@ -136,12 +151,21 @@
   <div class="invitation-cover" id="invitationCover" role="dialog" aria-modal="true" aria-labelledby="coverTitle" hidden>
     <div class="cover-content">
       <img class="botanical plum" src="images/plum-blossoms.png" alt="" aria-hidden="true">
-      <div class="cover-top" data-key="coverTop">You're invited</div>
-      <h2 class="cover-title" id="coverTitle">Keily &amp; Nathan</h2>
+      <div class="cover-languages" role="group" aria-label="Choose language">
+        <button type="button" data-lang="en" aria-pressed="true">English</button>
+        <button type="button" data-lang="es" aria-pressed="false">Español</button>
+        <button type="button" data-lang="ko" aria-pressed="false">한국어</button>
+      </div>
+      <div class="cover-top" data-key="coverTop">Keily &amp; Nathan</div>
+      <h2 class="cover-title" id="coverTitle" data-key="coverTitle">You're invited</h2>
       <button class="envelope-button" id="openInvitation" type="button" aria-label="Tap to flip your invitation">
         <span class="envelope" aria-hidden="true">
-          <span class="envelope-face envelope-address"><span class="envelope-recipient" id="coverRecipient"><span class="envelope-recipient-label" data-key="recipientLabel">To</span><span class="envelope-recipient-name" id="coverRecipientName">Our guest</span></span></span>
-          <span class="envelope-face envelope-seal-side"><img class="envelope-monogram" src="images/k-and-n.png" alt=""><img class="botanical marigold" src="images/marigolds.png" alt=""></span>
+          <span class="envelope-face envelope-address"><span class="envelope-recipient" id="coverRecipient"><span class="envelope-recipient-name" id="coverRecipientName">Our guest</span></span></span>
+          <span class="envelope-face envelope-seal-side">
+            <span class="seal-letter">Keily &amp; Nathan<small data-key="letterText">A celebration of love</small></span>
+            <span class="seal-body"></span><span class="seal-patch"></span><span class="seal-flap"></span><span class="seal-closed"></span>
+            <img class="envelope-monogram" src="images/k-and-n.png" alt=""><img class="botanical marigold" src="images/marigolds.png" alt="">
+          </span>
         </span>
         <span class="tap-label" data-key="tapLabel">Tap to flip your invitation</span>
       </button>
@@ -261,9 +285,9 @@
     Object.assign(translations.ko, {
       letterText: '사랑을 축하하며', recipientLabel: '받는 분', momentKicker: '기억에 남을 순간', momentText: '두 가족, 두 문화, 하나의 아름다운 시작.', storyKicker: '우리의 여정', detailsKicker: '결혼식', dateTitle: '날짜', dateText: '곧 안내해 드립니다', venueTitle: '장소', venueText: '곧 안내해 드립니다', mapText: '장소가 정해지면 여기에서 길 안내를 확인하실 수 있습니다.', timelineKicker: '처음부터 끝까지 함께', timelineTitle: '우리의 하루', timelineOne: '결혼식', timelineTwo: '함께하는 축하', timelineThree: '춤과 추억', timeSoon: '시간과 장소는 추후 안내', registryKicker: '감사의 마음으로', rsvpKicker: '함께해 주시길 바랍니다'
     });
-    Object.assign(translations.en, { recipientLabel: 'To:', flipLabel: 'Tap to flip the envelope', guestFallback: 'Our guest' });
-    Object.assign(translations.es, { recipientLabel: 'Para:', flipLabel: 'Toca para voltear el sobre', guestFallback: 'Nuestros invitados' });
-    Object.assign(translations.ko, { recipientLabel: '받는 분:', flipLabel: '봉투를 눌러 뒤집어 주세요', guestFallback: '소중한 손님' });
+    Object.assign(translations.en, { coverTop: 'Keily & Nathan', coverTitle: "You're invited", recipientLabel: 'To:', flipLabel: 'Tap to flip the envelope', guestFallback: 'Our guest' });
+    Object.assign(translations.es, { coverTop: 'Keily & Nathan', coverTitle: 'Te invitamos', recipientLabel: 'Para:', flipLabel: 'Toca para voltear el sobre', guestFallback: 'Nuestros invitados' });
+    Object.assign(translations.ko, { coverTop: 'Keily & Nathan', coverTitle: '초대합니다', recipientLabel: '받는 분:', flipLabel: '봉투를 눌러 뒤집어 주세요', guestFallback: '소중한 손님' });
     function updateEnvelopePrompt() {
       const prompt = translations[document.documentElement.lang][envelopeFlipped ? 'tapLabel' : 'flipLabel'];
       document.querySelector('.tap-label').textContent = prompt;
@@ -307,6 +331,7 @@
         return;
       }
       if (!flipReady || cover.classList.contains('is-opening')) return;
+      document.getElementById('openInvitation').classList.add('is-opening');
       cover.classList.add('is-opening');
       const finish = () => {
         cover.hidden = true;
@@ -316,7 +341,7 @@
         hero.focus({ preventScroll: true });
       };
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) finish();
-      else window.setTimeout(finish, 1600);
+      else window.setTimeout(finish, 2000);
     });
     const statusLine = document.getElementById('rsvpStatus');
     const attendance = document.getElementById('attendance');
