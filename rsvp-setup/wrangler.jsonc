@@ -1,0 +1,12 @@
+{
+  "name": "lee-valdez-rsvp",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-06",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "wedding-rsvps",
+      "database_id": "34b02ddb-7bdb-4a01-bd20-d8f19edc211b"
+    }
+  ]
+}

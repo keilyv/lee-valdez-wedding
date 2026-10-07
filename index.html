@@ -272,8 +272,8 @@
     document.querySelectorAll('[data-lang]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
     let savedLanguage = 'en';
     try { savedLanguage = localStorage.getItem('weddingLanguage') || 'en'; } catch (_) {}
-    // After deploying the Worker, paste its workers.dev URL here (no trailing slash).
-    const API_BASE = '';
+    // Cloudflare Worker for private household invitations (no trailing slash).
+    const API_BASE = 'https://lee-valdez-rsvp.keilyv.workers.dev';
     const inviteToken = new URLSearchParams(window.location.hash.slice(1)).get('invite');
     let loadedInvite = null;
     setLanguage(savedLanguage);
