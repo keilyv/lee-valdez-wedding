@@ -55,13 +55,13 @@ From `rsvp-setup`, run:
 npx wrangler deploy
 ```
 
-Copy the URL Cloudflare prints; it ends with `.workers.dev`. In the `index.html` file in the parent folder, find:
+Copy the URL Cloudflare prints; it ends with `.workers.dev`. The invitation's `index.html` is already set to:
 
 ```js
-const API_BASE = '';
+const API_BASE = 'https://lee-valdez-rsvp.keilyv.workers.dev';
 ```
 
-Paste your Worker URL between the quotes, without a slash at the end. For example: `const API_BASE = 'https://lee-valdez-rsvp.YOUR-NAME.workers.dev';`. Save the file.
+If you deploy this kit to a different Cloudflare account, replace that URL with your own Worker URL, without a slash at the end. Save the file.
 
 ## 4. Update the website
 
@@ -76,11 +76,33 @@ git push
 
 After GitHub Pages updates, open a URL from your private `links.csv`. It should show the household name and only allow up to its allocated guest count. Submit a test RSVP and check Cloudflare **D1 > wedding-rsvps > Console** with:
 
+Guests who accept choose how many are attending and enter one name for each person. An invitation for two can RSVP for one and will then show only one required name field. Existing responses with blank names will ask for names the next time the guest updates their RSVP. This uses the existing database columns; you do not need to rerun `schema.sql` or import `invites.sql`.
+
 ```sql
 SELECT household_name, attendance, guest_count, guest_names, dietary_notes, message, responded_at FROM invitations;
 ```
 
 This test also shows how to view responses later. Send the right URL from `links.csv` to each household privately. Guests can reopen their link to change their response.
+
+## 5. Export a private Excel report
+
+From `rsvp-setup`, run:
+
+```sh
+python3 export_responses.py
+```
+
+This reads the current RSVP responses and creates a formatted `.xlsx` report in `wedding-rsvp-private`, beside your repository. It includes a summary and a filterable list of households, guest counts, names, dietary notes, messages, and response times. Run the same command whenever you want a fresh report. Keep the report private, and do not move it into the GitHub repository.
+
+## 6. Get a phone alert for each RSVP
+
+Install Telegram on your phone. In Telegram, open the official `@BotFather`, send `/newbot`, and follow its prompts to make your own private RSVP bot. Open your new bot and tap **Start**. From `rsvp-setup` on your Mac, run:
+
+```sh
+python3 setup_notifications.py
+```
+
+Paste the BotFather token when the script asks; the input is hidden. The script identifies your private chat, sends a test message, stores the bot token and chat ID as encrypted Cloudflare Worker secrets, and deploys the notification-enabled Worker. Keep the bot token private and out of the GitHub repository. When a guest submits or updates an RSVP, you receive the household name and attending/declined status in Telegram. Dietary notes, messages, and guest links are not sent there. If Telegram is temporarily unavailable, the RSVP still saves in D1; check your Excel export for the complete record.
 
 ## Practical limits
 

@@ -94,6 +94,7 @@
     .tap-label { display: block; margin-top: 22px; color: var(--clay); font-size: 23px; }
     .rsvp-form { max-width: 520px; margin: 18px auto 0; text-align: left; }
     .rsvp-form label { display: block; margin: 17px 0 6px; font-size: 19px; }
+    .rsvp-form .guest-names-heading { margin: 20px 0 0; font-size: 19px; }
     .rsvp-form input, .rsvp-form select, .rsvp-form textarea { width: 100%; min-height: 45px; padding: 10px 12px; border: 1px solid #bcae9f; border-radius: 5px; background: white; color: var(--ink); font: 18px 'Cormorant Garamond', 'Noto Serif KR', serif; }
     .rsvp-form textarea { min-height: 86px; resize: vertical; }
     .rsvp-form button { display: block; margin: 25px auto 0; padding: 11px 38px; background: var(--clay); color: white; border: 0; border-radius: 4px; cursor: pointer; }
@@ -227,8 +228,8 @@
           <div id="guestDetails" hidden>
             <label for="guestCount" data-key="countLabel">Number attending</label>
             <select id="guestCount"></select>
-            <label for="guestNames" data-key="namesLabel">Names of guests attending (optional)</label>
-            <textarea id="guestNames" maxlength="300" rows="2"></textarea>
+            <p class="guest-names-heading" data-key="namesLabel">Names of everyone attending</p>
+            <div id="guestNameFields"></div>
             <label for="dietaryNotes" data-key="dietLabel">Dietary needs (optional)</label>
             <textarea id="dietaryNotes" maxlength="500" rows="2"></textarea>
           </div>
@@ -245,9 +246,9 @@
   </footer>
   <script>
     const translations = {
-      en: { coverTop: "You're invited", tapLabel: 'Tap to open your invitation', eyebrow: 'A celebration of love and family', invite: 'Together with our families, we look forward to celebrating with you.', storyTitle: 'Our Story', storyText: 'Our story is coming soon.', detailsTitle: 'Wedding Details', detailsText: 'Date, venue, and schedule details are coming soon.', registryTitle: 'Registry', registryText: 'Your presence means the world to us. Registry details are coming soon.', rsvpTitle: 'RSVP', rsvpText: 'Please use your personal invitation link to RSVP.', attendLabel: 'Will you attend?', chooseAnswer: 'Choose an answer', yesAnswer: 'Joyfully accepts', noAnswer: 'Regretfully declines', countLabel: 'Number attending', namesLabel: 'Names of guests attending (optional)', dietLabel: 'Dietary needs (optional)', messageLabel: 'Message for us (optional)', sendLabel: 'Send RSVP', loading: 'Loading your invitation…', saving: 'Saving your response…', saved: 'Thank you! Your RSVP has been saved. You can return to this link to change it.', unavailable: 'RSVP is temporarily unavailable. Please try again later.', missing: 'We could not find this invitation. Please check your personal link.', greeting: 'Welcome, {name}. Your invitation is for up to {count} guests.' },
-      es: { coverTop: 'Estás invitado', tapLabel: 'Toca para abrir la invitación', eyebrow: 'Una celebración de amor y familia', invite: 'Junto con nuestras familias, esperamos celebrar con ustedes.', storyTitle: 'Nuestra Historia', storyText: 'Nuestra historia estará disponible pronto.', detailsTitle: 'Detalles de la Boda', detailsText: 'Pronto compartiremos la fecha, el lugar y el programa.', registryTitle: 'Mesa de Regalos', registryText: 'Su presencia significa mucho para nosotros. Pronto compartiremos los detalles de la mesa de regalos.', rsvpTitle: 'Confirmar Asistencia', rsvpText: 'Usa tu enlace personal para confirmar tu asistencia.', attendLabel: '¿Nos acompañarás?', chooseAnswer: 'Elige una respuesta', yesAnswer: 'Sí, asistiré', noAnswer: 'No podré asistir', countLabel: 'Número de asistentes', namesLabel: 'Nombres de los asistentes (opcional)', dietLabel: 'Necesidades alimentarias (opcional)', messageLabel: 'Un mensaje para nosotros (opcional)', sendLabel: 'Enviar respuesta', loading: 'Cargando tu invitación…', saving: 'Guardando tu respuesta…', saved: '¡Gracias! Guardamos tu respuesta. Puedes volver a este enlace para cambiarla.', unavailable: 'Las confirmaciones no están disponibles por el momento. Inténtalo de nuevo más tarde.', missing: 'No encontramos esta invitación. Revisa tu enlace personal.', greeting: 'Bienvenidos, {name}. Su invitación es para un máximo de {count} personas.' },
-      ko: { coverTop: '초대합니다', tapLabel: '초대장을 눌러 열어 주세요', eyebrow: '사랑과 가족을 위한 축하', invite: '가족과 함께 여러분을 모시고 기쁜 날을 축하하고 싶습니다.', storyTitle: '우리의 이야기', storyText: '우리의 이야기를 곧 들려드릴게요.', detailsTitle: '결혼식 안내', detailsText: '날짜와 장소, 일정은 곧 안내해 드리겠습니다.', registryTitle: '선물 안내', registryText: '함께해 주시는 것만으로도 큰 선물입니다. 자세한 내용은 곧 안내해 드리겠습니다.', rsvpTitle: '참석 여부', rsvpText: '참석 여부를 알려 주시려면 개인 초대 링크를 사용해 주세요.', attendLabel: '참석하시나요?', chooseAnswer: '선택해 주세요', yesAnswer: '참석합니다', noAnswer: '참석하지 못합니다', countLabel: '참석 인원', namesLabel: '참석자 이름 (선택)', dietLabel: '식이 제한 사항 (선택)', messageLabel: '전하고 싶은 말 (선택)', sendLabel: '참석 여부 보내기', loading: '초대장을 불러오는 중…', saving: '답변을 저장하는 중…', saved: '감사합니다! 답변을 저장했습니다. 이 링크에서 답변을 수정할 수 있습니다.', unavailable: '현재 참석 여부를 저장할 수 없습니다. 나중에 다시 시도해 주세요.', missing: '초대장을 찾을 수 없습니다. 개인 링크를 확인해 주세요.', greeting: '{name}님, 초대 인원은 최대 {count}명입니다.' }
+      en: { coverTop: "You're invited", tapLabel: 'Tap to open your invitation', eyebrow: 'A celebration of love and family', invite: 'Together with our families, we look forward to celebrating with you.', storyTitle: 'Our Story', storyText: 'Our story is coming soon.', detailsTitle: 'Wedding Details', detailsText: 'Date, venue, and schedule details are coming soon.', registryTitle: 'Registry', registryText: 'Your presence means the world to us. Registry details are coming soon.', rsvpTitle: 'RSVP', rsvpText: 'Please use your personal invitation link to RSVP.', attendLabel: 'Will you attend?', chooseAnswer: 'Choose an answer', yesAnswer: 'Joyfully accepts', noAnswer: 'Regretfully declines', countLabel: 'Number attending', namesLabel: 'Names of everyone attending', nameItemLabel: 'Guest {number} name', dietLabel: 'Dietary needs (optional)', messageLabel: 'Message for us (optional)', sendLabel: 'Send RSVP', loading: 'Loading your invitation…', saving: 'Saving your response…', saved: 'Thank you! Your RSVP has been saved. You can return to this link to change it.', unavailable: 'RSVP is temporarily unavailable. Please try again later.', missing: 'We could not find this invitation. Please check your personal link.', greeting: 'Welcome, {name}. Your invitation is for up to {count} guests.' },
+      es: { coverTop: 'Estás invitado', tapLabel: 'Toca para abrir la invitación', eyebrow: 'Una celebración de amor y familia', invite: 'Junto con nuestras familias, esperamos celebrar con ustedes.', storyTitle: 'Nuestra Historia', storyText: 'Nuestra historia estará disponible pronto.', detailsTitle: 'Detalles de la Boda', detailsText: 'Pronto compartiremos la fecha, el lugar y el programa.', registryTitle: 'Mesa de Regalos', registryText: 'Su presencia significa mucho para nosotros. Pronto compartiremos los detalles de la mesa de regalos.', rsvpTitle: 'Confirmar Asistencia', rsvpText: 'Usa tu enlace personal para confirmar tu asistencia.', attendLabel: '¿Nos acompañarás?', chooseAnswer: 'Elige una respuesta', yesAnswer: 'Sí, asistiré', noAnswer: 'No podré asistir', countLabel: 'Número de asistentes', namesLabel: 'Nombres de todos los asistentes', nameItemLabel: 'Nombre del asistente {number}', dietLabel: 'Necesidades alimentarias (opcional)', messageLabel: 'Un mensaje para nosotros (opcional)', sendLabel: 'Enviar respuesta', loading: 'Cargando tu invitación…', saving: 'Guardando tu respuesta…', saved: '¡Gracias! Guardamos tu respuesta. Puedes volver a este enlace para cambiarla.', unavailable: 'Las confirmaciones no están disponibles por el momento. Inténtalo de nuevo más tarde.', missing: 'No encontramos esta invitación. Revisa tu enlace personal.', greeting: 'Bienvenidos, {name}. Su invitación es para un máximo de {count} personas.' },
+      ko: { coverTop: '초대합니다', tapLabel: '초대장을 눌러 열어 주세요', eyebrow: '사랑과 가족을 위한 축하', invite: '가족과 함께 여러분을 모시고 기쁜 날을 축하하고 싶습니다.', storyTitle: '우리의 이야기', storyText: '우리의 이야기를 곧 들려드릴게요.', detailsTitle: '결혼식 안내', detailsText: '날짜와 장소, 일정은 곧 안내해 드리겠습니다.', registryTitle: '선물 안내', registryText: '함께해 주시는 것만으로도 큰 선물입니다. 자세한 내용은 곧 안내해 드리겠습니다.', rsvpTitle: '참석 여부', rsvpText: '참석 여부를 알려 주시려면 개인 초대 링크를 사용해 주세요.', attendLabel: '참석하시나요?', chooseAnswer: '선택해 주세요', yesAnswer: '참석합니다', noAnswer: '참석하지 못합니다', countLabel: '참석 인원', namesLabel: '참석자 전원의 이름', nameItemLabel: '참석자 {number} 이름', dietLabel: '식이 제한 사항 (선택)', messageLabel: '전하고 싶은 말 (선택)', sendLabel: '참석 여부 보내기', loading: '초대장을 불러오는 중…', saving: '답변을 저장하는 중…', saved: '감사합니다! 답변을 저장했습니다. 이 링크에서 답변을 수정할 수 있습니다.', unavailable: '현재 참석 여부를 저장할 수 없습니다. 나중에 다시 시도해 주세요.', missing: '초대장을 찾을 수 없습니다. 개인 링크를 확인해 주세요.', greeting: '{name}님, 초대 인원은 최대 {count}명입니다.' }
     };
     Object.assign(translations.en, {
       letterText: 'A celebration of love', momentKicker: 'A moment to remember', momentText: 'Two families, two cultures, one beautiful beginning.', storyKicker: 'Our journey', detailsKicker: 'The celebration', dateTitle: 'The Date', dateText: 'Coming soon', venueTitle: 'The Venue', venueText: 'Coming soon', mapText: "When the place is set, you'll find your directions here.", timelineKicker: 'Together from beginning to end', timelineTitle: 'Our Day', timelineOne: 'The Ceremony', timelineTwo: 'A Celebration Together', timelineThree: 'Dancing & Memories', timeSoon: 'Time and place to come', registryKicker: 'With gratitude', rsvpKicker: 'We hope to see you'
@@ -262,6 +263,7 @@
       if (!translations[lang]) lang = 'en';
       document.documentElement.lang = lang;
       document.querySelectorAll('[data-key]').forEach(el => { el.textContent = translations[lang][el.dataset.key]; });
+      document.querySelectorAll('[data-guest-number]').forEach(label => { label.textContent = translations[lang].nameItemLabel.replace('{number}', label.dataset.guestNumber); });
       document.querySelectorAll('[data-lang]').forEach(button => { button.setAttribute('aria-pressed', String(button.dataset.lang === lang)); });
       document.getElementById('openInvitation').setAttribute('aria-label', translations[lang].tapLabel);
       try { localStorage.setItem('weddingLanguage', lang); } catch (_) {}
@@ -296,7 +298,35 @@
     const statusLine = document.getElementById('rsvpStatus');
     const attendance = document.getElementById('attendance');
     const guestDetails = document.getElementById('guestDetails');
-    attendance.addEventListener('change', () => { guestDetails.hidden = attendance.value !== 'attending'; });
+    const countSelect = document.getElementById('guestCount');
+    const nameFields = document.getElementById('guestNameFields');
+    let nameDrafts = [];
+    function renderNameFields() {
+      nameFields.querySelectorAll('input').forEach((input, index) => { nameDrafts[index] = input.value; });
+      nameFields.replaceChildren();
+      const isAttending = attendance.value === 'attending';
+      if (!isAttending) return;
+      const count = Number(countSelect.value);
+      for (let i = 0; i < count; i++) {
+        const label = document.createElement('label');
+        const input = document.createElement('input');
+        input.id = `guestName${i + 1}`;
+        input.type = 'text';
+        input.required = true;
+        input.maxLength = 80;
+        input.autocomplete = 'name';
+        input.value = nameDrafts[i] || '';
+        label.htmlFor = input.id;
+        label.dataset.guestNumber = String(i + 1);
+        label.textContent = translations[document.documentElement.lang].nameItemLabel.replace('{number}', i + 1);
+        nameFields.append(label, input);
+      }
+    }
+    attendance.addEventListener('change', () => {
+      guestDetails.hidden = attendance.value !== 'attending';
+      renderNameFields();
+    });
+    countSelect.addEventListener('change', renderNameFields);
     async function send(path, data) {
       const response = await fetch(API_BASE + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), cache: 'no-store' });
       const result = await response.json();
@@ -307,11 +337,12 @@
       statusLine.textContent = translations[document.documentElement.lang].loading;
       send('/invite', { token: inviteToken }).then(invite => {
         loadedInvite = invite;
-        const countSelect = document.getElementById('guestCount');
         for (let i = 1; i <= invite.max_guests; i++) countSelect.add(new Option(String(i), String(i)));
         attendance.value = invite.attendance || '';
         countSelect.value = String(invite.guest_count || 1);
-        document.getElementById('guestNames').value = invite.guest_names || '';
+        nameDrafts = (invite.guest_names || '').split(/\r?\n/);
+        if (nameDrafts.length === 1 && invite.guest_count > 1 && nameDrafts[0].includes(',')) nameDrafts = nameDrafts[0].split(',').map(name => name.trim());
+        renderNameFields();
         document.getElementById('dietaryNotes').value = invite.dietary_notes || '';
         document.getElementById('rsvpMessage').value = invite.message || '';
         guestDetails.hidden = attendance.value !== 'attending';
@@ -333,7 +364,7 @@
         await send('/rsvp', {
           token: inviteToken, attendance: attendance.value,
           guest_count: attendance.value === 'attending' ? Number(document.getElementById('guestCount').value) : 0,
-          guest_names: document.getElementById('guestNames').value,
+          guest_names: attendance.value === 'attending' ? Array.from(nameFields.querySelectorAll('input'), input => input.value.trim()).join('\n') : '',
           dietary_notes: document.getElementById('dietaryNotes').value,
           message: document.getElementById('rsvpMessage').value,
         });

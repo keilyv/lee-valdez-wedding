@@ -20,8 +20,31 @@ async function hashToken(token) {
   return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
 }
 
+async function sendRsvpAlert(result, env) {
+  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
+  const answer = result.attendance === 'attending'
+    ? `Attending: ${result.guest_count} guest${result.guest_count === 1 ? '' : 's'}`
+    : 'Declined';
+  try {
+    const response = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: env.TELEGRAM_CHAT_ID,
+        text: `Wedding RSVP received\n${result.household_name}\n${answer}`,
+      }),
+    });
+    if (!response.ok || !(await response.json()).ok) {
+      console.error('RSVP alert was not delivered');
+    }
+  } catch {
+    // A Telegram outage must never erase a guest's saved RSVP.
+    console.error('RSVP alert was not delivered');
+  }
+}
+
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const origin = request.headers.get('Origin') || '';
     const pathname = new URL(request.url).pathname;
     if (request.method === 'OPTIONS') {
@@ -61,16 +84,24 @@ export default {
       const dietaryNotes = attendance === 'declined' ? '' : input.dietary_notes;
       const message = input.message;
       if (!Number.isInteger(guestCount) || guestCount < (attendance === 'attending' ? 1 : 0) || guestCount > 20 ||
-          typeof guestNames !== 'string' || guestNames.trim().length > 300 ||
+          typeof guestNames !== 'string' || guestNames.trim().length > 1619 ||
           typeof dietaryNotes !== 'string' || dietaryNotes.trim().length > 500 ||
           typeof message !== 'string' || message.trim().length > 500) {
         return reply({ error: 'Check your response and try again' }, 400, origin);
       }
+      const names = attendance === 'attending' ? guestNames.split(/\r?\n/).map(name => name.trim()) : [];
+      if (attendance === 'attending' &&
+          (names.length !== guestCount || names.some(name => !name || name.length > 80))) {
+        return reply({ error: 'Enter one name for each person attending' }, 400, origin);
+      }
       const result = await env.DB.prepare(
         `UPDATE invitations SET attendance = ?, guest_count = ?, guest_names = ?, dietary_notes = ?, message = ?, responded_at = datetime('now')
          WHERE token_hash = ? AND active = 1 AND max_guests >= ? RETURNING household_name, max_guests, attendance, guest_count, guest_names, dietary_notes, message`
-      ).bind(attendance, guestCount, guestNames.trim(), dietaryNotes.trim(), message.trim(), tokenHash, guestCount).first();
+      ).bind(attendance, guestCount, names.join('\n'), dietaryNotes.trim(), message.trim(), tokenHash, guestCount).first();
       if (!result) return reply({ error: 'Invitation not found or guest count exceeds your invitation' }, 400, origin);
+      if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) {
+        ctx.waitUntil(sendRsvpAlert(result, env));
+      }
       return reply(result, 200, origin);
     } catch {
       return reply({ error: 'RSVP is temporarily unavailable. Please try again later.' }, 503, origin);

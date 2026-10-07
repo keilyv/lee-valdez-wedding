@@ -1,1 +1,4 @@
 .DS_Store
+
+rsvp-setup/.wrangler/
+rsvp-setup/wrangler.jsonc
