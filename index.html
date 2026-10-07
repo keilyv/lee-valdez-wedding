@@ -51,12 +51,15 @@
     .story-photo img { display: block; width: 100%; aspect-ratio: .72; object-fit: cover; object-position: center 48%; }
     .story-layout .card { width: 100%; }
     .photo-caption { max-width: 500px; margin: 30px auto 0; font-size: 25px; }
-    .detail-grid { max-width: 930px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
+    .detail-grid { max-width: 930px; margin: 25px auto 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
+    .detail-date { max-width: 930px; margin: 0 auto; padding: 26px 25px; }
     .detail-card { padding: 45px 25px; background: rgba(255,253,248,.82); border: 1px solid rgba(173,97,75,.2); }
     .detail-card .detail-icon { color: var(--clay); font-size: 34px; }
     .detail-card h3 { font-size: 33px; margin: 10px 0; font-weight: 500; }
     .detail-card p { margin: 0; }
-    .map-frame { max-width: 860px; min-height: 220px; margin: 25px auto 0; display: grid; place-items: center; padding: 35px; background: linear-gradient(135deg,#f4e7db,#e7f0f3); border: 1px solid rgba(173,97,75,.27); }
+    .detail-card .map-frame { min-height: 130px; margin: 24px auto 0; display: grid; place-items: center; padding: 18px; background: linear-gradient(135deg,#f4e7db,#e7f0f3); border: 1px solid rgba(173,97,75,.27); }
+    .map-frame .map-label { display: block; margin-bottom: 6px; color: var(--clay); font-size: 15px; letter-spacing: .16em; text-transform: uppercase; }
+    .map-frame p { line-height: 1.35; }
     .timeline { max-width: 650px; margin: 15px auto 0; padding: 10px 0; border-left: 1px solid rgba(173,97,75,.47); text-align: left; }
     .timeline-item { position: relative; margin: 24px 0; padding-left: 28px; }
     .timeline-item::before { content: ''; position: absolute; top: 12px; left: -6px; width: 11px; height: 11px; border-radius: 50%; background: var(--clay); }
@@ -217,11 +220,11 @@
     <section>
       <p class="section-kicker" data-key="detailsKicker">The celebration</p>
       <h2 data-key="detailsTitle">Wedding Details</h2>
+      <div class="detail-card detail-date"><div class="detail-icon" aria-hidden="true">✦</div><h3 data-key="dateTitle">The Date</h3><p data-key="dateText">Coming soon</p></div>
       <div class="detail-grid">
-        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✦</div><h3 data-key="dateTitle">The Date</h3><p data-key="dateText">Coming soon</p></div>
-        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="venueTitle">The Venue</h3><p data-key="venueText">Coming soon</p></div>
+        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="massTitle">The Mass</h3><p data-key="massText">Church and address coming soon</p><div class="map-frame"><div><span class="map-label" data-key="gpsTitle">GPS directions</span><p data-key="massMapText">Mass location coming soon</p></div></div></div>
+        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="venueTitle">The Venue</h3><p data-key="venueText">Coming soon</p><div class="map-frame"><div><span class="map-label" data-key="gpsTitle">GPS directions</span><p data-key="venueMapText">Venue location coming soon</p></div></div></div>
       </div>
-      <div class="map-frame"><p data-key="mapText">When the place is set, you'll find your directions here.</p></div>
     </section>
     <section id="parents">
       <p class="section-kicker" data-key="parentsKicker">The love that brought us here</p>
@@ -239,7 +242,7 @@
       <div class="sponsors-grid">
         <div class="sponsor-card"><h3 data-key="sponsorVigilTitle">Velation</h3><p class="sponsor-names">Lupita Benitez <span>&amp;</span> Ricardo Espinosa</p><p data-key="sponsorVigilText">Our velation sponsors witness our vows and stand beside us in prayer, offering wisdom and loving guidance as we begin our new life together.</p></div>
         <div class="sponsor-card"><h3 data-key="sponsorRingsTitle">Rings</h3><p class="sponsor-names">Denisse Mora <span>&amp;</span> Canwin Tso</p><p data-key="sponsorRingsText">Blessed during Mass, our rings symbolize eternal love and fidelity while honoring the union of our families and the faith we share.</p></div>
-        <div class="sponsor-card"><h3 data-key="sponsorCoinsTitle">Coins</h3><p class="sponsor-names">Olivia Jimenez <span>&amp;</span> Martin Jimenes</p><p data-key="sponsorCoinsText">The groom offers the bride 13 blessed gold coins, recalling Christ and the twelve apostles and promising support and shared prosperity.</p></div>
+        <div class="sponsor-card"><h3 data-key="sponsorCoinsTitle">Coins</h3><p class="sponsor-names">Olivia Jimenez <span>&amp;</span> Martin Jimenez</p><p data-key="sponsorCoinsText">The groom offers the bride 13 blessed gold coins, recalling Christ and the twelve apostles and promising support and shared prosperity.</p></div>
         <div class="sponsor-card"><h3 data-key="sponsorLassoTitle">Lasso</h3><p class="sponsor-names" data-key="sponsorLassoNames">To be announced</p><p data-key="sponsorLassoText">After our vows, our sponsors place a figure eight rosary, ribbon, or floral garland around our shoulders to symbolize our eternal union.</p></div>
       </div>
     </section>
@@ -316,6 +319,9 @@
     Object.assign(translations.ko, {
       letterText: '사랑을 축하하며', recipientLabel: '받는 분', momentKicker: '기억에 남을 순간', momentText: '두 가족, 두 문화, 하나의 아름다운 시작.', storyKicker: '우리의 여정', detailsKicker: '결혼식', dateTitle: '날짜', dateText: '곧 안내해 드립니다', venueTitle: '장소', venueText: '곧 안내해 드립니다', mapText: '장소가 정해지면 여기에서 길 안내를 확인하실 수 있습니다.', timelineKicker: '처음부터 끝까지 함께', timelineTitle: '우리의 하루', timelineOne: '결혼식', timelineTwo: '함께하는 축하', timelineThree: '춤과 추억', timeSoon: '시간과 장소는 추후 안내', registryKicker: '감사의 마음으로', rsvpKicker: '함께해 주시길 바랍니다'
     });
+    Object.assign(translations.en, { massTitle: 'The Mass', massText: 'Church and address coming soon', gpsTitle: 'GPS directions', massMapText: 'Mass location coming soon', venueMapText: 'Venue location coming soon' });
+    Object.assign(translations.es, { massTitle: 'La Misa', massText: 'Iglesia y dirección por confirmar', gpsTitle: 'Indicaciones GPS', massMapText: 'Ubicación de la misa por confirmar', venueMapText: 'Ubicación del salón por confirmar' });
+    Object.assign(translations.ko, { massTitle: '혼인 미사', massText: '성당과 주소는 추후 안내', gpsTitle: 'GPS 길 안내', massMapText: '미사 장소는 추후 안내', venueMapText: '피로연 장소는 추후 안내' });
     Object.assign(translations.en, { coverTop: "Keily & Nathan's Wedding", coverTitle: "You're invited", recipientLabel: 'To:', flipLabel: 'Tap to flip the envelope', guestFallback: 'Our guest' });
     Object.assign(translations.es, { coverTop: 'La boda de Keily y Nathan', coverTitle: 'Te invitamos', recipientLabel: 'Para:', flipLabel: 'Toca para voltear el sobre', guestFallback: 'Nuestros invitados' });
     Object.assign(translations.ko, { coverTop: 'Keily & Nathan의 결혼식', coverTitle: '초대합니다', recipientLabel: '받는 분:', flipLabel: '봉투를 눌러 뒤집어 주세요', guestFallback: '소중한 손님' });
