@@ -42,10 +42,10 @@
     .small { font-size: 18px; }
     .botanical { position: absolute; z-index: 2; width: clamp(135px, 23vw, 320px); height: auto; pointer-events: none; user-select: none; }
     .botanical.plum { top: -65px; left: -70px; transform: rotate(-12deg); }
-    .botanical.marigold { bottom: -85px; right: -80px; transform: rotate(10deg); }
-    .cover-content .botanical { width: clamp(185px, 29vw, 310px); }
+    .botanical.marigold { width: clamp(105px, 14vw, 175px); bottom: -32px; right: -28px; transform: rotate(10deg); }
+    .cover-content .botanical.plum { width: clamp(185px, 29vw, 310px); }
     .cover-content .botanical.plum { top: -90px; left: -85px; }
-    .cover-content .botanical.marigold { bottom: -105px; right: -90px; }
+    .envelope .botanical.marigold { width: clamp(85px, 11vw, 120px); bottom: -17px; right: -19px; z-index: 6; transform: rotate(10deg); }
     .fine-rule { width: 105px; height: 1px; background: var(--clay); opacity: .45; margin: 28px auto; }
     .photo-moment { min-height: 650px; display: grid; place-items: center; background: linear-gradient(145deg, #dcebf3 0%, #f9f0e7 52%, #edd7ca 100%); }
     .photo-moment::before { content: ''; position: absolute; inset: 28px; border: 1px solid rgba(173,97,75,.25); }
@@ -69,7 +69,7 @@
     .timeline-item h3 { margin: 0; font-size: 31px; font-weight: 500; }
     .timeline-item p { margin: 2px 0; color: #735c54; font-size: 18px; }
     body.invitation-closed { overflow: hidden; }
-    .invitation-cover { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; overflow-y: auto; padding: 35px 18px; text-align: center; background: repeating-linear-gradient(112deg,rgba(255,255,255,.04) 0 4%,rgba(255,255,255,.55) 7%,rgba(205,188,174,.12) 11%,rgba(255,255,255,.07) 17%), radial-gradient(ellipse at 20% 14%,#fffefb 0%,transparent 51%), radial-gradient(ellipse at 85% 79%,#e5d8d3 0%,transparent 48%), linear-gradient(135deg,#f5f1eb,#e6dfd8 42%,#fffdf7 66%,#e1d4ce); transition: opacity .75s ease, visibility .75s ease; }
+    .invitation-cover { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; align-items: safe center; overflow-y: auto; padding: 35px 18px; text-align: center; background: repeating-linear-gradient(112deg,rgba(255,255,255,.04) 0 4%,rgba(255,255,255,.55) 7%,rgba(205,188,174,.12) 11%,rgba(255,255,255,.07) 17%), radial-gradient(ellipse at 20% 14%,#fffefb 0%,transparent 51%), radial-gradient(ellipse at 85% 79%,#e5d8d3 0%,transparent 48%), linear-gradient(135deg,#f5f1eb,#e6dfd8 42%,#fffdf7 66%,#e1d4ce); transition: opacity .75s ease, visibility .75s ease; }
     .invitation-cover::before { content: ''; position: absolute; inset: -15%; pointer-events: none; transform: rotate(-18deg); background: linear-gradient(90deg,transparent 16%,rgba(255,255,255,.46) 38%,transparent 49%,rgba(177,160,153,.12) 61%,transparent 80%); }
     .invitation-cover.is-opening { opacity: 0; visibility: hidden; }
     .cover-content { position: relative; width: min(100%, 570px); padding: 55px 10px 35px; }
@@ -101,7 +101,32 @@
     .rsvp-status { color: var(--clay); min-height: 30px; }
     footer { background: var(--sand); padding: 55px 20px; text-align: center; }
     footer p { margin: 8px; }
-    @media (max-width: 600px) { header { padding: 14px 16px; } .brand { font-size: 17px; } .languages button { font-size: 15px; padding: 4px 6px; } main section { padding: 72px 22px; } .detail-grid, .story-layout { grid-template-columns: 1fr; } .story-photo { max-width: 310px; margin: 0 auto 20px; } .hero { padding: 26px 14px; min-height: 78vh; } .hero-paper { padding: 94px 28px 100px; } .botanical { width: 152px; } .botanical.plum { top: -38px; left: -40px; } .botanical.marigold { bottom: -48px; right: -50px; } .cover-content { padding-top: 72px; } .cover-content .botanical { width: 180px; } .cover-content .botanical.plum { top: -52px; left: -60px; } .cover-content .botanical.marigold { bottom: -78px; right: -60px; } .envelope-letter { padding-top: 20%; font-size: 23px; } .envelope-seal { width: 61px; height: 61px; font-size: 20px; } .photo-moment { min-height: 580px; } }
+    @media (max-width: 600px) {
+      header { padding: 14px 16px; }
+      .brand { font-size: 17px; }
+      .languages button { font-size: 15px; padding: 4px 6px; }
+      main section { padding: 72px 22px; }
+      .detail-grid, .story-layout { grid-template-columns: 1fr; }
+      .story-photo { max-width: 310px; margin: 0 auto 20px; }
+      .hero { padding: 26px 14px; min-height: 78vh; }
+      .hero-paper { padding: 94px 28px 100px; }
+      .hero h1 { font-size: clamp(58px, 15vw, 78px); }
+      .hero .welcome { font-size: 16px; line-height: 1.6; overflow-wrap: anywhere; }
+      .botanical { width: 152px; }
+      .botanical.plum { top: -38px; left: -40px; }
+      .botanical.marigold { width: 100px; bottom: -22px; right: -16px; }
+      .cover-content { padding: 45px 4px 22px; }
+      .cover-content .botanical.plum { width: 130px; top: -35px; left: -29px; }
+      .cover-top { font-size: 13px; }
+      .cover-title { font-size: clamp(44px, 12vw, 62px); line-height: 1.05; margin: 14px 0 28px; }
+      .envelope-button { width: min(100%, 300px); }
+      .envelope .botanical.marigold { width: 62px; bottom: 0; right: -8px; }
+      .tap-label { margin-top: 20px; font-size: 18px; }
+      .cover-subtitle { margin-top: 18px; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
+      .envelope-letter { padding-top: 20%; font-size: 23px; }
+      .envelope-seal { width: 61px; height: 61px; font-size: 20px; }
+      .photo-moment { min-height: 580px; }
+    }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
   </style>
 </head>
@@ -109,12 +134,11 @@
   <div class="invitation-cover" id="invitationCover" role="dialog" aria-modal="true" aria-labelledby="coverTitle" hidden>
     <div class="cover-content">
       <img class="botanical plum" src="images/plum-blossoms.png" alt="" aria-hidden="true">
-      <img class="botanical marigold" src="images/marigolds.png" alt="" aria-hidden="true">
       <div class="cover-top" data-key="coverTop">You're invited</div>
       <h2 class="cover-title" id="coverTitle">Keily &amp; Nathan</h2>
       <button class="envelope-button" id="openInvitation" type="button" aria-label="Tap to open the invitation">
         <span class="envelope" aria-hidden="true">
-          <span class="envelope-back"></span><span class="envelope-letter">Keily &amp; Nathan<small data-key="letterText">A celebration of love</small></span><span class="envelope-flap"></span><span class="envelope-front"></span><span class="envelope-seal">K + N</span>
+          <span class="envelope-back"></span><span class="envelope-letter">Keily &amp; Nathan<small data-key="letterText">A celebration of love</small></span><span class="envelope-flap"></span><span class="envelope-front"></span><span class="envelope-seal">K + N</span><img class="botanical marigold" src="images/marigolds.png" alt="">
         </span>
         <span class="tap-label" data-key="tapLabel">Tap to open your invitation</span>
       </button>
