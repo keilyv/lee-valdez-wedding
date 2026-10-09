@@ -30,6 +30,12 @@
     h1 { font-size: clamp(70px, 11vw, 138px); line-height: .85; font-weight: 400; margin: 30px 0; }
     h1 span { display: block; font-size: .42em; margin: 10px 0; }
     .hero p { margin: 12px auto; max-width: 600px; }
+    .hero-date { color: var(--clay); font-size: 24px; letter-spacing: .08em; }
+    .countdown { display: flex; justify-content: center; gap: clamp(8px, 2vw, 20px); margin: 24px auto 0; }
+    .countdown-unit { min-width: clamp(52px, 11vw, 82px); }
+    .countdown-unit strong { display: block; font-size: clamp(30px, 5vw, 44px); font-weight: 400; line-height: 1; font-variant-numeric: tabular-nums; }
+    .countdown-unit span { display: block; margin-top: 7px; color: var(--clay); font-size: 13px; letter-spacing: .11em; text-transform: uppercase; }
+    .countdown-message { margin: 22px auto 0; color: var(--clay); font-size: 25px; }
     .welcome { color: var(--clay); margin-top: 40px !important; }
     main section { position: relative; overflow: hidden; padding: 105px clamp(24px, 10vw, 160px); text-align: center; }
     main section:nth-child(even) { background: var(--blue); }
@@ -60,6 +66,8 @@
     .detail-card .map-frame { min-height: 130px; margin: 24px auto 0; display: grid; place-items: center; padding: 18px; background: linear-gradient(135deg,#f4e7db,#e7f0f3); border: 1px solid rgba(173,97,75,.27); }
     .map-frame .map-label { display: block; margin-bottom: 6px; color: var(--clay); font-size: 15px; letter-spacing: .16em; text-transform: uppercase; }
     .map-frame p { line-height: 1.35; }
+    .map-link { display: inline-block; margin-top: 9px; padding: 9px 18px; border: 1px solid var(--clay); color: var(--clay); background: rgba(255,253,248,.76); font-size: 19px; text-decoration: none; }
+    .map-link:hover, .map-link:focus-visible { background: var(--clay); color: #fff; }
     .timeline { max-width: 650px; margin: 15px auto 0; padding: 10px 0; border-left: 1px solid rgba(173,97,75,.47); text-align: left; }
     .timeline-item { position: relative; margin: 24px 0; padding-left: 28px; }
     .timeline-item::before { content: ''; position: absolute; top: 12px; left: -6px; width: 11px; height: 11px; border-radius: 50%; background: var(--clay); }
@@ -194,6 +202,14 @@
       <h1>Keily <span>&amp;</span> Nathan</h1>
       <div class="fine-rule"></div>
       <p data-key="invite">Together with our families, we look forward to celebrating with you.</p>
+      <p class="hero-date" data-key="dateText">April 24, 2027</p>
+      <div class="countdown" id="weddingCountdown" role="timer" aria-label="Countdown to April 24, 2027">
+        <div class="countdown-unit"><strong id="daysLeft">0</strong><span data-key="countDays">Days</span></div>
+        <div class="countdown-unit"><strong id="hoursLeft">00</strong><span data-key="countHours">Hours</span></div>
+        <div class="countdown-unit"><strong id="minutesLeft">00</strong><span data-key="countMinutes">Minutes</span></div>
+        <div class="countdown-unit"><strong id="secondsLeft">00</strong><span data-key="countSeconds">Seconds</span></div>
+      </div>
+      <p class="countdown-message" id="countdownMessage" hidden></p>
       <p class="welcome">환영합니다 · Welcome · Bienvenidos</p>
     </div>
   </div>
@@ -220,10 +236,10 @@
     <section>
       <p class="section-kicker" data-key="detailsKicker">The celebration</p>
       <h2 data-key="detailsTitle">Wedding Details</h2>
-      <div class="detail-card detail-date"><div class="detail-icon" aria-hidden="true">✦</div><h3 data-key="dateTitle">The Date</h3><p data-key="dateText">Coming soon</p></div>
+      <div class="detail-card detail-date"><div class="detail-icon" aria-hidden="true">✦</div><h3 data-key="dateTitle">The Date</h3><p data-key="dateText">April 24, 2027</p></div>
       <div class="detail-grid">
-        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="massTitle">The Mass</h3><p data-key="massText">Church and address coming soon</p><div class="map-frame"><div><span class="map-label" data-key="gpsTitle">GPS directions</span><p data-key="massMapText">Mass location coming soon</p></div></div></div>
-        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="venueTitle">The Venue</h3><p data-key="venueText">Coming soon</p><div class="map-frame"><div><span class="map-label" data-key="gpsTitle">GPS directions</span><p data-key="venueMapText">Venue location coming soon</p></div></div></div>
+        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="massTitle">The Mass</h3><p data-key="massText">Church details coming soon</p><div class="map-frame"><div><span class="map-label" data-key="gpsTitle">GPS directions</span><a class="map-link" data-key="massMapText" href="https://maps.app.goo.gl/9eURKswJEdEdyU6J9" target="_blank" rel="noopener noreferrer">Open church in Google Maps</a></div></div></div>
+        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="venueTitle">The Venue</h3><p data-key="venueText">Reception details coming soon</p><div class="map-frame"><div><span class="map-label" data-key="gpsTitle">GPS directions</span><a class="map-link" data-key="venueMapText" href="https://maps.app.goo.gl/xWqZdC7xosTLPwLh7" target="_blank" rel="noopener noreferrer">Open venue in Google Maps</a></div></div></div>
       </div>
     </section>
     <section id="parents">
@@ -319,9 +335,9 @@
     Object.assign(translations.ko, {
       letterText: '사랑을 축하하며', recipientLabel: '받는 분', momentKicker: '기억에 남을 순간', momentText: '두 가족, 두 문화, 하나의 아름다운 시작.', storyKicker: '우리의 여정', detailsKicker: '결혼식', dateTitle: '날짜', dateText: '곧 안내해 드립니다', venueTitle: '장소', venueText: '곧 안내해 드립니다', mapText: '장소가 정해지면 여기에서 길 안내를 확인하실 수 있습니다.', timelineKicker: '처음부터 끝까지 함께', timelineTitle: '우리의 하루', timelineOne: '결혼식', timelineTwo: '함께하는 축하', timelineThree: '춤과 추억', timeSoon: '시간과 장소는 추후 안내', registryKicker: '감사의 마음으로', rsvpKicker: '함께해 주시길 바랍니다'
     });
-    Object.assign(translations.en, { massTitle: 'The Mass', massText: 'Church and address coming soon', gpsTitle: 'GPS directions', massMapText: 'Mass location coming soon', venueMapText: 'Venue location coming soon' });
-    Object.assign(translations.es, { massTitle: 'La Misa', massText: 'Iglesia y dirección por confirmar', gpsTitle: 'Indicaciones GPS', massMapText: 'Ubicación de la misa por confirmar', venueMapText: 'Ubicación del salón por confirmar' });
-    Object.assign(translations.ko, { massTitle: '혼인 미사', massText: '성당과 주소는 추후 안내', gpsTitle: 'GPS 길 안내', massMapText: '미사 장소는 추후 안내', venueMapText: '피로연 장소는 추후 안내' });
+    Object.assign(translations.en, { dateText: 'April 24, 2027', massTitle: 'The Mass', massText: 'Church details coming soon', venueText: 'Reception details coming soon', gpsTitle: 'GPS directions', massMapText: 'Open church in Google Maps', venueMapText: 'Open venue in Google Maps', countDays: 'Days', countHours: 'Hours', countMinutes: 'Minutes', countSeconds: 'Seconds', countToday: "Today's the day!", countPassed: 'Thank you for celebrating with us!' });
+    Object.assign(translations.es, { dateText: '24 de abril de 2027', massTitle: 'La Misa', massText: 'Pronto compartiremos los detalles de la iglesia', venueText: 'Pronto compartiremos los detalles del salón', gpsTitle: 'Indicaciones GPS', massMapText: 'Ver iglesia en Google Maps', venueMapText: 'Ver salón en Google Maps', countDays: 'Días', countHours: 'Horas', countMinutes: 'Minutos', countSeconds: 'Segundos', countToday: '¡Hoy es el gran día!', countPassed: '¡Gracias por celebrar con nosotros!' });
+    Object.assign(translations.ko, { dateText: '2027년 4월 24일', massTitle: '혼인 미사', massText: '성당 안내는 추후 알려 드리겠습니다', venueText: '피로연 안내는 추후 알려 드리겠습니다', gpsTitle: 'GPS 길 안내', massMapText: 'Google 지도에서 성당 보기', venueMapText: 'Google 지도에서 피로연장 보기', countDays: '일', countHours: '시간', countMinutes: '분', countSeconds: '초', countToday: '오늘이 바로 그날입니다!', countPassed: '함께 축하해 주셔서 감사합니다!' });
     Object.assign(translations.en, { coverTop: "Keily & Nathan's Wedding", coverTitle: "You're invited", recipientLabel: 'To:', flipLabel: 'Tap to flip the envelope', guestFallback: 'Our guest' });
     Object.assign(translations.es, { coverTop: 'La boda de Keily y Nathan', coverTitle: 'Te invitamos', recipientLabel: 'Para:', flipLabel: 'Toca para voltear el sobre', guestFallback: 'Nuestros invitados' });
     Object.assign(translations.ko, { coverTop: 'Keily & Nathan의 결혼식', coverTitle: '초대합니다', recipientLabel: '받는 분:', flipLabel: '봉투를 눌러 뒤집어 주세요', guestFallback: '소중한 손님' });
@@ -379,6 +395,31 @@
       if (loadedInvite) {
         document.getElementById('householdGreeting').textContent = translations[lang].greeting.replace('{name}', loadedInvite.household_name).replace('{count}', loadedInvite.max_guests);
       }
+      updateCountdown();
+    }
+    const weddingStart = Date.parse('2027-04-24T00:00:00-07:00');
+    const weddingEnd = Date.parse('2027-04-25T00:00:00-07:00');
+    function updateCountdown() {
+      const remaining = weddingStart - Date.now();
+      const timer = document.getElementById('weddingCountdown');
+      const message = document.getElementById('countdownMessage');
+      if (remaining <= 0) {
+        timer.hidden = true;
+        message.hidden = false;
+        message.textContent = translations[document.documentElement.lang][Date.now() < weddingEnd ? 'countToday' : 'countPassed'];
+        return;
+      }
+      timer.hidden = false;
+      message.hidden = true;
+      let seconds = Math.ceil(remaining / 1000);
+      const days = Math.floor(seconds / 86400); seconds %= 86400;
+      const hours = Math.floor(seconds / 3600); seconds %= 3600;
+      const minutes = Math.floor(seconds / 60); seconds %= 60;
+      document.getElementById('daysLeft').textContent = String(days);
+      document.getElementById('hoursLeft').textContent = String(hours).padStart(2, '0');
+      document.getElementById('minutesLeft').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('secondsLeft').textContent = String(seconds).padStart(2, '0');
+      timer.setAttribute('aria-label', `${days} ${translations[document.documentElement.lang].countDays}, ${hours} ${translations[document.documentElement.lang].countHours}, ${minutes} ${translations[document.documentElement.lang].countMinutes}, ${seconds} ${translations[document.documentElement.lang].countSeconds}`);
     }
     document.querySelectorAll('[data-lang]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
     let savedLanguage = 'en';
@@ -390,6 +431,7 @@
     let envelopeFlipped = false;
     let flipReady = true;
     setLanguage(savedLanguage);
+    window.setInterval(updateCountdown, 1000);
     const cover = document.getElementById('invitationCover');
     cover.hidden = false;
     document.body.classList.add('invitation-closed');
