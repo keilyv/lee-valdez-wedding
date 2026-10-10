@@ -63,6 +63,8 @@
     .detail-card .detail-icon { color: var(--clay); font-size: 34px; }
     .detail-card h3 { font-size: 33px; margin: 10px 0; font-weight: 500; }
     .detail-card p { margin: 0; }
+    .detail-card .location-name { margin: 12px 0 6px; font-size: clamp(25px, 3vw, 31px); font-weight: 600; line-height: 1.2; }
+    .detail-grid .detail-card p[data-key$="Text"] { color: #735c54; font-size: 18px; }
     .detail-card .map-frame { min-height: 130px; margin: 24px auto 0; display: grid; place-items: center; padding: 18px; background: linear-gradient(135deg,#f4e7db,#e7f0f3); border: 1px solid rgba(173,97,75,.27); }
     .map-frame .map-label { display: block; margin-bottom: 6px; color: var(--clay); font-size: 15px; letter-spacing: .16em; text-transform: uppercase; }
     .map-frame p { line-height: 1.35; }
@@ -90,6 +92,8 @@
     .sponsor-card p[data-key$="Text"] { max-width: 490px; font-size: 19px; line-height: 1.5; }
     .sponsor-names span { color: var(--clay); font-style: normal; }
     .attire-grid { max-width: 850px; margin: 0 auto; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
+    .attire-illustration { width: min(100%, 820px); aspect-ratio: 1766 / 1252; margin: -12px auto 28px; overflow: hidden; }
+    .attire-illustration img { display: block; width: 113.25%; max-width: none; height: auto; transform: translate(-6.6%, -18.7%); }
     .attire-card { padding: 38px 28px; background: rgba(255,253,248,.84); border: 1px solid rgba(173,97,75,.2); }
     .attire-swatch { display: block; width: 36px; height: 36px; margin: 0 auto 15px; border-radius: 50%; background: #2850a4; border: 3px solid white; box-shadow: 0 0 0 1px rgba(40,80,164,.4); }
     .attire-swatch.black { background: linear-gradient(120deg,#171719 0 64%,#2850a4 64%); box-shadow: 0 0 0 1px rgba(23,23,25,.35); }
@@ -238,8 +242,8 @@
       <h2 data-key="detailsTitle">Wedding Details</h2>
       <div class="detail-card detail-date"><div class="detail-icon" aria-hidden="true">✦</div><h3 data-key="dateTitle">The Date</h3><p data-key="dateText">April 24, 2027</p></div>
       <div class="detail-grid">
-        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="massTitle">The Mass</h3><p data-key="massText">Church details coming soon</p><div class="map-frame"><div><span class="map-label" data-key="gpsTitle">GPS directions</span><a class="map-link" data-key="massMapText" href="https://maps.app.goo.gl/9eURKswJEdEdyU6J9" target="_blank" rel="noopener noreferrer">Open church in Google Maps</a></div></div></div>
-        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="venueTitle">The Venue</h3><p data-key="venueText">Reception details coming soon</p><div class="map-frame"><div><span class="map-label" data-key="gpsTitle">GPS directions</span><a class="map-link" data-key="venueMapText" href="https://maps.app.goo.gl/xWqZdC7xosTLPwLh7" target="_blank" rel="noopener noreferrer">Open venue in Google Maps</a></div></div></div>
+        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="massTitle">The Mass</h3><p class="location-name">Our Lady of Guadalupe Parish</p><p data-key="massText">Time to be announced</p><div class="map-frame"><div><span class="map-label" data-key="gpsTitle">GPS directions</span><a class="map-link" data-key="massMapText" href="https://maps.app.goo.gl/9eURKswJEdEdyU6J9" target="_blank" rel="noopener noreferrer">Open church in Google Maps</a></div></div></div>
+        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="venueTitle">The Venue</h3><p class="location-name">Rancho Casillas</p><p data-key="venueText">Reception time to be announced</p><div class="map-frame"><div><span class="map-label" data-key="gpsTitle">GPS directions</span><a class="map-link" data-key="venueMapText" href="https://maps.app.goo.gl/xWqZdC7xosTLPwLh7" target="_blank" rel="noopener noreferrer">Open venue in Google Maps</a></div></div></div>
       </div>
     </section>
     <section id="parents">
@@ -277,9 +281,10 @@
       <p class="section-kicker" data-key="attireKicker">Dress for the celebration</p>
       <h2 data-key="attireTitle">Required Attire</h2>
       <p class="section-intro" data-key="attireIntro">We'd love to celebrate with everyone dressed in our wedding colors.</p>
+      <figure class="attire-illustration"><img src="images/attire.png" alt="Examples of a black suit with a royal blue tie and royal blue dresses" loading="lazy" decoding="async"></figure>
       <div class="attire-grid">
         <div class="attire-card"><span class="attire-swatch" aria-hidden="true"></span><h3 data-key="attireWomenTitle">Women</h3><p data-key="attireWomenText">Please wear royal blue.</p></div>
-        <div class="attire-card"><span class="attire-swatch black" aria-hidden="true"></span><h3 data-key="attireMenTitle">Men</h3><p data-key="attireMenText">Please wear a black suit or tuxedo with a royal blue tie or bow tie.</p></div>
+        <div class="attire-card"><span class="attire-swatch black" aria-hidden="true"></span><h3 data-key="attireMenTitle">Men</h3><p data-key="attireMenText">Please wear a black suit or tuxedo with a royal blue tie or bow tie, or a royal blue dress shirt with black slacks.</p></div>
       </div>
     </section>
     <section>
@@ -335,9 +340,9 @@
     Object.assign(translations.ko, {
       letterText: '사랑을 축하하며', recipientLabel: '받는 분', momentKicker: '기억에 남을 순간', momentText: '두 가족, 두 문화, 하나의 아름다운 시작.', storyKicker: '우리의 여정', detailsKicker: '결혼식', dateTitle: '날짜', dateText: '곧 안내해 드립니다', venueTitle: '장소', venueText: '곧 안내해 드립니다', mapText: '장소가 정해지면 여기에서 길 안내를 확인하실 수 있습니다.', timelineKicker: '처음부터 끝까지 함께', timelineTitle: '우리의 하루', timelineOne: '결혼식', timelineTwo: '함께하는 축하', timelineThree: '춤과 추억', timeSoon: '시간과 장소는 추후 안내', registryKicker: '감사의 마음으로', rsvpKicker: '함께해 주시길 바랍니다'
     });
-    Object.assign(translations.en, { dateText: 'April 24, 2027', massTitle: 'The Mass', massText: 'Church details coming soon', venueText: 'Reception details coming soon', gpsTitle: 'GPS directions', massMapText: 'Open church in Google Maps', venueMapText: 'Open venue in Google Maps', countDays: 'Days', countHours: 'Hours', countMinutes: 'Minutes', countSeconds: 'Seconds', countToday: "Today's the day!", countPassed: 'Thank you for celebrating with us!' });
-    Object.assign(translations.es, { dateText: '24 de abril de 2027', massTitle: 'La Misa', massText: 'Pronto compartiremos los detalles de la iglesia', venueText: 'Pronto compartiremos los detalles del salón', gpsTitle: 'Indicaciones GPS', massMapText: 'Ver iglesia en Google Maps', venueMapText: 'Ver salón en Google Maps', countDays: 'Días', countHours: 'Horas', countMinutes: 'Minutos', countSeconds: 'Segundos', countToday: '¡Hoy es el gran día!', countPassed: '¡Gracias por celebrar con nosotros!' });
-    Object.assign(translations.ko, { dateText: '2027년 4월 24일', massTitle: '혼인 미사', massText: '성당 안내는 추후 알려 드리겠습니다', venueText: '피로연 안내는 추후 알려 드리겠습니다', gpsTitle: 'GPS 길 안내', massMapText: 'Google 지도에서 성당 보기', venueMapText: 'Google 지도에서 피로연장 보기', countDays: '일', countHours: '시간', countMinutes: '분', countSeconds: '초', countToday: '오늘이 바로 그날입니다!', countPassed: '함께 축하해 주셔서 감사합니다!' });
+    Object.assign(translations.en, { dateText: 'April 24, 2027', massTitle: 'The Mass', massText: 'Time to be announced', venueText: 'Reception time to be announced', gpsTitle: 'GPS directions', massMapText: 'Open church in Google Maps', venueMapText: 'Open venue in Google Maps', countDays: 'Days', countHours: 'Hours', countMinutes: 'Minutes', countSeconds: 'Seconds', countToday: "Today's the day!", countPassed: 'Thank you for celebrating with us!' });
+    Object.assign(translations.es, { dateText: '24 de abril de 2027', massTitle: 'La Misa', massText: 'Horario por confirmar', venueText: 'Horario de la recepción por confirmar', gpsTitle: 'Indicaciones GPS', massMapText: 'Ver iglesia en Google Maps', venueMapText: 'Ver salón en Google Maps', countDays: 'Días', countHours: 'Horas', countMinutes: 'Minutos', countSeconds: 'Segundos', countToday: '¡Hoy es el gran día!', countPassed: '¡Gracias por celebrar con nosotros!' });
+    Object.assign(translations.ko, { dateText: '2027년 4월 24일', massTitle: '혼인 미사', massText: '시간은 추후 안내', venueText: '피로연 시간은 추후 안내', gpsTitle: 'GPS 길 안내', massMapText: 'Google 지도에서 성당 보기', venueMapText: 'Google 지도에서 피로연장 보기', countDays: '일', countHours: '시간', countMinutes: '분', countSeconds: '초', countToday: '오늘이 바로 그날입니다!', countPassed: '함께 축하해 주셔서 감사합니다!' });
     Object.assign(translations.en, { coverTop: "Keily & Nathan's Wedding", coverTitle: "You're invited", recipientLabel: 'To:', flipLabel: 'Tap to flip the envelope', guestFallback: 'Our guest' });
     Object.assign(translations.es, { coverTop: 'La boda de Keily y Nathan', coverTitle: 'Te invitamos', recipientLabel: 'Para:', flipLabel: 'Toca para voltear el sobre', guestFallback: 'Nuestros invitados' });
     Object.assign(translations.ko, { coverTop: 'Keily & Nathan의 결혼식', coverTitle: '초대합니다', recipientLabel: '받는 분:', flipLabel: '봉투를 눌러 뒤집어 주세요', guestFallback: '소중한 손님' });
@@ -351,7 +356,7 @@
       sponsorRingsTitle: 'Rings', sponsorRingsText: 'Blessed during Mass, our rings symbolize eternal love and fidelity while honoring the union of our families and the faith we share.',
       sponsorCoinsTitle: 'Coins', sponsorCoinsText: 'The groom offers the bride 13 blessed gold coins, recalling Christ and the twelve apostles and promising support and shared prosperity.',
       attireKicker: 'Dress for the celebration', attireTitle: 'Required Attire', attireIntro: "We'd love to celebrate with everyone dressed in our wedding colors.",
-      attireWomenTitle: 'Women', attireWomenText: 'Please wear royal blue.', attireMenTitle: 'Men', attireMenText: 'Please wear a black suit or tuxedo with a royal blue tie or bow tie.'
+      attireWomenTitle: 'Women', attireWomenText: 'Please wear royal blue.', attireMenTitle: 'Men', attireMenText: 'Please wear a black suit or tuxedo with a royal blue tie or bow tie, or a royal blue dress shirt with black slacks.'
     });
     Object.assign(translations.es, {
       parentsKicker: 'El amor que nos trajo hasta aquí', parentsTitle: 'Nuestros Padres', parentsIntro: 'Con todo nuestro cariño, honramos a las familias que nos criaron y forman parte de nuestra historia.',
@@ -363,7 +368,7 @@
       sponsorRingsTitle: 'Anillos', sponsorRingsText: 'Bendecidos durante la misa, nuestros anillos simbolizan amor eterno y fidelidad, y honran la unión de nuestras familias y la fe que compartimos.',
       sponsorCoinsTitle: 'Arras', sponsorCoinsText: 'El novio entrega a la novia 13 monedas de oro bendecidas, en recuerdo de Cristo y los doce apóstoles, como promesa de apoyo y prosperidad compartida.',
       attireKicker: 'Viste para celebrar', attireTitle: 'Código de vestimenta', attireIntro: 'Nos encantará celebrar con todos vestidos con los colores de nuestra boda.',
-      attireWomenTitle: 'Mujeres', attireWomenText: 'Por favor, vistan de azul rey.', attireMenTitle: 'Hombres', attireMenText: 'Por favor, usen traje negro o esmoquin con corbata o moño azul rey.'
+      attireWomenTitle: 'Mujeres', attireWomenText: 'Por favor, vistan de azul rey.', attireMenTitle: 'Hombres', attireMenText: 'Por favor, usen traje negro o esmoquin con corbata o moño azul rey, o camisa de vestir azul rey con pantalón de vestir negro.'
     });
     Object.assign(translations.ko, {
       parentsKicker: '오늘의 저희를 있게 한 사랑', parentsTitle: '저희 부모님', parentsIntro: '저희를 키워 주시고 지금의 이야기를 만들어 주신 가족에게 사랑과 감사를 전합니다.',
@@ -375,7 +380,7 @@
       sponsorRingsTitle: '결혼반지', sponsorRingsText: '미사 중 축복받은 반지는 영원한 사랑과 신의를 상징하며, 두 가족의 결합과 함께 나누는 믿음을 기립니다.',
       sponsorCoinsTitle: '혼인 동전', sponsorCoinsText: '신랑이 신부에게 건네는 축복받은 금화 13개는 그리스도와 열두 사도를 떠올리게 하며, 서로 돕고 풍요를 나누겠다는 약속을 담습니다.',
       attireKicker: '함께 빛나는 날', attireTitle: '필수 복장 안내', attireIntro: '결혼식 색상에 맞춰 함께해 주시면 감사하겠습니다.',
-      attireWomenTitle: '여성', attireWomenText: '로열 블루 색상 의상을 입어 주세요.', attireMenTitle: '남성', attireMenText: '검은색 정장 또는 턱시도에 로열 블루 넥타이 또는 나비넥타이를 착용해 주세요.'
+      attireWomenTitle: '여성', attireWomenText: '로열 블루 색상 의상을 입어 주세요.', attireMenTitle: '남성', attireMenText: '검은색 정장 또는 턱시도에 로열 블루 넥타이나 나비넥타이를 매시거나, 로열 블루 드레스 셔츠와 검은색 정장 바지를 입어 주세요.'
     });
     function updateEnvelopePrompt() {
       const prompt = translations[document.documentElement.lang][envelopeFlipped ? 'tapLabel' : 'flipLabel'];
