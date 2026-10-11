@@ -72,7 +72,7 @@
     .story-gallery figcaption { padding: 9px 4px 0; color: #735c54; font-size: 17px; font-style: italic; }
     .story-song { max-width: 620px; margin: 46px auto 0; padding: 22px; background: rgba(255,253,248,.7); border: 1px solid rgba(173,97,75,.2); }
     .story-song p { margin: 0 0 14px; color: var(--clay); font-size: 23px; font-style: italic; }
-    .story-song iframe { display: block; width: 100%; max-width: 100%; height: 152px; border: 0; border-radius: 12px; }
+    .story-song audio { display: block; width: 100%; max-width: 100%; }
     .story-song a { display: inline-block; margin-top: 14px; color: var(--clay); text-underline-offset: 3px; }
     .photo-caption { max-width: 500px; margin: 30px auto 0; font-size: 25px; }
     .detail-grid { max-width: 930px; margin: 25px auto 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
@@ -281,7 +281,7 @@
       </div>
       <div class="story-song">
         <p data-key="storySongIntro">The song that played when Nathan proposed</p>
-        <iframe title="Hermoso Cariño by Vicente Fernández on Spotify" src="https://open.spotify.com/embed/track/6UN6W5tj0qrMYV8N9MQMJC" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        <audio controls preload="none" aria-label="Hermoso Cariño by Vicente Fernández"><source src="images/hermoso-carino.mp3" type="audio/mpeg"></audio>
         <a href="https://open.spotify.com/track/6UN6W5tj0qrMYV8N9MQMJC" target="_blank" rel="noopener noreferrer" data-key="storySongLink">Listen on Spotify</a>
       </div>
       <div class="story-gallery" aria-label="Photos from our story">
