@@ -63,20 +63,39 @@
     .story-photo img { display: block; width: 100%; height: auto; }
     .story-layout .card { width: 100%; }
     .story-layout .card .story-copy { font-size: 19px; line-height: 1.5; text-align: left; }
-    .story-gallery { width: min(100%, 1120px); margin: 50px auto 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
-    .story-gallery figure { min-width: 0; margin: 0; background: #fffdf8; padding: 8px 8px 12px; border: 1px solid rgba(173,97,75,.19); box-shadow: 0 12px 32px rgba(77,61,51,.09); }
-    .story-gallery figure:nth-child(2n) { transform: rotate(1deg); }
-    .story-gallery figure:nth-child(3n) { transform: rotate(-1deg); }
-    .story-gallery img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #f1eae3; }
-    .story-gallery .story-landscape img { object-fit: contain; }
-    .story-gallery figcaption { padding: 9px 4px 0; color: #735c54; font-size: 17px; font-style: italic; }
+    .story-gallery { width: min(100%, 850px); margin: 50px auto 0; padding: 12px 12px 20px; background: #fffdf8; border: 1px solid rgba(173,97,75,.19); box-shadow: 0 18px 48px rgba(77,61,51,.13); }
+    .slideshow-stage { position: relative; aspect-ratio: 3 / 2; min-height: 320px; overflow: hidden; background: #ece8e3; }
+    .slideshow-stage figure { position: absolute; inset: 0; margin: 0; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .85s ease, visibility 0s linear .85s; }
+    .slideshow-stage figure.is-active { opacity: 1; visibility: visible; transition: opacity .85s ease; }
+    .slideshow-stage img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .slideshow-stage figcaption { position: absolute; inset: auto 0 0; padding: 35px 12px 15px; background: linear-gradient(transparent,rgba(25,29,31,.68)); color: #fff; font-size: clamp(19px, 3vw, 26px); font-style: italic; text-shadow: 0 1px 4px rgba(0,0,0,.6); }
+    .slideshow-controls { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 17px; }
+    .slideshow-controls button { min-width: 44px; min-height: 44px; padding: 5px 12px; color: var(--clay); background: #fff; border: 1px solid rgba(173,97,75,.5); border-radius: 50%; cursor: pointer; font-size: 20px; }
+    .slideshow-controls button:hover, .slideshow-controls button:focus-visible { color: #fff; background: var(--clay); }
+    .slideshow-controls .slide-pause { min-width: 98px; border-radius: 24px; font-size: 16px; }
+    .slideshow-count { min-width: 72px; font-size: 18px; font-variant-numeric: tabular-nums; }
     .story-song { max-width: 620px; margin: 46px auto 0; padding: 22px; background: rgba(255,253,248,.7); border: 1px solid rgba(173,97,75,.2); }
     .story-song p { margin: 0 0 14px; color: var(--clay); font-size: 23px; font-style: italic; }
-    .story-song audio { display: block; width: 100%; max-width: 100%; }
-    .story-song a { display: inline-block; margin-top: 14px; color: var(--clay); text-underline-offset: 3px; }
+    .music-player { display: flex; align-items: center; justify-content: center; gap: 19px; }
+    .music-toggle { flex: none; display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; border: 2px solid #fff; background: #c78688; color: #fff; box-shadow: 0 0 0 1px #c78688, 0 5px 16px #ad614b33; cursor: pointer; }
+    .music-toggle:focus-visible { outline: 3px solid var(--clay); outline-offset: 5px; }
+    .music-toggle .play-icon { width: 0; height: 0; margin-left: 4px; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 16px solid currentColor; }
+    .music-toggle[aria-pressed="true"] .play-icon { width: 15px; height: 19px; margin-left: 0; border: 0; border-left: 5px solid currentColor; border-right: 5px solid currentColor; }
+    .music-wave { height: 42px; display: flex; align-items: center; gap: 3px; color: #bd7a7d; }
+    .music-wave i { width: 3px; height: var(--bar-height); border-radius: 8px; background: currentColor; transform-origin: center; }
+    .music-player.is-playing .music-wave i { animation: music-pulse .75s ease-in-out infinite alternate; animation-delay: calc(var(--bar-index) * -90ms); }
+    @keyframes music-pulse { to { transform: scaleY(.4); } }
+    .music-caption { display: block; margin-top: 12px; color: #735c54; font-size: 17px; letter-spacing: .08em; }
     .photo-caption { max-width: 500px; margin: 30px auto 0; font-size: 25px; }
     .detail-grid { max-width: 930px; margin: 25px auto 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
     .detail-date { max-width: 930px; margin: 0 auto; padding: 26px 25px; }
+    .calendar-card { width: min(100%, 390px); margin: 20px auto 14px; padding: 24px clamp(15px, 5vw, 31px) 27px; color: #fffaf0; background: radial-gradient(circle at 7% 6%, #ffffff14, transparent 48%), repeating-linear-gradient(35deg, #ffffff08 0 1px, transparent 1px 6px), #718579; box-shadow: 0 11px 28px #23312830; }
+    .calendar-month { display: block; margin-bottom: 14px; font-family: 'Great Vibes', 'Cormorant Garamond', serif; font-size: 52px; line-height: 1.05; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); align-items: center; gap: 4px 0; }
+    .calendar-grid > span, .calendar-grid > time { display: grid; place-items: center; min-height: 38px; font-size: 19px; font-variant-numeric: tabular-nums; }
+    .calendar-grid .weekday { min-height: 34px; font-size: 16px; font-weight: 600; border-bottom: 1px solid #fff9; }
+    .calendar-grid .wedding-day { position: relative; font-weight: 600; isolation: isolate; }
+    .wedding-day svg { position: absolute; z-index: -1; width: 51px; height: 49px; overflow: visible; fill: none; stroke: #f6d6cb; stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; transform: rotate(-8deg) translateY(-1px); }
     .detail-card { padding: 45px 25px; background: rgba(255,253,248,.82); border: 1px solid rgba(173,97,75,.2); }
     .detail-card .detail-icon { color: var(--clay); font-size: 34px; }
     .detail-card h3 { font-size: 33px; margin: 10px 0; font-weight: 500; }
@@ -92,10 +111,16 @@
     .map-frame .map-label { display: block; margin-top: 16px; color: var(--clay); font-size: 15px; letter-spacing: .16em; text-transform: uppercase; }
     .map-link { display: inline-block; margin-top: 9px; padding: 9px 18px; border: 1px solid var(--clay); color: var(--clay); background: rgba(255,253,248,.76); font-size: 19px; text-decoration: none; }
     .map-link:hover, .map-link:focus-visible { background: var(--clay); color: #fff; }
-    .timeline { max-width: 650px; margin: 15px auto 0; padding: 10px 0; border-left: 1px solid rgba(173,97,75,.47); text-align: left; }
-    .timeline-item { position: relative; margin: 24px 0; padding-left: 28px; }
-    .timeline-item::before { content: ''; position: absolute; top: 12px; left: -6px; width: 11px; height: 11px; border-radius: 50%; background: var(--clay); }
-    .timeline-item h3 { margin: 0; font-size: 31px; font-weight: 500; }
+    .timeline { position: relative; max-width: 640px; margin: 10px auto; padding: 18px 0; }
+    .timeline::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: #ad8751; }
+    .timeline-item { position: relative; width: 50%; min-height: 145px; padding: 22px 32px; text-align: right; }
+    .timeline-item:nth-child(even) { margin-left: 50%; text-align: left; }
+    .timeline-item::before { content: ''; position: absolute; top: 44px; right: -6px; width: 11px; height: 11px; border: 1px solid #ad8751; border-radius: 50%; background: #fffdf8; z-index: 1; }
+    .timeline-item:nth-child(even)::before { right: auto; left: -6px; }
+    .timeline-item::after { content: ''; position: absolute; top: 49px; right: 0; width: 23px; height: 1px; background: #ad8751; }
+    .timeline-item:nth-child(even)::after { right: auto; left: 0; }
+    .timeline-time { display: block; color: #a4774c; font-size: 18px; letter-spacing: .08em; }
+    .timeline-item h3 { margin: 5px 0; font-size: 31px; font-weight: 500; }
     .timeline-item p { margin: 2px 0; color: #735c54; font-size: 18px; }
     .section-intro { max-width: 650px; margin: -4px auto 30px; line-height: 1.45; }
     .parents-grid { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
@@ -164,7 +189,7 @@
     .rsvp-status { color: var(--clay); min-height: 30px; }
     footer { background: var(--sand); padding: 55px 20px; text-align: center; }
     footer p { margin: 8px; }
-    @media (max-width: 1050px) { .sponsors-grid { max-width: 650px; grid-template-columns: 1fr; } .story-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 1050px) { .sponsors-grid { max-width: 650px; grid-template-columns: 1fr; } }
     @media (max-width: 600px) {
       header { padding: 14px 16px; }
       .brand { font-size: 17px; }
@@ -174,9 +199,10 @@
       .story-photos { max-width: 420px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 0 auto 24px; }
       .story-photo { width: 100%; border-width: 5px; }
       .story-photo:nth-child(3) { grid-column: 1 / -1; width: min(65%, 210px); justify-self: center; }
-      .story-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 36px; }
-      .story-gallery figure { padding: 5px 5px 9px; }
-      .story-gallery figcaption { font-size: 16px; }
+      .story-gallery { padding: 6px 6px 14px; margin-top: 36px; }
+      .slideshow-stage { aspect-ratio: 4 / 5; min-height: 0; }
+      .slideshow-controls { gap: 9px; }
+      .slideshow-count { min-width: 55px; }
       .hero { padding: 26px 14px; min-height: 78vh; }
       .hero-paper { padding: 94px 28px 100px; }
       .hero h1 { font-size: clamp(58px, 15vw, 78px); }
@@ -196,6 +222,10 @@
       .photo-frame.family-photo { width: min(330px, 78vw); }
       .parents-grid, .sponsors-grid, .attire-grid { grid-template-columns: 1fr; }
       .sponsor-card .sponsor-names { white-space: normal; }
+      .timeline::before { left: 8px; }
+      .timeline-item, .timeline-item:nth-child(even) { width: auto; margin-left: 8px; padding: 20px 6px 25px 30px; min-height: 116px; text-align: left; }
+      .timeline-item::before, .timeline-item:nth-child(even)::before { left: -5px; right: auto; }
+      .timeline-item::after, .timeline-item:nth-child(even)::after { left: 0; right: auto; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
   </style>
@@ -281,32 +311,58 @@
       </div>
       <div class="story-song">
         <p data-key="storySongIntro">The song that played when Nathan proposed</p>
-        <audio controls preload="none" aria-label="Hermoso Cariño by Vicente Fernández"><source src="images/hermoso-carino.mp3" type="audio/mpeg"></audio>
-        <a href="https://open.spotify.com/track/6UN6W5tj0qrMYV8N9MQMJC" target="_blank" rel="noopener noreferrer" data-key="storySongLink">Listen on Spotify</a>
+        <div class="music-player" id="musicPlayer">
+          <button type="button" class="music-toggle" id="musicToggle" aria-label="Play Hermoso Cariño" aria-pressed="false"><span class="play-icon" aria-hidden="true"></span></button>
+          <span class="music-wave" aria-hidden="true"></span>
+        </div>
+        <span class="music-caption" id="musicCaption" data-key="musicPlayHint">Tap to play · Hermoso Cariño</span>
+        <audio id="proposalSong" preload="none"><source src="images/hermoso-carino.mp3" type="audio/mpeg"></audio>
       </div>
-      <div class="story-gallery" aria-label="Photos from our story">
-        <figure><img src="images/garden.jpg" alt="Keily and Nathan smiling beside a garden waterfall" loading="lazy" decoding="async"><figcaption data-key="galleryGarden">Little adventures</figcaption></figure>
-        <figure><img src="images/anniversary.jpg" alt="A close selfie of Keily and Nathan" loading="lazy" decoding="async"><figcaption data-key="galleryAnniversary">The two of us</figcaption></figure>
-        <figure><img src="images/christmas.jpg" alt="Keily and Nathan beside a lit Christmas tree" loading="lazy" decoding="async"><figcaption data-key="galleryChristmas">Holiday lights</figcaption></figure>
-        <figure><img src="images/car.jpg" alt="Keily and Nathan smiling together in a car" loading="lazy" decoding="async"><figcaption data-key="galleryCar">Everyday moments</figcaption></figure>
-        <figure><img src="images/birthday.jpg" alt="Keily and Nathan making playful faces in a photo booth" loading="lazy" decoding="async"><figcaption data-key="galleryBirthday">A little silliness</figcaption></figure>
-        <figure class="story-landscape"><img src="images/club.jpg" alt="Keily and Nathan together on a night out" loading="lazy" decoding="async"><figcaption data-key="galleryClub">Nights out together</figcaption></figure>
-        <figure><img src="images/comedy.jpg" alt="Nathan outside a comedy club" loading="lazy" decoding="async"><figcaption data-key="galleryComedy">A night of laughter</figcaption></figure>
-        <figure><img src="images/ed_sheeran.jpg" alt="Keily and Nathan at a concert" loading="lazy" decoding="async"><figcaption data-key="galleryConcert">Music and memories</figcaption></figure>
-        <figure class="story-landscape"><img src="images/enchant.jpg" alt="Keily and Nathan smiling beside festive lights" loading="lazy" decoding="async"><figcaption data-key="galleryEnchant">Under the lights</figcaption></figure>
-        <figure><img src="images/grandma_birthday.png" alt="Keily and Nathan dancing together at a family celebration" loading="lazy" decoding="async"><figcaption data-key="galleryGrandma">Family celebrations</figcaption></figure>
-        <figure><img src="images/hurricane.jpg" alt="Keily and Nathan enjoying a sunny day together" loading="lazy" decoding="async"><figcaption data-key="galleryHurricane">Sunny days together</figcaption></figure>
-        <figure class="story-landscape"><img src="images/kanye.jpg" alt="A selfie of Keily and Nathan together" loading="lazy" decoding="async"><figcaption data-key="galleryKanye">Just us</figcaption></figure>
-        <figure><img src="images/kathy_birthday.jpg" alt="Keily and Nathan dressed up at a celebration" loading="lazy" decoding="async"><figcaption data-key="galleryKathy">More reasons to celebrate</figcaption></figure>
-        <figure class="story-landscape"><img src="images/lake.jpg" alt="Keily and Nathan with family on a boat" loading="lazy" decoding="async"><figcaption data-key="galleryLake">Days with family</figcaption></figure>
-        <figure class="story-landscape"><img src="images/mom_university.jpg" alt="Keily and Nathan with Keily’s mother at a celebration" loading="lazy" decoding="async"><figcaption data-key="galleryMom">Together with family</figcaption></figure>
-        <figure class="story-landscape"><img src="images/neighborhood.jpg" alt="Nathan in front of a brightly lit concert venue" loading="lazy" decoding="async"><figcaption data-key="galleryNeighborhood">A night to remember</figcaption></figure>
+      <div class="story-gallery" id="storySlideshow" role="region" aria-roledescription="carousel" aria-label="Photos from our story">
+        <div class="slideshow-stage">
+        <figure class="is-active" aria-hidden="false"><img src="images/garden.jpg" alt="Keily and Nathan smiling beside a garden waterfall" loading="lazy" decoding="async"><figcaption data-key="galleryGarden">Little adventures</figcaption></figure>
+        <figure aria-hidden="true"><img src="images/anniversary.jpg" alt="A close selfie of Keily and Nathan" loading="lazy" decoding="async"><figcaption data-key="galleryAnniversary">The two of us</figcaption></figure>
+        <figure aria-hidden="true"><img src="images/christmas.jpg" alt="Keily and Nathan beside a lit Christmas tree" loading="lazy" decoding="async"><figcaption data-key="galleryChristmas">Holiday lights</figcaption></figure>
+        <figure aria-hidden="true"><img src="images/car.jpg" alt="Keily and Nathan smiling together in a car" loading="lazy" decoding="async"><figcaption data-key="galleryCar">Everyday moments</figcaption></figure>
+        <figure aria-hidden="true"><img src="images/birthday.jpg" alt="Keily and Nathan making playful faces in a photo booth" loading="lazy" decoding="async"><figcaption data-key="galleryBirthday">A little silliness</figcaption></figure>
+        <figure aria-hidden="true" class="story-landscape"><img src="images/club.jpg" alt="Keily and Nathan together on a night out" loading="lazy" decoding="async"><figcaption data-key="galleryClub">Nights out together</figcaption></figure>
+        <figure aria-hidden="true"><img src="images/comedy.jpg" alt="Nathan outside a comedy club" loading="lazy" decoding="async"><figcaption data-key="galleryComedy">A night of laughter</figcaption></figure>
+        <figure aria-hidden="true"><img src="images/ed_sheeran.jpg" alt="Keily and Nathan at a concert" loading="lazy" decoding="async"><figcaption data-key="galleryConcert">Music and memories</figcaption></figure>
+        <figure aria-hidden="true" class="story-landscape"><img src="images/enchant.jpg" alt="Keily and Nathan smiling beside festive lights" loading="lazy" decoding="async"><figcaption data-key="galleryEnchant">Under the lights</figcaption></figure>
+        <figure aria-hidden="true"><img src="images/grandma_birthday.png" alt="Keily and Nathan dancing together at a family celebration" loading="lazy" decoding="async"><figcaption data-key="galleryGrandma">Family celebrations</figcaption></figure>
+        <figure aria-hidden="true"><img src="images/hurricane.jpg" alt="Keily and Nathan enjoying a sunny day together" loading="lazy" decoding="async"><figcaption data-key="galleryHurricane">Sunny days together</figcaption></figure>
+        <figure aria-hidden="true" class="story-landscape"><img src="images/kanye.jpg" alt="A selfie of Keily and Nathan together" loading="lazy" decoding="async"><figcaption data-key="galleryKanye">Just us</figcaption></figure>
+        <figure aria-hidden="true"><img src="images/kathy_birthday.jpg" alt="Keily and Nathan dressed up at a celebration" loading="lazy" decoding="async"><figcaption data-key="galleryKathy">More reasons to celebrate</figcaption></figure>
+        <figure aria-hidden="true" class="story-landscape"><img src="images/lake.jpg" alt="Keily and Nathan with family on a boat" loading="lazy" decoding="async"><figcaption data-key="galleryLake">Days with family</figcaption></figure>
+        <figure aria-hidden="true" class="story-landscape"><img src="images/mom_university.jpg" alt="Keily and Nathan with Keily’s mother at a celebration" loading="lazy" decoding="async"><figcaption data-key="galleryMom">Together with family</figcaption></figure>
+        <figure aria-hidden="true" class="story-landscape"><img src="images/neighborhood.jpg" alt="Nathan in front of a brightly lit concert venue" loading="lazy" decoding="async"><figcaption data-key="galleryNeighborhood">A night to remember</figcaption></figure>
+        </div>
+        <div class="slideshow-controls">
+          <button type="button" id="slidePrevious" aria-label="Previous photo">‹</button>
+          <span class="slideshow-count" id="slideCount" aria-live="off">1 / 16</span>
+          <button type="button" class="slide-pause" id="slidePause" aria-label="Pause slideshow">Pause</button>
+          <button type="button" id="slideNext" aria-label="Next photo">›</button>
+        </div>
       </div>
     </section>
     <section>
       <p class="section-kicker" data-key="detailsKicker">The celebration</p>
       <h2 data-key="detailsTitle">Wedding Details</h2>
-      <div class="detail-card detail-date"><div class="detail-icon" aria-hidden="true">✦</div><h3 data-key="dateTitle">The Date</h3><p data-key="dateText">June 4, 2027</p></div>
+      <div class="detail-card detail-date">
+        <div class="detail-icon" aria-hidden="true">✦</div><h3 data-key="dateTitle">The Date</h3>
+        <div class="calendar-card" role="img" aria-label="June 2027 calendar; wedding on Friday, June 4">
+          <span class="calendar-month" data-key="calendarMonth">June 2027</span>
+          <div class="calendar-grid" aria-hidden="true">
+            <span class="weekday" data-key="calMon">M</span><span class="weekday" data-key="calTue">T</span><span class="weekday" data-key="calWed">W</span><span class="weekday" data-key="calThu">T</span><span class="weekday" data-key="calFri">F</span><span class="weekday" data-key="calSat">S</span><span class="weekday" data-key="calSun">S</span>
+            <span></span><span>1</span><span>2</span><span>3</span><time class="wedding-day" datetime="2027-06-04">4<svg viewBox="0 0 55 52" aria-hidden="true"><path d="M27.5 46 C16 37 3 26 4 16 C5 3 21 2 27.5 13 C34 2 50 3 51 16 C52 26 39 37 27.5 46 Z"/></svg></time><span>5</span><span>6</span>
+            <span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span>
+            <span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+            <span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span>
+            <span>28</span><span>29</span><span>30</span>
+          </div>
+        </div>
+        <p data-key="dateText">June 4, 2027</p>
+      </div>
       <div class="detail-grid">
         <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="massTitle">The Mass</h3><p class="location-name">Our Lady of Guadalupe Parish</p><p data-key="massText">12:00 PM</p>
           <div class="map-frame">
@@ -347,9 +403,9 @@
       <h2 data-key="timelineTitle">Our Day</h2>
       <div class="card">
         <div class="timeline">
-          <div class="timeline-item"><h3 data-key="timelineOne">The Mass</h3><p data-key="massTimeline">12:00 PM · Our Lady of Guadalupe Parish</p></div>
-          <div class="timeline-item"><h3 data-key="timelineTwo">A Celebration Together</h3><p data-key="timeSoon">Time and place to come</p></div>
-          <div class="timeline-item"><h3 data-key="timelineThree">Dancing &amp; Memories</h3><p data-key="timeSoon">Time and place to come</p></div>
+          <div class="timeline-item"><span class="timeline-time" data-key="massText">12:00 PM</span><h3 data-key="timelineOne">The Mass</h3><p>Our Lady of Guadalupe Parish</p></div>
+          <div class="timeline-item"><span class="timeline-time" data-key="timelinePending">Time to be announced</span><h3 data-key="timelineTwo">Reception</h3><p>Rancho Casillas</p></div>
+          <div class="timeline-item"><span class="timeline-time" data-key="timelinePending">Time to be announced</span><h3 data-key="timelineThree">Dancing &amp; Memories</h3><p data-key="timelineThreeText">Celebrate with us on the dance floor</p></div>
         </div>
       </div>
     </section>
@@ -453,9 +509,12 @@
     Object.assign(translations.ko, {
       galleryBirthday: '장난스러운 순간', galleryClub: '함께한 밤 외출', galleryComedy: '웃음 가득한 밤', galleryConcert: '음악과 추억', galleryEnchant: '불빛 아래에서', galleryGrandma: '가족의 기쁜 날', galleryHurricane: '함께한 화창한 날', galleryKanye: '우리 둘만의 순간', galleryKathy: '또 하나의 축하할 날', galleryLake: '가족과 함께한 날', galleryMom: '가족과 함께', galleryNeighborhood: '기억에 남을 밤'
     });
-    Object.assign(translations.en, { storySongIntro: 'The song that played when Nathan proposed', storySongLink: 'Listen on Spotify' });
-    Object.assign(translations.es, { storySongIntro: 'La canción que sonó cuando Nathan le pidió matrimonio a Keily', storySongLink: 'Escuchar en Spotify' });
-    Object.assign(translations.ko, { storySongIntro: '네이선이 케일리에게 청혼했을 때 흘러나온 노래', storySongLink: 'Spotify에서 듣기' });
+    Object.assign(translations.en, { storySongIntro: 'The song that played when Nathan proposed', musicPlayHint: 'Tap to play · Hermoso Cariño', musicPauseHint: 'Tap to pause · Hermoso Cariño', musicPlayLabel: 'Play Hermoso Cariño', musicPauseLabel: 'Pause Hermoso Cariño', calendarMonth: 'June 2027', calendarLabel: 'June 2027 calendar; wedding on Friday, June 4', calMon: 'M', calTue: 'T', calWed: 'W', calThu: 'T', calFri: 'F', calSat: 'S', calSun: 'S', timelinePending: 'Time to be announced', timelineTwo: 'Reception', timelineThreeText: 'Celebrate with us on the dance floor' });
+    Object.assign(translations.es, { storySongIntro: 'La canción que sonó cuando Nathan le pidió matrimonio a Keily', musicPlayHint: 'Toca para escuchar · Hermoso Cariño', musicPauseHint: 'Toca para pausar · Hermoso Cariño', musicPlayLabel: 'Reproducir Hermoso Cariño', musicPauseLabel: 'Pausar Hermoso Cariño', calendarMonth: 'Junio 2027', calendarLabel: 'Calendario de junio de 2027; boda el viernes 4 de junio', calMon: 'L', calTue: 'M', calWed: 'M', calThu: 'J', calFri: 'V', calSat: 'S', calSun: 'D', timelinePending: 'Horario por confirmar', timelineTwo: 'Recepción', timelineThreeText: 'Celebren con nosotros en la pista de baile' });
+    Object.assign(translations.ko, { storySongIntro: '네이선이 케일리에게 청혼했을 때 흘러나온 노래', musicPlayHint: '눌러서 재생 · Hermoso Cariño', musicPauseHint: '눌러서 일시정지 · Hermoso Cariño', musicPlayLabel: 'Hermoso Cariño 재생', musicPauseLabel: 'Hermoso Cariño 일시정지', calendarMonth: '2027년 6월', calendarLabel: '2027년 6월 달력, 결혼식은 6월 4일 금요일', calMon: '월', calTue: '화', calWed: '수', calThu: '목', calFri: '금', calSat: '토', calSun: '일', timelinePending: '시간 추후 안내', timelineTwo: '피로연', timelineThreeText: '댄스 플로어에서 함께 축하해 주세요' });
+    Object.assign(translations.en, { slideRegion: 'Photos from our story', slidePrevious: 'Previous photo', slideNext: 'Next photo', slidePause: 'Pause', slidePlay: 'Play', slidePauseLabel: 'Pause slideshow', slidePlayLabel: 'Play slideshow' });
+    Object.assign(translations.es, { slideRegion: 'Fotos de nuestra historia', slidePrevious: 'Foto anterior', slideNext: 'Foto siguiente', slidePause: 'Pausar', slidePlay: 'Reproducir', slidePauseLabel: 'Pausar presentación', slidePlayLabel: 'Reproducir presentación' });
+    Object.assign(translations.ko, { slideRegion: '우리 이야기의 사진', slidePrevious: '이전 사진', slideNext: '다음 사진', slidePause: '일시정지', slidePlay: '재생', slidePauseLabel: '사진 슬라이드쇼 일시정지', slidePlayLabel: '사진 슬라이드쇼 재생' });
     Object.assign(translations.en, {
       parentsKicker: 'The love that brought us here', parentsTitle: 'Our Parents', parentsIntro: 'With all our love, we honor the families who raised us and shaped our story.',
       brideParentsTitle: 'Parents of the Bride', brideParentsText: 'Your love has been part of every step that led Keily here.',
@@ -492,6 +551,30 @@
       attireKicker: '함께 빛나는 날', attireTitle: '필수 복장 안내', attireIntro: '결혼식 색상에 맞춰 함께해 주시면 감사하겠습니다.',
       attireWomenTitle: '여성', attireWomenColor: '특별한 날을 위한 로열 블루 드레스', attireWomenLength: '미니 드레스를 제외하고 길이는 자유롭게 선택해 주세요', attireMenTitle: '남성', attireMenSuit: '검은색 정장 또는 턱시도에 로열 블루 넥타이나 나비넥타이', attireMenShirt: '또는 로열 블루 드레스 셔츠에 검은색 정장 바지'
     });
+    let slideshowReady = false;
+    const proposalSong = document.getElementById('proposalSong');
+    const musicToggle = document.getElementById('musicToggle');
+    const musicPlayer = document.getElementById('musicPlayer');
+    const musicWave = musicPlayer.querySelector('.music-wave');
+    [10, 19, 28, 14, 35, 21, 12, 30, 38, 18, 25, 12, 32, 20, 11, 27, 15, 33, 17, 9].forEach((height, index) => {
+      const bar = document.createElement('i');
+      bar.style.setProperty('--bar-height', `${height}px`);
+      bar.style.setProperty('--bar-index', index);
+      musicWave.append(bar);
+    });
+    function updateMusicUI() {
+      const playing = !proposalSong.paused && !proposalSong.ended;
+      const words = translations[document.documentElement.lang];
+      musicToggle.setAttribute('aria-pressed', String(playing));
+      musicToggle.setAttribute('aria-label', words[playing ? 'musicPauseLabel' : 'musicPlayLabel']);
+      document.getElementById('musicCaption').textContent = words[playing ? 'musicPauseHint' : 'musicPlayHint'];
+      musicPlayer.classList.toggle('is-playing', playing);
+    }
+    musicToggle.addEventListener('click', async () => {
+      if (!proposalSong.paused) { proposalSong.pause(); return; }
+      try { await proposalSong.play(); } catch (_) { updateMusicUI(); }
+    });
+    ['play', 'pause', 'ended'].forEach(event => proposalSong.addEventListener(event, updateMusicUI));
     function updateEnvelopePrompt() {
       const prompt = translations[document.documentElement.lang][envelopeFlipped ? 'tapLabel' : 'flipLabel'];
       document.querySelector('.tap-label').textContent = prompt;
@@ -512,6 +595,9 @@
         document.getElementById('householdGreeting').textContent = translations[lang].greeting.replace('{name}', loadedInvite.household_name).replace('{count}', loadedInvite.max_guests);
       }
       updateCountdown();
+      document.querySelector('.calendar-card').setAttribute('aria-label', translations[lang].calendarLabel);
+      updateMusicUI();
+      if (slideshowReady) updateSlideshowUI();
     }
     const weddingStart = Date.parse('2027-06-04T12:00:00-07:00');
     const weddingEnd = Date.parse('2027-06-05T00:00:00-07:00');
@@ -575,6 +661,55 @@
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) finish();
       else window.setTimeout(finish, 1700);
     });
+    const slideshow = document.getElementById('storySlideshow');
+    const slides = [...slideshow.querySelectorAll('.slideshow-stage figure')];
+    const slidePauseButton = document.getElementById('slidePause');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let slideIndex = 0;
+    let slideVisible = false;
+    let slideHovered = false;
+    let slidePaused = reducedMotion.matches;
+    let slideTimer = null;
+    function updateSlideshowUI() {
+      const words = translations[document.documentElement.lang];
+      slideshow.setAttribute('aria-label', words.slideRegion);
+      document.getElementById('slideCount').textContent = `${slideIndex + 1} / ${slides.length}`;
+      document.getElementById('slidePrevious').setAttribute('aria-label', words.slidePrevious);
+      document.getElementById('slideNext').setAttribute('aria-label', words.slideNext);
+      slidePauseButton.textContent = slidePaused ? words.slidePlay : words.slidePause;
+      slidePauseButton.setAttribute('aria-label', slidePaused ? words.slidePlayLabel : words.slidePauseLabel);
+    }
+    function showSlide(index) {
+      slideIndex = (index + slides.length) % slides.length;
+      slides.forEach((slide, position) => {
+        const active = position === slideIndex;
+        slide.classList.toggle('is-active', active);
+        slide.setAttribute('aria-hidden', String(!active));
+      });
+      slides[slideIndex].querySelector('img').loading = 'eager';
+      slides[(slideIndex + 1) % slides.length].querySelector('img').loading = 'eager';
+      updateSlideshowUI();
+    }
+    function refreshSlideshow() {
+      if (slideTimer) window.clearInterval(slideTimer);
+      slideTimer = null;
+      if (slideVisible && !document.hidden && !slidePaused && !slideHovered && !document.body.classList.contains('invitation-closed')) {
+        slideTimer = window.setInterval(() => showSlide(slideIndex + 1), 4800);
+      }
+    }
+    document.getElementById('slidePrevious').addEventListener('click', () => { showSlide(slideIndex - 1); refreshSlideshow(); });
+    document.getElementById('slideNext').addEventListener('click', () => { showSlide(slideIndex + 1); refreshSlideshow(); });
+    slidePauseButton.addEventListener('click', () => { slidePaused = !slidePaused; updateSlideshowUI(); refreshSlideshow(); });
+    slideshow.addEventListener('mouseenter', () => { slideHovered = true; refreshSlideshow(); });
+    slideshow.addEventListener('mouseleave', () => { slideHovered = false; refreshSlideshow(); });
+    document.addEventListener('visibilitychange', refreshSlideshow);
+    reducedMotion.addEventListener('change', event => { if (event.matches) slidePaused = true; updateSlideshowUI(); refreshSlideshow(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(entries => { slideVisible = entries[0].isIntersecting; refreshSlideshow(); }, { threshold: 0.25 }).observe(slideshow);
+    } else { slideVisible = true; }
+    slideshowReady = true;
+    showSlide(0);
+    refreshSlideshow();
     const statusLine = document.getElementById('rsvpStatus');
     const attendance = document.getElementById('attendance');
     const guestDetails = document.getElementById('guestDetails');
