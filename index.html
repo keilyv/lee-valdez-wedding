@@ -31,6 +31,7 @@
     h1 span { display: block; font-size: .42em; margin: 10px 0; }
     .hero p { margin: 12px auto; max-width: 600px; }
     .hero-date { color: var(--clay); font-size: 24px; letter-spacing: .08em; }
+    .hero .countdown-caption { margin-top: 16px; color: var(--clay); font-size: 17px; letter-spacing: .08em; }
     .countdown { display: flex; justify-content: center; gap: clamp(8px, 2vw, 20px); margin: 24px auto 0; }
     .countdown-unit { min-width: clamp(52px, 11vw, 82px); }
     .countdown-unit strong { display: block; font-size: clamp(30px, 5vw, 44px); font-weight: 400; line-height: 1; font-variant-numeric: tabular-nums; }
@@ -56,6 +57,15 @@
     .story-photo { margin: 0; border: 9px solid white; background: white; box-shadow: 0 18px 40px rgba(77,61,51,.14); transform: rotate(2deg); }
     .story-photo img { display: block; width: 100%; aspect-ratio: .72; object-fit: cover; object-position: center 48%; }
     .story-layout .card { width: 100%; }
+    .story-layout .card .story-copy { font-size: 19px; line-height: 1.5; text-align: left; }
+    .story-gallery { width: min(100%, 1050px); margin: 50px auto 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .story-gallery figure { min-width: 0; margin: 0; background: #fffdf8; padding: 8px 8px 12px; border: 1px solid rgba(173,97,75,.19); box-shadow: 0 12px 32px rgba(77,61,51,.09); }
+    .story-gallery figure:nth-child(2n) { transform: rotate(1deg); }
+    .story-gallery figure:nth-child(3n) { transform: rotate(-1deg); }
+    .story-gallery img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+    .story-gallery .story-wide { grid-column: span 2; }
+    .story-gallery .story-wide img { aspect-ratio: 16 / 9; }
+    .story-gallery figcaption { padding: 10px 6px 0; color: #735c54; font-size: 20px; font-style: italic; }
     .photo-caption { max-width: 500px; margin: 30px auto 0; font-size: 25px; }
     .detail-grid { max-width: 930px; margin: 25px auto 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
     .detail-date { max-width: 930px; margin: 0 auto; padding: 26px 25px; }
@@ -98,7 +108,9 @@
     .attire-swatch { display: block; width: 36px; height: 36px; margin: 0 auto 15px; border-radius: 50%; background: #2850a4; border: 3px solid white; box-shadow: 0 0 0 1px rgba(40,80,164,.4); }
     .attire-swatch.black { background: linear-gradient(120deg,#171719 0 64%,#2850a4 64%); box-shadow: 0 0 0 1px rgba(23,23,25,.35); }
     .attire-card h3 { margin: 0 0 8px; font-size: 32px; font-weight: 500; }
-    .attire-card p { max-width: 320px; margin: 0 auto; line-height: 1.4; }
+    .attire-card ul { max-width: 340px; margin: 14px auto 0; padding: 0; list-style: none; text-align: left; }
+    .attire-card li { position: relative; padding: 7px 0 7px 28px; line-height: 1.35; }
+    .attire-card li::before { content: '✦'; position: absolute; left: 0; top: 8px; color: var(--clay); font-size: 15px; }
     body.invitation-closed { overflow: hidden; }
     .invitation-cover { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; align-items: safe center; overflow-y: auto; padding: 35px 18px; text-align: center; background: repeating-linear-gradient(112deg,rgba(255,255,255,.04) 0 4%,rgba(255,255,255,.55) 7%,rgba(205,188,174,.12) 11%,rgba(255,255,255,.07) 17%), radial-gradient(ellipse at 20% 14%,#fffefb 0%,transparent 51%), radial-gradient(ellipse at 85% 79%,#e5d8d3 0%,transparent 48%), linear-gradient(135deg,#f5f1eb,#e6dfd8 42%,#fffdf7 66%,#e1d4ce); transition: opacity .75s ease .8s, visibility 0s linear 1.6s; }
     .invitation-cover::before { content: ''; position: absolute; inset: -15%; pointer-events: none; transform: rotate(-18deg); background: linear-gradient(90deg,transparent 16%,rgba(255,255,255,.46) 38%,transparent 49%,rgba(177,160,153,.12) 61%,transparent 80%); }
@@ -148,6 +160,9 @@
       main section { padding: 72px 22px; }
       .detail-grid, .story-layout { grid-template-columns: 1fr; }
       .story-photo { max-width: 310px; margin: 0 auto 20px; }
+      .story-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 36px; }
+      .story-gallery figure { padding: 5px 5px 9px; }
+      .story-gallery figcaption { font-size: 16px; }
       .hero { padding: 26px 14px; min-height: 78vh; }
       .hero-paper { padding: 94px 28px 100px; }
       .hero h1 { font-size: clamp(58px, 15vw, 78px); }
@@ -182,7 +197,7 @@
         <span class="envelope" aria-hidden="true">
           <span class="envelope-face envelope-address"><span class="envelope-recipient" id="coverRecipient"><span class="envelope-recipient-name" id="coverRecipientName">Our guest</span></span></span>
           <span class="envelope-face envelope-seal-side">
-            <span class="seal-letter">Keily &amp; Nathan<small data-key="letterText">A celebration of love</small></span>
+            <span class="seal-letter">Keily<span data-key="coupleJoin"> &amp; </span>Nathan<small data-key="letterText">A celebration of love</small></span>
             <span class="seal-closed"></span>
             <img class="envelope-monogram" src="images/k-and-n.png" alt="">
           </span>
@@ -203,11 +218,12 @@
   <div class="hero" id="top">
     <div class="hero-paper">
       <div class="eyebrow" data-key="eyebrow">A celebration of love and family</div>
-      <h1>Keily <span>&amp;</span> Nathan</h1>
+      <h1>Keily <span data-key="andWord">&amp;</span> Nathan</h1>
       <div class="fine-rule"></div>
       <p data-key="invite">Together with our families, we look forward to celebrating with you.</p>
-      <p class="hero-date" data-key="dateText">April 24, 2027</p>
-      <div class="countdown" id="weddingCountdown" role="timer" aria-label="Countdown to April 24, 2027">
+      <p class="hero-date" data-key="dateText">June 4, 2027</p>
+      <p class="countdown-caption" data-key="countdownToMass">Until our 12:00 PM Mass</p>
+      <div class="countdown" id="weddingCountdown" role="timer" aria-label="Countdown to the June 4, 2027 Mass at 12:00 PM Pacific time">
         <div class="countdown-unit"><strong id="daysLeft">0</strong><span data-key="countDays">Days</span></div>
         <div class="countdown-unit"><strong id="hoursLeft">00</strong><span data-key="countHours">Hours</span></div>
         <div class="countdown-unit"><strong id="minutesLeft">00</strong><span data-key="countMinutes">Minutes</span></div>
@@ -233,16 +249,26 @@
         <div class="card">
           <p class="quote">서로 다른 길, 하나의 여정.<br>Different paths, one journey.<br>Diferentes caminos, un mismo destino.</p>
           <div class="fine-rule"></div>
-          <p class="small" data-key="storyText">Our story is coming soon.</p>
+          <p class="story-copy" data-key="storyTextOne">We both worked at Skyworks, but in different buildings, so our paths might never have crossed. Then a pickleball group formed at work, and that's where we met. We knew of each other, but it wasn't until we happened to share a class one semester, in the same master's program at the same university, that we really began to get to know one another.</p>
+          <p class="story-copy" data-key="storyTextTwo">We started spending more time together over schoolwork and games of pickleball. Somewhere between studying and playing, friendship grew into love. Since then, we've shared so many happy moments with each other's families and watched our two worlds become one. We can't wait to celebrate this next chapter with everyone we love.</p>
         </div>
+      </div>
+      <div class="story-gallery" aria-label="Photos from our story">
+        <figure class="story-wide"><img src="images/tourney.jpg" alt="Keily and Nathan together at a pickleball tournament" loading="lazy" decoding="async"><figcaption data-key="galleryTourney">From the court to forever</figcaption></figure>
+        <figure><img src="images/garden.jpg" alt="Keily and Nathan smiling beside a garden waterfall" loading="lazy" decoding="async"><figcaption data-key="galleryGarden">Little adventures</figcaption></figure>
+        <figure><img src="images/anniversary.jpg" alt="A close selfie of Keily and Nathan" loading="lazy" decoding="async"><figcaption data-key="galleryAnniversary">The two of us</figcaption></figure>
+        <figure><img src="images/christmas.jpg" alt="Keily and Nathan beside a lit Christmas tree" loading="lazy" decoding="async"><figcaption data-key="galleryChristmas">Holiday lights</figcaption></figure>
+        <figure><img src="images/car.jpg" alt="Keily and Nathan smiling together in a car" loading="lazy" decoding="async"><figcaption data-key="galleryCar">Everyday moments</figcaption></figure>
+        <figure class="story-wide"><img src="images/families_unite.jpg" alt="Keily and Nathan together with family outdoors" loading="lazy" decoding="async"><figcaption data-key="galleryFamily">Our families together</figcaption></figure>
+        <figure><img src="images/proposal.jpg" alt="Keily and Nathan with both sets of parents at a celebration" loading="lazy" decoding="async"><figcaption data-key="galleryProposal">Surrounded by love</figcaption></figure>
       </div>
     </section>
     <section>
       <p class="section-kicker" data-key="detailsKicker">The celebration</p>
       <h2 data-key="detailsTitle">Wedding Details</h2>
-      <div class="detail-card detail-date"><div class="detail-icon" aria-hidden="true">✦</div><h3 data-key="dateTitle">The Date</h3><p data-key="dateText">April 24, 2027</p></div>
+      <div class="detail-card detail-date"><div class="detail-icon" aria-hidden="true">✦</div><h3 data-key="dateTitle">The Date</h3><p data-key="dateText">June 4, 2027</p></div>
       <div class="detail-grid">
-        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="massTitle">The Mass</h3><p class="location-name">Our Lady of Guadalupe Parish</p><p data-key="massText">Time to be announced</p><div class="map-frame"><div><span class="map-label" data-key="gpsTitle">GPS directions</span><a class="map-link" data-key="massMapText" href="https://maps.app.goo.gl/9eURKswJEdEdyU6J9" target="_blank" rel="noopener noreferrer">Open church in Google Maps</a></div></div></div>
+        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="massTitle">The Mass</h3><p class="location-name">Our Lady of Guadalupe Parish</p><p data-key="massText">12:00 PM</p><div class="map-frame"><div><span class="map-label" data-key="gpsTitle">GPS directions</span><a class="map-link" data-key="massMapText" href="https://maps.app.goo.gl/9eURKswJEdEdyU6J9" target="_blank" rel="noopener noreferrer">Open church in Google Maps</a></div></div></div>
         <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="venueTitle">The Venue</h3><p class="location-name">Rancho Casillas</p><p data-key="venueText">Reception time to be announced</p><div class="map-frame"><div><span class="map-label" data-key="gpsTitle">GPS directions</span><a class="map-link" data-key="venueMapText" href="https://maps.app.goo.gl/xWqZdC7xosTLPwLh7" target="_blank" rel="noopener noreferrer">Open venue in Google Maps</a></div></div></div>
       </div>
     </section>
@@ -251,8 +277,8 @@
       <h2 data-key="parentsTitle">Our Parents</h2>
       <p class="section-intro" data-key="parentsIntro">With all our love, we honor the families who raised us and shaped our story.</p>
       <div class="parents-grid">
-        <div class="parent-card"><h3 data-key="brideParentsTitle">Parents of the Bride</h3><p class="parent-names">Sonia Valdez <span>&amp;</span> Jose Luis Valdez</p><p data-key="brideParentsText">Your love has been part of every step that led Keily here.</p></div>
-        <div class="parent-card"><h3 data-key="groomParentsTitle">Parents of the Groom</h3><p class="parent-names">Clara Park <span>&amp;</span> John Lee</p><p data-key="groomParentsText">Your love has been part of every step that led Nathan here.</p></div>
+        <div class="parent-card"><h3 data-key="brideParentsTitle">Parents of the Bride</h3><p class="parent-names">Sonia Valdez<span data-key="nameJoin"> &amp; </span>Jose Luis Valdez</p><p data-key="brideParentsText">Your love has been part of every step that led Keily here.</p></div>
+        <div class="parent-card"><h3 data-key="groomParentsTitle">Parents of the Groom</h3><p class="parent-names">Clara Park<span data-key="parkJoin"> &amp; </span>John Lee</p><p data-key="groomParentsText">Your love has been part of every step that led Nathan here.</p></div>
       </div>
     </section>
     <section id="godparents">
@@ -260,9 +286,9 @@
       <h2 data-key="sponsorsTitle">Our Sponsors</h2>
       <p class="section-intro" data-key="sponsorsIntro">The special people who stand beside us as our next chapter begins.</p>
       <div class="sponsors-grid">
-        <div class="sponsor-card"><h3 data-key="sponsorVigilTitle">Velation</h3><p class="sponsor-names">Lupita Benitez <span>&amp;</span> Ricardo Espinosa</p><p data-key="sponsorVigilText">Our velation sponsors witness our vows and stand beside us in prayer, offering wisdom and loving guidance as we begin our new life together.</p></div>
-        <div class="sponsor-card"><h3 data-key="sponsorRingsTitle">Rings</h3><p class="sponsor-names">Denisse Mora <span>&amp;</span> Canwin Tso</p><p data-key="sponsorRingsText">Blessed during Mass, our rings symbolize eternal love and fidelity while honoring the union of our families and the faith we share.</p></div>
-        <div class="sponsor-card"><h3 data-key="sponsorCoinsTitle">Coins</h3><p class="sponsor-names">Olivia Jimenez <span>&amp;</span> Martin Jimenez</p><p data-key="sponsorCoinsText">The groom offers the bride 13 blessed gold coins, recalling Christ and the twelve apostles and promising support and shared prosperity.</p></div>
+        <div class="sponsor-card"><h3 data-key="sponsorVigilTitle">Velation</h3><p class="sponsor-names">Lupita Benitez<span data-key="nameJoin"> &amp; </span>Ricardo Espinosa</p><p data-key="sponsorVigilText">Our velation sponsors witness our vows and stand beside us in prayer, offering wisdom and loving guidance as we begin our new life together.</p></div>
+        <div class="sponsor-card"><h3 data-key="sponsorRingsTitle">Rings</h3><p class="sponsor-names">Denisse Mora<span data-key="nameJoin"> &amp; </span>Canwin Tso</p><p data-key="sponsorRingsText">Blessed during Mass, our rings symbolize eternal love and fidelity while honoring the union of our families and the faith we share.</p></div>
+        <div class="sponsor-card"><h3 data-key="sponsorCoinsTitle">Coins</h3><p class="sponsor-names">Olivia Jimenez<span data-key="nameJoin"> &amp; </span>Martin Jimenez</p><p data-key="sponsorCoinsText">The groom offers the bride 13 blessed gold coins, recalling Christ and the twelve apostles and promising support and shared prosperity.</p></div>
         <div class="sponsor-card"><h3 data-key="sponsorLassoTitle">Lasso</h3><p class="sponsor-names" data-key="sponsorLassoNames">To be announced</p><p data-key="sponsorLassoText">After our vows, our sponsors place a figure eight rosary, ribbon, or floral garland around our shoulders to symbolize our eternal union.</p></div>
       </div>
     </section>
@@ -271,7 +297,7 @@
       <h2 data-key="timelineTitle">Our Day</h2>
       <div class="card">
         <div class="timeline">
-          <div class="timeline-item"><h3 data-key="timelineOne">The Ceremony</h3><p data-key="timeSoon">Time and place to come</p></div>
+          <div class="timeline-item"><h3 data-key="timelineOne">The Mass</h3><p data-key="massTimeline">12:00 PM · Our Lady of Guadalupe Parish</p></div>
           <div class="timeline-item"><h3 data-key="timelineTwo">A Celebration Together</h3><p data-key="timeSoon">Time and place to come</p></div>
           <div class="timeline-item"><h3 data-key="timelineThree">Dancing &amp; Memories</h3><p data-key="timeSoon">Time and place to come</p></div>
         </div>
@@ -283,8 +309,8 @@
       <p class="section-intro" data-key="attireIntro">We'd love to celebrate with everyone dressed in our wedding colors.</p>
       <figure class="attire-illustration"><img src="images/attire.png" alt="Examples of a black suit with a royal blue tie and royal blue dresses" loading="lazy" decoding="async"></figure>
       <div class="attire-grid">
-        <div class="attire-card"><span class="attire-swatch" aria-hidden="true"></span><h3 data-key="attireWomenTitle">Women</h3><p data-key="attireWomenText">Please wear royal blue.</p></div>
-        <div class="attire-card"><span class="attire-swatch black" aria-hidden="true"></span><h3 data-key="attireMenTitle">Men</h3><p data-key="attireMenText">Please wear a black suit or tuxedo with a royal blue tie or bow tie, or a royal blue dress shirt with black slacks.</p></div>
+        <div class="attire-card"><span class="attire-swatch" aria-hidden="true"></span><h3 data-key="attireWomenTitle">Women</h3><ul><li data-key="attireWomenColor">A royal blue dress for our special day</li><li data-key="attireWomenLength">Any dress length is welcome, except mini dresses</li></ul></div>
+        <div class="attire-card"><span class="attire-swatch black" aria-hidden="true"></span><h3 data-key="attireMenTitle">Men</h3><ul><li data-key="attireMenSuit">Black suit or tuxedo with a royal blue tie or bow tie</li><li data-key="attireMenShirt">Or a royal blue dress shirt with black slacks</li></ul></div>
       </div>
     </section>
     <section>
@@ -340,12 +366,30 @@
     Object.assign(translations.ko, {
       letterText: '사랑을 축하하며', recipientLabel: '받는 분', momentKicker: '기억에 남을 순간', momentText: '두 가족, 두 문화, 하나의 아름다운 시작.', storyKicker: '우리의 여정', detailsKicker: '결혼식', dateTitle: '날짜', dateText: '곧 안내해 드립니다', venueTitle: '장소', venueText: '곧 안내해 드립니다', mapText: '장소가 정해지면 여기에서 길 안내를 확인하실 수 있습니다.', timelineKicker: '처음부터 끝까지 함께', timelineTitle: '우리의 하루', timelineOne: '결혼식', timelineTwo: '함께하는 축하', timelineThree: '춤과 추억', timeSoon: '시간과 장소는 추후 안내', registryKicker: '감사의 마음으로', rsvpKicker: '함께해 주시길 바랍니다'
     });
-    Object.assign(translations.en, { dateText: 'April 24, 2027', massTitle: 'The Mass', massText: 'Time to be announced', venueText: 'Reception time to be announced', gpsTitle: 'GPS directions', massMapText: 'Open church in Google Maps', venueMapText: 'Open venue in Google Maps', countDays: 'Days', countHours: 'Hours', countMinutes: 'Minutes', countSeconds: 'Seconds', countToday: "Today's the day!", countPassed: 'Thank you for celebrating with us!' });
-    Object.assign(translations.es, { dateText: '24 de abril de 2027', massTitle: 'La Misa', massText: 'Horario por confirmar', venueText: 'Horario de la recepción por confirmar', gpsTitle: 'Indicaciones GPS', massMapText: 'Ver iglesia en Google Maps', venueMapText: 'Ver salón en Google Maps', countDays: 'Días', countHours: 'Horas', countMinutes: 'Minutos', countSeconds: 'Segundos', countToday: '¡Hoy es el gran día!', countPassed: '¡Gracias por celebrar con nosotros!' });
-    Object.assign(translations.ko, { dateText: '2027년 4월 24일', massTitle: '혼인 미사', massText: '시간은 추후 안내', venueText: '피로연 시간은 추후 안내', gpsTitle: 'GPS 길 안내', massMapText: 'Google 지도에서 성당 보기', venueMapText: 'Google 지도에서 피로연장 보기', countDays: '일', countHours: '시간', countMinutes: '분', countSeconds: '초', countToday: '오늘이 바로 그날입니다!', countPassed: '함께 축하해 주셔서 감사합니다!' });
+    Object.assign(translations.en, { dateText: 'June 4, 2027', massTitle: 'The Mass', massText: '12:00 PM', timelineOne: 'The Mass', massTimeline: '12:00 PM · Our Lady of Guadalupe Parish', countdownToMass: 'Until our 12:00 PM Mass', venueText: 'Reception time to be announced', gpsTitle: 'GPS directions', massMapText: 'Open church in Google Maps', venueMapText: 'Open venue in Google Maps', countDays: 'Days', countHours: 'Hours', countMinutes: 'Minutes', countSeconds: 'Seconds', countToday: 'The Mass is here! Let’s celebrate!', countPassed: 'Thank you for celebrating with us!' });
+    Object.assign(translations.es, { dateText: '4 de junio de 2027', massTitle: 'La Misa', massText: '12:00 p. m.', timelineOne: 'La Misa', massTimeline: '12:00 p. m. · Our Lady of Guadalupe Parish', countdownToMass: 'Para nuestra misa de las 12:00 p. m.', venueText: 'Horario de la recepción por confirmar', gpsTitle: 'Indicaciones GPS', massMapText: 'Ver iglesia en Google Maps', venueMapText: 'Ver salón en Google Maps', countDays: 'Días', countHours: 'Horas', countMinutes: 'Minutos', countSeconds: 'Segundos', countToday: '¡Llegó la hora de la misa! ¡A celebrar!', countPassed: '¡Gracias por celebrar con nosotros!' });
+    Object.assign(translations.ko, { dateText: '2027년 6월 4일', massTitle: '혼인 미사', massText: '낮 12시', timelineOne: '혼인 미사', massTimeline: '낮 12시 · Our Lady of Guadalupe Parish', countdownToMass: '낮 12시 혼인 미사까지', venueText: '피로연 시간은 추후 안내', gpsTitle: 'GPS 길 안내', massMapText: 'Google 지도에서 성당 보기', venueMapText: 'Google 지도에서 피로연장 보기', countDays: '일', countHours: '시간', countMinutes: '분', countSeconds: '초', countToday: '혼인 미사 시간이 되었어요! 함께 축하해 주세요!', countPassed: '함께 축하해 주셔서 감사합니다!' });
     Object.assign(translations.en, { coverTop: "Keily & Nathan's Wedding", coverTitle: "You're invited", recipientLabel: 'To:', flipLabel: 'Tap to flip the envelope', guestFallback: 'Our guest' });
     Object.assign(translations.es, { coverTop: 'La boda de Keily y Nathan', coverTitle: 'Te invitamos', recipientLabel: 'Para:', flipLabel: 'Toca para voltear el sobre', guestFallback: 'Nuestros invitados' });
-    Object.assign(translations.ko, { coverTop: 'Keily & Nathan의 결혼식', coverTitle: '초대합니다', recipientLabel: '받는 분:', flipLabel: '봉투를 눌러 뒤집어 주세요', guestFallback: '소중한 손님' });
+    Object.assign(translations.ko, { coverTop: 'Keily와 Nathan의 결혼식', coverTitle: '초대합니다', recipientLabel: '받는 분:', flipLabel: '봉투를 눌러 뒤집어 주세요', guestFallback: '소중한 손님' });
+    Object.assign(translations.en, { andWord: '&', coupleJoin: ' & ', nameJoin: ' & ', parkJoin: ' & ', pageTitle: 'Keily & Nathan | Lee + Valdez' });
+    Object.assign(translations.es, { andWord: 'y', coupleJoin: ' y ', nameJoin: ' y ', parkJoin: ' y ', pageTitle: 'Keily y Nathan | Lee + Valdez' });
+    Object.assign(translations.ko, { andWord: '와', coupleJoin: '와 ', nameJoin: '와 ', parkJoin: '과 ', pageTitle: 'Keily와 Nathan | Lee + Valdez' });
+    Object.assign(translations.en, {
+      storyTextOne: "We both worked at Skyworks, but in different buildings, so our paths might never have crossed. Then a pickleball group formed at work, and that's where we met. We knew of each other, but it wasn't until we happened to share a class one semester, in the same master's program at the same university, that we really began to get to know one another.",
+      storyTextTwo: "We started spending more time together over schoolwork and games of pickleball. Somewhere between studying and playing, friendship grew into love. Since then, we've shared so many happy moments with each other's families and watched our two worlds become one. We can't wait to celebrate this next chapter with everyone we love.",
+      galleryTourney: 'From the court to forever', galleryGarden: 'Little adventures', galleryAnniversary: 'The two of us', galleryChristmas: 'Holiday lights', galleryCar: 'Everyday moments', galleryFamily: 'Our families together', galleryProposal: 'Surrounded by love'
+    });
+    Object.assign(translations.es, {
+      storyTextOne: 'Los dos trabajábamos en Skyworks, pero en edificios diferentes, así que quizá nuestros caminos nunca se habrían cruzado. Entonces se formó un grupo de pickleball en el trabajo, y allí nos conocimos. Sabíamos el uno del otro, pero fue cuando coincidimos un semestre en la misma clase, dentro del mismo programa de maestría y en la misma universidad, que comenzamos a conocernos de verdad.',
+      storyTextTwo: 'Empezamos a pasar más tiempo juntos entre tareas de la universidad y partidos de pickleball. En algún momento, entre estudiar y jugar, la amistad se convirtió en amor. Desde entonces hemos compartido momentos muy felices con nuestras familias y hemos visto cómo nuestros dos mundos se unen. Nos emociona celebrar esta nueva etapa con todas las personas que queremos.',
+      galleryTourney: 'De la cancha para siempre', galleryGarden: 'Pequeñas aventuras', galleryAnniversary: 'Nosotros dos', galleryChristmas: 'Luces de Navidad', galleryCar: 'Momentos cotidianos', galleryFamily: 'Nuestras familias juntas', galleryProposal: 'Rodeados de amor'
+    });
+    Object.assign(translations.ko, {
+      storyTextOne: '저희 둘은 Skyworks에서 일했지만 서로 다른 건물에 있어서 원래라면 만날 일이 없었을지도 모릅니다. 그러다 직장에서 피클볼 모임이 생겼고, 그곳에서 처음 만났습니다. 서로의 존재는 알고 있었지만, 같은 대학의 같은 석사 과정에서 한 학기 동안 우연히 같은 수업을 듣게 되면서 비로소 서로를 깊이 알아 가기 시작했습니다.',
+      storyTextTwo: '함께 과제를 하고 피클볼을 치며 보내는 시간이 점점 늘어났습니다. 공부하고 운동하는 사이, 우정은 어느새 사랑으로 자랐습니다. 그 후로 서로의 가족과 함께 행복한 추억을 쌓으며 두 세상이 하나가 되어 가는 기쁨을 느꼈습니다. 사랑하는 모든 분과 저희의 새로운 시작을 함께 축하하고 싶습니다.',
+      galleryTourney: '코트에서 시작된 인연', galleryGarden: '작은 모험들', galleryAnniversary: '우리 둘', galleryChristmas: '크리스마스의 불빛', galleryCar: '소중한 일상', galleryFamily: '함께한 두 가족', galleryProposal: '사랑하는 이들과 함께'
+    });
     Object.assign(translations.en, {
       parentsKicker: 'The love that brought us here', parentsTitle: 'Our Parents', parentsIntro: 'With all our love, we honor the families who raised us and shaped our story.',
       brideParentsTitle: 'Parents of the Bride', brideParentsText: 'Your love has been part of every step that led Keily here.',
@@ -356,7 +400,7 @@
       sponsorRingsTitle: 'Rings', sponsorRingsText: 'Blessed during Mass, our rings symbolize eternal love and fidelity while honoring the union of our families and the faith we share.',
       sponsorCoinsTitle: 'Coins', sponsorCoinsText: 'The groom offers the bride 13 blessed gold coins, recalling Christ and the twelve apostles and promising support and shared prosperity.',
       attireKicker: 'Dress for the celebration', attireTitle: 'Required Attire', attireIntro: "We'd love to celebrate with everyone dressed in our wedding colors.",
-      attireWomenTitle: 'Women', attireWomenText: 'Please wear royal blue.', attireMenTitle: 'Men', attireMenText: 'Please wear a black suit or tuxedo with a royal blue tie or bow tie, or a royal blue dress shirt with black slacks.'
+      attireWomenTitle: 'Women', attireWomenColor: 'A royal blue dress for our special day', attireWomenLength: 'Any dress length is welcome, except mini dresses', attireMenTitle: 'Men', attireMenSuit: 'Black suit or tuxedo with a royal blue tie or bow tie', attireMenShirt: 'Or a royal blue dress shirt with black slacks'
     });
     Object.assign(translations.es, {
       parentsKicker: 'El amor que nos trajo hasta aquí', parentsTitle: 'Nuestros Padres', parentsIntro: 'Con todo nuestro cariño, honramos a las familias que nos criaron y forman parte de nuestra historia.',
@@ -368,7 +412,7 @@
       sponsorRingsTitle: 'Anillos', sponsorRingsText: 'Bendecidos durante la misa, nuestros anillos simbolizan amor eterno y fidelidad, y honran la unión de nuestras familias y la fe que compartimos.',
       sponsorCoinsTitle: 'Arras', sponsorCoinsText: 'El novio entrega a la novia 13 monedas de oro bendecidas, en recuerdo de Cristo y los doce apóstoles, como promesa de apoyo y prosperidad compartida.',
       attireKicker: 'Viste para celebrar', attireTitle: 'Código de vestimenta', attireIntro: 'Nos encantará celebrar con todos vestidos con los colores de nuestra boda.',
-      attireWomenTitle: 'Mujeres', attireWomenText: 'Por favor, vistan de azul rey.', attireMenTitle: 'Hombres', attireMenText: 'Por favor, usen traje negro o esmoquin con corbata o moño azul rey, o camisa de vestir azul rey con pantalón de vestir negro.'
+      attireWomenTitle: 'Mujeres', attireWomenColor: 'Un vestido azul rey para celebrar con nosotros', attireWomenLength: 'Cualquier largo es bienvenido, excepto los vestidos mini', attireMenTitle: 'Hombres', attireMenSuit: 'Traje negro o esmoquin con corbata o moño azul rey', attireMenShirt: 'O camisa de vestir azul rey con pantalón de vestir negro'
     });
     Object.assign(translations.ko, {
       parentsKicker: '오늘의 저희를 있게 한 사랑', parentsTitle: '저희 부모님', parentsIntro: '저희를 키워 주시고 지금의 이야기를 만들어 주신 가족에게 사랑과 감사를 전합니다.',
@@ -380,7 +424,7 @@
       sponsorRingsTitle: '결혼반지', sponsorRingsText: '미사 중 축복받은 반지는 영원한 사랑과 신의를 상징하며, 두 가족의 결합과 함께 나누는 믿음을 기립니다.',
       sponsorCoinsTitle: '혼인 동전', sponsorCoinsText: '신랑이 신부에게 건네는 축복받은 금화 13개는 그리스도와 열두 사도를 떠올리게 하며, 서로 돕고 풍요를 나누겠다는 약속을 담습니다.',
       attireKicker: '함께 빛나는 날', attireTitle: '필수 복장 안내', attireIntro: '결혼식 색상에 맞춰 함께해 주시면 감사하겠습니다.',
-      attireWomenTitle: '여성', attireWomenText: '로열 블루 색상 의상을 입어 주세요.', attireMenTitle: '남성', attireMenText: '검은색 정장 또는 턱시도에 로열 블루 넥타이나 나비넥타이를 매시거나, 로열 블루 드레스 셔츠와 검은색 정장 바지를 입어 주세요.'
+      attireWomenTitle: '여성', attireWomenColor: '특별한 날을 위한 로열 블루 드레스', attireWomenLength: '미니 드레스를 제외하고 길이는 자유롭게 선택해 주세요', attireMenTitle: '남성', attireMenSuit: '검은색 정장 또는 턱시도에 로열 블루 넥타이나 나비넥타이', attireMenShirt: '또는 로열 블루 드레스 셔츠에 검은색 정장 바지'
     });
     function updateEnvelopePrompt() {
       const prompt = translations[document.documentElement.lang][envelopeFlipped ? 'tapLabel' : 'flipLabel'];
@@ -391,6 +435,7 @@
     function setLanguage(lang) {
       if (!translations[lang]) lang = 'en';
       document.documentElement.lang = lang;
+      document.title = translations[lang].pageTitle;
       document.querySelectorAll('[data-key]').forEach(el => { el.textContent = translations[lang][el.dataset.key]; });
       document.querySelectorAll('[data-guest-number]').forEach(label => { label.textContent = translations[lang].nameItemLabel.replace('{number}', label.dataset.guestNumber); });
       document.querySelectorAll('[data-lang]').forEach(button => { button.setAttribute('aria-pressed', String(button.dataset.lang === lang)); });
@@ -402,8 +447,8 @@
       }
       updateCountdown();
     }
-    const weddingStart = Date.parse('2027-04-24T00:00:00-07:00');
-    const weddingEnd = Date.parse('2027-04-25T00:00:00-07:00');
+    const weddingStart = Date.parse('2027-06-04T12:00:00-07:00');
+    const weddingEnd = Date.parse('2027-06-05T00:00:00-07:00');
     function updateCountdown() {
       const remaining = weddingStart - Date.now();
       const timer = document.getElementById('weddingCountdown');
