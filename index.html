@@ -48,24 +48,33 @@
     .quote { font-size: clamp(25px, 3vw, 34px); color: var(--clay); }
     .small { font-size: 18px; }
     .fine-rule { width: 105px; height: 1px; background: var(--clay); opacity: .45; margin: 28px auto; }
-    .photo-moment { min-height: 650px; display: grid; place-items: center; background: linear-gradient(145deg, #dcebf3 0%, #f9f0e7 52%, #edd7ca 100%); }
+    .photo-moment { min-height: 600px; display: grid; place-items: center; background: linear-gradient(145deg, #dcebf3 0%, #f9f0e7 52%, #edd7ca 100%); }
     .photo-moment::before { content: ''; position: absolute; inset: 28px; border: 1px solid rgba(173,97,75,.25); }
-    .photo-frame { position: relative; width: min(350px, 72vw); aspect-ratio: .82; display: grid; place-items: center; padding: 8px; background: #fdfaf5; border: 10px solid white; box-shadow: 0 24px 60px rgba(64,54,51,.23); transform: rotate(-3deg); }
+    .moment-photos { display: flex; align-items: center; justify-content: center; gap: clamp(14px, 3vw, 38px); margin: 28px auto; }
+    .photo-frame { position: relative; width: min(290px, 35vw); aspect-ratio: .82; display: grid; place-items: center; padding: 8px; background: #fdfaf5; border: 10px solid white; box-shadow: 0 24px 60px rgba(64,54,51,.23); transform: rotate(-3deg); }
     .photo-frame::before { content: ''; position: absolute; inset: 14px; border: 1px solid rgba(173,97,75,.35); }
     .photo-frame img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 42%; }
-    .story-layout { width: min(100%, 980px); margin: 0 auto; display: grid; grid-template-columns: minmax(0, .72fr) minmax(0, 1fr); gap: clamp(16px, 4vw, 48px); align-items: center; }
-    .story-photo { margin: 0; border: 9px solid white; background: white; box-shadow: 0 18px 40px rgba(77,61,51,.14); transform: rotate(2deg); }
-    .story-photo img { display: block; width: 100%; aspect-ratio: .72; object-fit: cover; object-position: center 48%; }
+    .photo-frame.family-photo { width: min(430px, 48vw); aspect-ratio: 1.5; transform: rotate(2deg); }
+    .photo-frame.family-photo img { object-position: center; }
+    .story-layout { width: min(100%, 1100px); margin: 0 auto; display: grid; grid-template-columns: minmax(0, .65fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 48px); align-items: center; }
+    .story-photos { width: 100%; max-width: 350px; margin: 0 auto; display: grid; gap: 28px; }
+    .story-photo { width: 92%; margin: 0 auto; border: 8px solid white; background: white; box-shadow: 0 18px 40px rgba(77,61,51,.14); transform: rotate(2deg); }
+    .story-photo:nth-child(2) { transform: rotate(-3deg); justify-self: start; }
+    .story-photo:nth-child(3) { transform: rotate(3deg); justify-self: end; }
+    .story-photo img { display: block; width: 100%; height: auto; }
     .story-layout .card { width: 100%; }
     .story-layout .card .story-copy { font-size: 19px; line-height: 1.5; text-align: left; }
-    .story-gallery { width: min(100%, 1050px); margin: 50px auto 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .story-gallery { width: min(100%, 1120px); margin: 50px auto 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
     .story-gallery figure { min-width: 0; margin: 0; background: #fffdf8; padding: 8px 8px 12px; border: 1px solid rgba(173,97,75,.19); box-shadow: 0 12px 32px rgba(77,61,51,.09); }
     .story-gallery figure:nth-child(2n) { transform: rotate(1deg); }
     .story-gallery figure:nth-child(3n) { transform: rotate(-1deg); }
-    .story-gallery img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
-    .story-gallery .story-wide { grid-column: span 2; }
-    .story-gallery .story-wide img { aspect-ratio: 16 / 9; }
-    .story-gallery figcaption { padding: 10px 6px 0; color: #735c54; font-size: 20px; font-style: italic; }
+    .story-gallery img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #f1eae3; }
+    .story-gallery .story-landscape img { object-fit: contain; }
+    .story-gallery figcaption { padding: 9px 4px 0; color: #735c54; font-size: 17px; font-style: italic; }
+    .story-song { max-width: 620px; margin: 46px auto 0; padding: 22px; background: rgba(255,253,248,.7); border: 1px solid rgba(173,97,75,.2); }
+    .story-song p { margin: 0 0 14px; color: var(--clay); font-size: 23px; font-style: italic; }
+    .story-song iframe { display: block; width: 100%; max-width: 100%; height: 152px; border: 0; border-radius: 12px; }
+    .story-song a { display: inline-block; margin-top: 14px; color: var(--clay); text-underline-offset: 3px; }
     .photo-caption { max-width: 500px; margin: 30px auto 0; font-size: 25px; }
     .detail-grid { max-width: 930px; margin: 25px auto 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
     .detail-date { max-width: 930px; margin: 0 auto; padding: 26px 25px; }
@@ -152,14 +161,16 @@
     .rsvp-status { color: var(--clay); min-height: 30px; }
     footer { background: var(--sand); padding: 55px 20px; text-align: center; }
     footer p { margin: 8px; }
-    @media (max-width: 1050px) { .sponsors-grid { max-width: 650px; grid-template-columns: 1fr; } }
+    @media (max-width: 1050px) { .sponsors-grid { max-width: 650px; grid-template-columns: 1fr; } .story-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
     @media (max-width: 600px) {
       header { padding: 14px 16px; }
       .brand { font-size: 17px; }
       .languages button { font-size: 15px; padding: 4px 6px; }
       main section { padding: 72px 22px; }
       .detail-grid, .story-layout { grid-template-columns: 1fr; }
-      .story-photo { max-width: 310px; margin: 0 auto 20px; }
+      .story-photos { max-width: 420px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 0 auto 24px; }
+      .story-photo { width: 100%; border-width: 5px; }
+      .story-photo:nth-child(3) { grid-column: 1 / -1; width: min(65%, 210px); justify-self: center; }
       .story-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 36px; }
       .story-gallery figure { padding: 5px 5px 9px; }
       .story-gallery figcaption { font-size: 16px; }
@@ -176,7 +187,10 @@
       .tap-label { margin-top: 20px; font-size: 18px; }
       .cover-subtitle { margin-top: 18px; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
       .seal-letter { padding-top: 19%; font-size: 23px; }
-      .photo-moment { min-height: 580px; }
+      .photo-moment { min-height: auto; }
+      .moment-photos { flex-direction: column; gap: 26px; }
+      .photo-frame { width: min(255px, 68vw); }
+      .photo-frame.family-photo { width: min(330px, 78vw); }
       .parents-grid, .sponsors-grid, .attire-grid { grid-template-columns: 1fr; }
       .sponsor-card .sponsor-names { white-space: normal; }
     }
@@ -237,7 +251,10 @@
     <section class="photo-moment">
       <div>
         <p class="section-kicker" data-key="momentKicker">A moment to remember</p>
-        <div class="photo-frame"><img src="images/showing_off_ring.jpg" alt="Keily showing her engagement ring while Nathan kisses her cheek" loading="lazy"></div>
+        <div class="moment-photos">
+          <div class="photo-frame"><img src="images/showing_off_ring.jpg" alt="Keily showing her engagement ring while Nathan kisses her cheek" loading="lazy" decoding="async"></div>
+          <div class="photo-frame family-photo"><img src="images/families_unite.jpg" alt="Keily and Nathan gathered with their families outdoors" loading="lazy" decoding="async"></div>
+        </div>
         <p class="photo-caption" data-key="momentText">Two families, two cultures, one beautiful beginning.</p>
       </div>
     </section>
@@ -245,7 +262,11 @@
       <p class="section-kicker" data-key="storyKicker">Our journey</p>
       <h2 data-key="storyTitle">Our Story</h2>
       <div class="story-layout">
-        <figure class="story-photo"><img src="images/cute_pose.jpg" alt="Keily and Nathan smiling together" loading="lazy"></figure>
+        <div class="story-photos">
+          <figure class="story-photo"><img src="images/cute_pose.jpg" alt="Keily and Nathan smiling together" loading="lazy" decoding="async"></figure>
+          <figure class="story-photo"><img src="images/tourney.jpg" alt="Keily and Nathan at a pickleball tournament" loading="lazy" decoding="async"></figure>
+          <figure class="story-photo"><img src="images/proposal.jpg" alt="Keily and Nathan with their parents at the proposal celebration" loading="lazy" decoding="async"></figure>
+        </div>
         <div class="card">
           <p class="quote">서로 다른 길, 하나의 여정.<br>Different paths, one journey.<br>Diferentes caminos, un mismo destino.</p>
           <div class="fine-rule"></div>
@@ -256,14 +277,28 @@
           <p class="story-copy" data-key="storyTextFive">Now they get to gather with all of you again—this time to begin their next chapter as husband and wife. They can’t wait to celebrate with the people who have been part of their story all along.</p>
         </div>
       </div>
+      <div class="story-song">
+        <p data-key="storySongIntro">The song that played when Nathan proposed</p>
+        <iframe title="Hermoso Cariño by Vicente Fernández on Spotify" src="https://open.spotify.com/embed/track/6UN6W5tj0qrMYV8N9MQMJC" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        <a href="https://open.spotify.com/track/6UN6W5tj0qrMYV8N9MQMJC" target="_blank" rel="noopener noreferrer" data-key="storySongLink">Listen on Spotify</a>
+      </div>
       <div class="story-gallery" aria-label="Photos from our story">
-        <figure class="story-wide"><img src="images/tourney.jpg" alt="Keily and Nathan together at a pickleball tournament" loading="lazy" decoding="async"><figcaption data-key="galleryTourney">From the court to forever</figcaption></figure>
         <figure><img src="images/garden.jpg" alt="Keily and Nathan smiling beside a garden waterfall" loading="lazy" decoding="async"><figcaption data-key="galleryGarden">Little adventures</figcaption></figure>
         <figure><img src="images/anniversary.jpg" alt="A close selfie of Keily and Nathan" loading="lazy" decoding="async"><figcaption data-key="galleryAnniversary">The two of us</figcaption></figure>
         <figure><img src="images/christmas.jpg" alt="Keily and Nathan beside a lit Christmas tree" loading="lazy" decoding="async"><figcaption data-key="galleryChristmas">Holiday lights</figcaption></figure>
         <figure><img src="images/car.jpg" alt="Keily and Nathan smiling together in a car" loading="lazy" decoding="async"><figcaption data-key="galleryCar">Everyday moments</figcaption></figure>
-        <figure class="story-wide"><img src="images/families_unite.jpg" alt="Keily and Nathan together with family outdoors" loading="lazy" decoding="async"><figcaption data-key="galleryFamily">Our families together</figcaption></figure>
-        <figure><img src="images/proposal.jpg" alt="Keily and Nathan with both sets of parents at a celebration" loading="lazy" decoding="async"><figcaption data-key="galleryProposal">Surrounded by love</figcaption></figure>
+        <figure><img src="images/birthday.jpg" alt="Keily and Nathan making playful faces in a photo booth" loading="lazy" decoding="async"><figcaption data-key="galleryBirthday">A little silliness</figcaption></figure>
+        <figure class="story-landscape"><img src="images/club.jpg" alt="Keily and Nathan together on a night out" loading="lazy" decoding="async"><figcaption data-key="galleryClub">Nights out together</figcaption></figure>
+        <figure><img src="images/comedy.jpg" alt="Nathan outside a comedy club" loading="lazy" decoding="async"><figcaption data-key="galleryComedy">A night of laughter</figcaption></figure>
+        <figure><img src="images/ed_sheeran.jpg" alt="Keily and Nathan at a concert" loading="lazy" decoding="async"><figcaption data-key="galleryConcert">Music and memories</figcaption></figure>
+        <figure class="story-landscape"><img src="images/enchant.jpg" alt="Keily and Nathan smiling beside festive lights" loading="lazy" decoding="async"><figcaption data-key="galleryEnchant">Under the lights</figcaption></figure>
+        <figure><img src="images/grandma_birthday.jpg" alt="Keily and Nathan dancing together at a family celebration" loading="lazy" decoding="async"><figcaption data-key="galleryGrandma">Family celebrations</figcaption></figure>
+        <figure><img src="images/hurricane.jpg" alt="Keily and Nathan enjoying a sunny day together" loading="lazy" decoding="async"><figcaption data-key="galleryHurricane">Sunny days together</figcaption></figure>
+        <figure class="story-landscape"><img src="images/kanye.jpg" alt="A selfie of Keily and Nathan together" loading="lazy" decoding="async"><figcaption data-key="galleryKanye">Just us</figcaption></figure>
+        <figure><img src="images/kathy_birthday.jpg" alt="Keily and Nathan dressed up at a celebration" loading="lazy" decoding="async"><figcaption data-key="galleryKathy">More reasons to celebrate</figcaption></figure>
+        <figure class="story-landscape"><img src="images/lake.jpg" alt="Keily and Nathan with family on a boat" loading="lazy" decoding="async"><figcaption data-key="galleryLake">Days with family</figcaption></figure>
+        <figure class="story-landscape"><img src="images/mom_university.jpg" alt="Keily and Nathan with Keily’s mother at a celebration" loading="lazy" decoding="async"><figcaption data-key="galleryMom">Together with family</figcaption></figure>
+        <figure class="story-landscape"><img src="images/neighborhood.jpg" alt="Nathan in front of a brightly lit concert venue" loading="lazy" decoding="async"><figcaption data-key="galleryNeighborhood">A night to remember</figcaption></figure>
       </div>
     </section>
     <section>
@@ -402,6 +437,18 @@
       storyTextFive: '이제 두 사람은 여러분과 다시 한자리에 모여 부부로서 새로운 장을 시작합니다. 처음부터 두 사람의 이야기에 함께해 주신 여러분과 이 기쁜 날을 축하할 수 있기를 기다리고 있습니다.',
       galleryTourney: '코트에서 시작된 인연', galleryGarden: '작은 모험들', galleryAnniversary: '우리 둘', galleryChristmas: '크리스마스의 불빛', galleryCar: '소중한 일상', galleryFamily: '함께한 두 가족', galleryProposal: '사랑하는 이들과 함께'
     });
+    Object.assign(translations.en, {
+      galleryBirthday: 'A little silliness', galleryClub: 'Nights out together', galleryComedy: 'A night of laughter', galleryConcert: 'Music and memories', galleryEnchant: 'Under the lights', galleryGrandma: 'Family celebrations', galleryHurricane: 'Sunny days together', galleryKanye: 'Just us', galleryKathy: 'More reasons to celebrate', galleryLake: 'Days with family', galleryMom: 'Together with family', galleryNeighborhood: 'A night to remember'
+    });
+    Object.assign(translations.es, {
+      galleryBirthday: 'Un poco de diversión', galleryClub: 'Noches juntos', galleryComedy: 'Una noche de risas', galleryConcert: 'Música y recuerdos', galleryEnchant: 'Bajo las luces', galleryGrandma: 'Celebraciones familiares', galleryHurricane: 'Días soleados juntos', galleryKanye: 'Solo nosotros', galleryKathy: 'Más motivos para celebrar', galleryLake: 'Días en familia', galleryMom: 'Juntos en familia', galleryNeighborhood: 'Una noche para recordar'
+    });
+    Object.assign(translations.ko, {
+      galleryBirthday: '장난스러운 순간', galleryClub: '함께한 밤 외출', galleryComedy: '웃음 가득한 밤', galleryConcert: '음악과 추억', galleryEnchant: '불빛 아래에서', galleryGrandma: '가족의 기쁜 날', galleryHurricane: '함께한 화창한 날', galleryKanye: '우리 둘만의 순간', galleryKathy: '또 하나의 축하할 날', galleryLake: '가족과 함께한 날', galleryMom: '가족과 함께', galleryNeighborhood: '기억에 남을 밤'
+    });
+    Object.assign(translations.en, { storySongIntro: 'The song that played when Nathan proposed', storySongLink: 'Listen on Spotify' });
+    Object.assign(translations.es, { storySongIntro: 'La canción que sonó cuando Nathan le pidió matrimonio a Keily', storySongLink: 'Escuchar en Spotify' });
+    Object.assign(translations.ko, { storySongIntro: '네이선이 케일리에게 청혼했을 때 흘러나온 노래', storySongLink: 'Spotify에서 듣기' });
     Object.assign(translations.en, {
       parentsKicker: 'The love that brought us here', parentsTitle: 'Our Parents', parentsIntro: 'With all our love, we honor the families who raised us and shaped our story.',
       brideParentsTitle: 'Parents of the Bride', brideParentsText: 'Your love has been part of every step that led Keily here.',
