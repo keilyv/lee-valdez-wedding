@@ -187,6 +187,12 @@
     .rsvp-form button { display: block; margin: 25px auto 0; padding: 11px 38px; background: var(--clay); color: white; border: 0; border-radius: 4px; cursor: pointer; }
     .rsvp-form button:disabled { opacity: .6; cursor: wait; }
     .rsvp-status { color: var(--clay); min-height: 30px; }
+    .rsvp-review { max-width: 520px; margin: 26px auto 0; padding: 22px 26px; background: #fffdf8; border: 1px solid rgba(173,97,75,.27); text-align: left; }
+    .rsvp-review h3 { margin: 0 0 10px; font-size: 30px; font-weight: 500; }
+    .rsvp-review dl { margin: 0; }
+    .rsvp-review dt { margin-top: 14px; color: var(--clay); font-size: 17px; }
+    .rsvp-review dd { margin: 2px 0 0; overflow-wrap: anywhere; white-space: pre-line; }
+    .rsvp-review-note { max-width: 520px; margin: 15px auto 0; font-size: 18px; }
     footer { background: var(--sand); padding: 55px 20px; text-align: center; }
     footer p { margin: 8px; }
     @media (max-width: 1050px) { .sponsors-grid { max-width: 650px; grid-template-columns: 1fr; } }
@@ -426,6 +432,8 @@
         <p id="rsvpIntro" data-key="rsvpText">RSVP will open soon. Please check back for details.</p>
         <p id="householdGreeting" hidden></p>
         <p id="rsvpStatus" class="rsvp-status" role="status" aria-live="polite"></p>
+        <div id="rsvpReview" class="rsvp-review" hidden></div>
+        <p id="rsvpReviewNote" class="rsvp-review-note" hidden></p>
         <form id="rsvpForm" class="rsvp-form" hidden>
           <label for="attendance" data-key="attendLabel">Will you attend?</label>
           <select id="attendance" required>
@@ -512,6 +520,9 @@
     Object.assign(translations.en, { storySongIntro: 'The song that played when Nathan proposed', musicPlayHint: 'Tap to play · Hermoso Cariño', musicPauseHint: 'Tap to pause · Hermoso Cariño', musicPlayLabel: 'Play Hermoso Cariño', musicPauseLabel: 'Pause Hermoso Cariño', calendarMonth: 'June 2027', calendarLabel: 'June 2027 calendar; wedding on Friday, June 4', calMon: 'M', calTue: 'T', calWed: 'W', calThu: 'T', calFri: 'F', calSat: 'S', calSun: 'S', timelinePending: 'Time to be announced', timelineTwo: 'Reception', timelineThreeText: 'Celebrate with us on the dance floor' });
     Object.assign(translations.es, { storySongIntro: 'La canción que sonó cuando Nathan le pidió matrimonio a Keily', musicPlayHint: 'Toca para escuchar · Hermoso Cariño', musicPauseHint: 'Toca para pausar · Hermoso Cariño', musicPlayLabel: 'Reproducir Hermoso Cariño', musicPauseLabel: 'Pausar Hermoso Cariño', calendarMonth: 'Junio 2027', calendarLabel: 'Calendario de junio de 2027; boda el viernes 4 de junio', calMon: 'L', calTue: 'M', calWed: 'M', calThu: 'J', calFri: 'V', calSat: 'S', calSun: 'D', timelinePending: 'Horario por confirmar', timelineTwo: 'Recepción', timelineThreeText: 'Celebren con nosotros en la pista de baile' });
     Object.assign(translations.ko, { storySongIntro: '네이선이 케일리에게 청혼했을 때 흘러나온 노래', musicPlayHint: '눌러서 재생 · Hermoso Cariño', musicPauseHint: '눌러서 일시정지 · Hermoso Cariño', musicPlayLabel: 'Hermoso Cariño 재생', musicPauseLabel: 'Hermoso Cariño 일시정지', calendarMonth: '2027년 6월', calendarLabel: '2027년 6월 달력, 결혼식은 6월 4일 금요일', calMon: '월', calTue: '화', calWed: '수', calThu: '목', calFri: '금', calSat: '토', calSun: '일', timelinePending: '시간 추후 안내', timelineTwo: '피로연', timelineThreeText: '댄스 플로어에서 함께 축하해 주세요' });
+    Object.assign(translations.en, { saved: 'Thank you! Your RSVP is confirmed.', reviewTitle: 'Your confirmed RSVP', reviewLockedNote: 'Need to make a change? Please contact Keily or Nathan.', reviewEditableNote: 'Changes to this RSVP are currently open. You can update the form below.', reviewAttendance: 'Response', reviewCount: 'Guests attending', reviewNames: 'Guest names', reviewDiet: 'Dietary needs', reviewMessage: 'Your message', reviewNone: 'None provided', lockedError: 'This RSVP is already confirmed. Please contact Keily or Nathan if you need to make a change.' });
+    Object.assign(translations.es, { saved: '¡Gracias! Su asistencia está confirmada.', reviewTitle: 'Su confirmación', reviewLockedNote: '¿Necesitan hacer un cambio? Comuníquense con Keily o Nathan.', reviewEditableNote: 'Los cambios a esta confirmación están habilitados. Pueden actualizar el formulario a continuación.', reviewAttendance: 'Respuesta', reviewCount: 'Personas que asistirán', reviewNames: 'Nombres de asistentes', reviewDiet: 'Necesidades alimentarias', reviewMessage: 'Su mensaje', reviewNone: 'No se proporcionó', lockedError: 'Esta confirmación ya está registrada. Comuníquense con Keily o Nathan si necesitan hacer un cambio.' });
+    Object.assign(translations.ko, { saved: '감사합니다! 참석 여부가 확인되었습니다.', reviewTitle: '확인된 참석 응답', reviewLockedNote: '변경이 필요하시면 케일리 또는 네이선에게 연락해 주세요.', reviewEditableNote: '현재 답변 변경이 가능합니다. 아래에서 내용을 수정할 수 있습니다.', reviewAttendance: '참석 여부', reviewCount: '참석 인원', reviewNames: '참석자 이름', reviewDiet: '식이 제한 사항', reviewMessage: '보내주신 메시지', reviewNone: '없음', lockedError: '이미 참석 여부가 확인되었습니다. 변경이 필요하시면 케일리 또는 네이선에게 연락해 주세요.' });
     Object.assign(translations.en, { slideRegion: 'Photos from our story', slidePrevious: 'Previous photo', slideNext: 'Next photo', slidePause: 'Pause', slidePlay: 'Play', slidePauseLabel: 'Pause slideshow', slidePlayLabel: 'Play slideshow' });
     Object.assign(translations.es, { slideRegion: 'Fotos de nuestra historia', slidePrevious: 'Foto anterior', slideNext: 'Foto siguiente', slidePause: 'Pausar', slidePlay: 'Reproducir', slidePauseLabel: 'Pausar presentación', slidePlayLabel: 'Reproducir presentación' });
     Object.assign(translations.ko, { slideRegion: '우리 이야기의 사진', slidePrevious: '이전 사진', slideNext: '다음 사진', slidePause: '일시정지', slidePlay: '재생', slidePauseLabel: '사진 슬라이드쇼 일시정지', slidePlayLabel: '사진 슬라이드쇼 재생' });
@@ -593,6 +604,7 @@
       try { localStorage.setItem('weddingLanguage', lang); } catch (_) {}
       if (loadedInvite) {
         document.getElementById('householdGreeting').textContent = translations[lang].greeting.replace('{name}', loadedInvite.household_name).replace('{count}', loadedInvite.max_guests);
+        renderRsvpState();
       }
       updateCountdown();
       document.querySelector('.calendar-card').setAttribute('aria-label', translations[lang].calendarLabel);
@@ -716,6 +728,38 @@
     const countSelect = document.getElementById('guestCount');
     const nameFields = document.getElementById('guestNameFields');
     let nameDrafts = [];
+    function addReviewRow(list, label, value) {
+      const term = document.createElement('dt');
+      const detail = document.createElement('dd');
+      term.textContent = label;
+      detail.textContent = value;
+      list.append(term, detail);
+    }
+    function renderRsvpState() {
+      if (!loadedInvite) return;
+      const words = translations[document.documentElement.lang];
+      const confirmed = loadedInvite.attendance === 'attending' || loadedInvite.attendance === 'declined';
+      // The Worker should return editable:true only when the couple reopens this household.
+      const editable = loadedInvite.editable === true;
+      const review = document.getElementById('rsvpReview');
+      const note = document.getElementById('rsvpReviewNote');
+      document.getElementById('rsvpForm').hidden = confirmed && !editable;
+      review.hidden = !confirmed;
+      note.hidden = !confirmed;
+      if (!confirmed) return;
+      const title = document.createElement('h3');
+      title.textContent = words.reviewTitle;
+      const list = document.createElement('dl');
+      addReviewRow(list, words.reviewAttendance, words[loadedInvite.attendance === 'attending' ? 'yesAnswer' : 'noAnswer']);
+      if (loadedInvite.attendance === 'attending') {
+        addReviewRow(list, words.reviewCount, String(loadedInvite.guest_count || 0));
+        addReviewRow(list, words.reviewNames, (loadedInvite.guest_names || '').trim() || words.reviewNone);
+        if ((loadedInvite.dietary_notes || '').trim()) addReviewRow(list, words.reviewDiet, loadedInvite.dietary_notes.trim());
+      }
+      if ((loadedInvite.message || '').trim()) addReviewRow(list, words.reviewMessage, loadedInvite.message.trim());
+      review.replaceChildren(title, list);
+      note.textContent = words[editable ? 'reviewEditableNote' : 'reviewLockedNote'];
+    }
     function renderNameFields() {
       nameFields.querySelectorAll('input').forEach((input, index) => { nameDrafts[index] = input.value; });
       nameFields.replaceChildren();
@@ -765,7 +809,6 @@
         document.getElementById('rsvpMessage').value = invite.message || '';
         guestDetails.hidden = attendance.value !== 'attending';
         document.getElementById('householdGreeting').hidden = false;
-        document.getElementById('rsvpForm').hidden = false;
         document.getElementById('rsvpIntro').hidden = true;
         statusLine.textContent = '';
         setLanguage(document.documentElement.lang);
@@ -775,20 +818,24 @@
     }
     document.getElementById('rsvpForm').addEventListener('submit', async event => {
       event.preventDefault();
+      if (!loadedInvite || (loadedInvite.attendance && loadedInvite.editable !== true)) return;
       const button = document.getElementById('sendRsvp');
       button.disabled = true;
       statusLine.textContent = translations[document.documentElement.lang].saving;
       try {
-        await send('/rsvp', {
+        const submission = {
           token: inviteToken, attendance: attendance.value,
           guest_count: attendance.value === 'attending' ? Number(document.getElementById('guestCount').value) : 0,
           guest_names: attendance.value === 'attending' ? Array.from(nameFields.querySelectorAll('input'), input => input.value.trim()).join('\n') : '',
           dietary_notes: document.getElementById('dietaryNotes').value,
           message: document.getElementById('rsvpMessage').value,
-        });
+        };
+        const savedResponse = await send('/rsvp', submission);
+        Object.assign(loadedInvite, savedResponse);
+        renderRsvpState();
         statusLine.textContent = translations[document.documentElement.lang].saved;
-      } catch {
-        statusLine.textContent = translations[document.documentElement.lang].unavailable;
+      } catch (error) {
+        statusLine.textContent = translations[document.documentElement.lang][error.message === 'RSVP locked' ? 'lockedError' : 'unavailable'];
       } finally { button.disabled = false; }
     });
   </script>

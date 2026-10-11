@@ -71,10 +71,10 @@ export default {
     try {
       if (pathname === '/invite') {
         const row = await env.DB.prepare(
-          'SELECT household_name, max_guests, attendance, guest_count, guest_names, dietary_notes, message FROM invitations WHERE token_hash = ? AND active = 1'
+          'SELECT household_name, max_guests, attendance, guest_count, guest_names, dietary_notes, message, editable FROM invitations WHERE token_hash = ? AND active = 1'
         ).bind(tokenHash).first();
         if (!row) return reply({ error: 'Invitation not found' }, 404, origin);
-        return reply(row, 200, origin);
+        return reply({ ...row, editable: row.editable === 1 }, 200, origin);
       }
 
       const attendance = input.attendance;
@@ -95,14 +95,22 @@ export default {
         return reply({ error: 'Enter one name for each person attending' }, 400, origin);
       }
       const result = await env.DB.prepare(
-        `UPDATE invitations SET attendance = ?, guest_count = ?, guest_names = ?, dietary_notes = ?, message = ?, responded_at = datetime('now')
-         WHERE token_hash = ? AND active = 1 AND max_guests >= ? RETURNING household_name, max_guests, attendance, guest_count, guest_names, dietary_notes, message`
+        `UPDATE invitations SET attendance = ?, guest_count = ?, guest_names = ?, dietary_notes = ?, message = ?, responded_at = datetime('now'), editable = 0
+         WHERE token_hash = ? AND active = 1 AND max_guests >= ? AND (attendance IS NULL OR attendance = '' OR editable = 1)
+         RETURNING household_name, max_guests, attendance, guest_count, guest_names, dietary_notes, message, editable`
       ).bind(attendance, guestCount, names.join('\n'), dietaryNotes.trim(), message.trim(), tokenHash, guestCount).first();
-      if (!result) return reply({ error: 'Invitation not found or guest count exceeds your invitation' }, 400, origin);
+      if (!result) {
+        const current = await env.DB.prepare(
+          'SELECT max_guests, attendance, editable FROM invitations WHERE token_hash = ? AND active = 1'
+        ).bind(tokenHash).first();
+        if (!current) return reply({ error: 'Invitation not found' }, 404, origin);
+        if (guestCount > current.max_guests) return reply({ error: 'Guest count exceeds your invitation' }, 400, origin);
+        return reply({ error: 'RSVP locked' }, 409, origin);
+      }
       if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) {
         ctx.waitUntil(sendRsvpAlert(result, env));
       }
-      return reply(result, 200, origin);
+      return reply({ ...result, editable: false }, 200, origin);
     } catch {
       return reply({ error: 'RSVP is temporarily unavailable. Please try again later.' }, 503, origin);
     }

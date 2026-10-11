@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS invitations (
   household_name TEXT NOT NULL,
   max_guests INTEGER NOT NULL CHECK (max_guests BETWEEN 1 AND 20),
   active INTEGER NOT NULL DEFAULT 1 CHECK (active IN (0, 1)),
+  editable INTEGER NOT NULL DEFAULT 0 CHECK (editable IN (0, 1)),
   attendance TEXT CHECK (attendance IN ('attending', 'declined')),
   guest_count INTEGER CHECK (guest_count BETWEEN 0 AND 20),
   guest_names TEXT NOT NULL DEFAULT '',
