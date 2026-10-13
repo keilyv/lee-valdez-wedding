@@ -94,9 +94,11 @@
     .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); align-items: center; gap: 4px 0; }
     .calendar-grid > span, .calendar-grid > time { display: grid; place-items: center; min-height: 38px; font-size: 19px; font-variant-numeric: tabular-nums; }
     .calendar-grid .weekday { min-height: 34px; font-size: 16px; font-weight: 600; border-bottom: 1px solid #fff9; }
-    .calendar-grid .wedding-day { position: relative; font-weight: 600; isolation: isolate; }
-    .wedding-day svg { position: absolute; left: 50%; top: 50%; z-index: -1; width: 51px; height: 49px; overflow: visible; fill: none; stroke: #f6d6cb; stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; transform: translate(-50%, -50%) scale(1); transform-origin: center; animation: heart-beat 1.7s ease-in-out infinite; }
-    @keyframes heart-beat { 0%, 18%, 42%, 100% { transform: translate(-50%, -50%) scale(1); } 27% { transform: translate(-50%, -50%) scale(1.16); } 51% { transform: translate(-50%, -50%) scale(1.1); } }
+    .calendar-grid .wedding-day { position: relative; font-weight: 600; }
+    .wedding-day .day-number { position: relative; z-index: 2; }
+    .heart-ring { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+    .heart-ring svg { display: block; width: 52px; height: 52px; overflow: visible; fill: none; stroke: #f6d6cb; stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; transform-origin: 50% 50%; animation: heart-beat 1.8s ease-in-out infinite; }
+    @keyframes heart-beat { 0%, 18%, 58%, 100% { transform: scale(1) rotate(0); } 27% { transform: scale(1.12) rotate(-3deg); } 36% { transform: scale(.98) rotate(2deg); } 46% { transform: scale(1.09) rotate(0); } }
     .detail-card { padding: 45px 25px; background: rgba(255,253,248,.82); border: 1px solid rgba(173,97,75,.2); }
     .detail-card .detail-icon { color: var(--clay); font-size: 34px; }
     .detail-card h3 { font-size: 33px; margin: 10px 0; font-weight: 500; }
@@ -234,7 +236,7 @@
       .timeline-item::before, .timeline-item:nth-child(even)::before { left: -5px; right: auto; }
       .timeline-item::after, .timeline-item:nth-child(even)::after { left: 0; right: auto; }
     }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } .wedding-day svg { animation: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } .heart-ring svg { animation: none; } }
   </style>
 </head>
 <body>
@@ -361,7 +363,7 @@
           <span class="calendar-month" data-key="calendarMonth">June 2027</span>
           <div class="calendar-grid" aria-hidden="true">
             <span class="weekday" data-key="calMon">M</span><span class="weekday" data-key="calTue">T</span><span class="weekday" data-key="calWed">W</span><span class="weekday" data-key="calThu">T</span><span class="weekday" data-key="calFri">F</span><span class="weekday" data-key="calSat">S</span><span class="weekday" data-key="calSun">S</span>
-            <span></span><span>1</span><span>2</span><span>3</span><time class="wedding-day" datetime="2027-06-04">4<svg viewBox="0 0 55 52" aria-hidden="true"><path d="M27.5 46 C16 37 3 26 4 16 C5 3 21 2 27.5 13 C34 2 50 3 51 16 C52 26 39 37 27.5 46 Z"/></svg></time><span>5</span><span>6</span>
+            <span></span><span>1</span><span>2</span><span>3</span><time class="wedding-day" datetime="2027-06-04"><span class="day-number">4</span><span class="heart-ring" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 43 C20 39 4 29 4 17 C4 5 17 4 24 13 C31 4 44 5 44 17 C44 29 28 39 24 43 Z"/></svg></span></time><span>5</span><span>6</span>
             <span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span>
             <span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
             <span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span>
