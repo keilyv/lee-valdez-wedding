@@ -89,13 +89,14 @@
     .photo-caption { max-width: 500px; margin: 30px auto 0; font-size: 25px; }
     .detail-grid { max-width: 930px; margin: 25px auto 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
     .detail-date { max-width: 930px; margin: 0 auto; padding: 26px 25px; }
-    .calendar-card { width: min(100%, 390px); margin: 20px auto 14px; padding: 24px clamp(15px, 5vw, 31px) 27px; color: #fffaf0; background: radial-gradient(circle at 7% 6%, #ffffff14, transparent 48%), repeating-linear-gradient(35deg, #ffffff08 0 1px, transparent 1px 6px), #718579; box-shadow: 0 11px 28px #23312830; }
+    .calendar-card { width: min(100%, 390px); margin: 20px auto 0; padding: 24px clamp(15px, 5vw, 31px) 27px; color: #fffaf0; background: radial-gradient(circle at 7% 6%, #ffffff14, transparent 48%), repeating-linear-gradient(35deg, #ffffff08 0 1px, transparent 1px 6px), #718579; box-shadow: 0 11px 28px #23312830; }
     .calendar-month { display: block; margin-bottom: 14px; font-family: 'Great Vibes', 'Cormorant Garamond', serif; font-size: 52px; line-height: 1.05; }
     .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); align-items: center; gap: 4px 0; }
     .calendar-grid > span, .calendar-grid > time { display: grid; place-items: center; min-height: 38px; font-size: 19px; font-variant-numeric: tabular-nums; }
     .calendar-grid .weekday { min-height: 34px; font-size: 16px; font-weight: 600; border-bottom: 1px solid #fff9; }
     .calendar-grid .wedding-day { position: relative; font-weight: 600; isolation: isolate; }
-    .wedding-day svg { position: absolute; z-index: -1; width: 51px; height: 49px; overflow: visible; fill: none; stroke: #f6d6cb; stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; transform: rotate(-8deg) translateY(-1px); }
+    .wedding-day svg { position: absolute; left: 50%; top: 50%; z-index: -1; width: 51px; height: 49px; overflow: visible; fill: none; stroke: #f6d6cb; stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; transform: translate(-50%, -50%) scale(1); transform-origin: center; animation: heart-beat 1.7s ease-in-out infinite; }
+    @keyframes heart-beat { 0%, 18%, 42%, 100% { transform: translate(-50%, -50%) scale(1); } 27% { transform: translate(-50%, -50%) scale(1.16); } 51% { transform: translate(-50%, -50%) scale(1.1); } }
     .detail-card { padding: 45px 25px; background: rgba(255,253,248,.82); border: 1px solid rgba(173,97,75,.2); }
     .detail-card .detail-icon { color: var(--clay); font-size: 34px; }
     .detail-card h3 { font-size: 33px; margin: 10px 0; font-weight: 500; }
@@ -233,7 +234,7 @@
       .timeline-item::before, .timeline-item:nth-child(even)::before { left: -5px; right: auto; }
       .timeline-item::after, .timeline-item:nth-child(even)::after { left: 0; right: auto; }
     }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } .wedding-day svg { animation: none; } }
   </style>
 </head>
 <body>
@@ -367,7 +368,6 @@
             <span>28</span><span>29</span><span>30</span>
           </div>
         </div>
-        <p data-key="dateText">June 4, 2027</p>
       </div>
       <div class="detail-grid">
         <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="massTitle">The Mass</h3><p class="location-name">Our Lady of Guadalupe Parish</p><p data-key="massText">12:00 PM</p>
