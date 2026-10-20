@@ -116,17 +116,23 @@
     .map-frame .map-label { display: block; margin-top: 16px; color: var(--clay); font-size: 15px; letter-spacing: .16em; text-transform: uppercase; }
     .map-link { display: inline-block; margin-top: 9px; padding: 9px 18px; border: 1px solid var(--clay); color: var(--clay); background: rgba(255,253,248,.76); font-size: 19px; text-decoration: none; }
     .map-link:hover, .map-link:focus-visible { background: var(--clay); color: #fff; }
-    .timeline { position: relative; max-width: 640px; margin: 10px auto; padding: 18px 0; }
-    .timeline::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: #ad8751; }
-    .timeline-item { position: relative; width: 50%; min-height: 145px; padding: 22px 32px; text-align: right; }
-    .timeline-item:nth-child(even) { margin-left: 50%; text-align: left; }
-    .timeline-item::before { content: ''; position: absolute; top: 44px; right: -6px; width: 11px; height: 11px; border: 1px solid #ad8751; border-radius: 50%; background: #fffdf8; z-index: 1; }
-    .timeline-item:nth-child(even)::before { right: auto; left: -6px; }
-    .timeline-item::after { content: ''; position: absolute; top: 49px; right: 0; width: 23px; height: 1px; background: #ad8751; }
-    .timeline-item:nth-child(even)::after { right: auto; left: 0; }
-    .timeline-time { display: block; color: #a4774c; font-size: 18px; letter-spacing: .08em; }
-    .timeline-item h3 { margin: 5px 0; font-size: 31px; font-weight: 500; }
-    .timeline-item p { margin: 2px 0; color: #735c54; font-size: 18px; }
+    .itinerary-title { display: flex; justify-content: center; align-items: center; gap: 20px; max-width: 720px; margin: 0 auto 16px; color: var(--clay); font-family: 'Great Vibes', 'Noto Serif KR', serif; }
+    .itinerary-title::before, .itinerary-title::after { content: ''; flex: 1; max-width: 100px; height: 1px; background: var(--line); }
+    .itinerary-date { margin: 0 auto 32px; color: #956e57; font-size: 23px; }
+    .card.itinerary-paper { max-width: 800px; padding: 30px clamp(18px, 4vw, 54px); background: radial-gradient(ellipse at 25% 20%, #fffefa, transparent 70%), #fffdf8; }
+    .timeline { max-width: 580px; margin: 0 auto; padding: 0; list-style: none; }
+    .timeline-item { display: grid; grid-template-columns: 100px 36px minmax(0, 1fr); align-items: center; min-height: 145px; text-align: left; }
+    .timeline-icon { display: grid; place-items: center; padding-right: 16px; }
+    .timeline-icon svg { display: block; width: 76px; height: 76px; max-width: 100%; overflow: visible; filter: drop-shadow(0 3px 4px rgba(113,157,183,.12)); }
+    .timeline-marker { position: relative; display: grid; place-items: center; align-self: stretch; }
+    .timeline-marker::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: #b8d5e7; transform: translateX(-50%); }
+    .timeline-item:first-child .timeline-marker::before { top: 50%; }
+    .timeline-item:last-child .timeline-marker::before { bottom: 50%; }
+    .timeline-marker svg { position: relative; z-index: 1; display: block; width: 24px; height: 24px; overflow: visible; }
+    .timeline-entry { padding: 22px 0 22px 26px; min-width: 0; }
+    .timeline-time { display: block; color: #a4774c; font-size: 20px; letter-spacing: .05em; }
+    .timeline-item h3 { margin: 5px 0; color: #91664f; font-size: clamp(24px, 3vw, 31px); line-height: 1.15; font-weight: 500; }
+    .timeline-item p { margin: 5px 0 0; color: #735c54; font-size: 18px; line-height: 1.3; }
     .section-intro { max-width: 650px; margin: -4px auto 30px; line-height: 1.45; }
     .parents-grid { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
     .parent-card { padding: 48px 30px; background: rgba(255,253,248,.86); border: 1px solid rgba(173,97,75,.24); box-shadow: 0 14px 38px rgba(77,61,51,.06); }
@@ -235,10 +241,14 @@
       .photo-frame.family-photo { width: min(330px, 78vw); }
       .parents-grid, .sponsors-grid, .attire-grid { grid-template-columns: 1fr; }
       .sponsor-card .sponsor-names { white-space: normal; }
-      .timeline::before { left: 8px; }
-      .timeline-item, .timeline-item:nth-child(even) { width: auto; margin-left: 8px; padding: 20px 6px 25px 30px; min-height: 116px; text-align: left; }
-      .timeline-item::before, .timeline-item:nth-child(even)::before { left: -5px; right: auto; }
-      .timeline-item::after, .timeline-item:nth-child(even)::after { left: 0; right: auto; }
+      .itinerary-title { gap: 12px; }
+      .itinerary-title::before, .itinerary-title::after { max-width: 35px; }
+      .timeline-item { grid-template-columns: 62px 28px minmax(0, 1fr); min-height: 132px; }
+      .timeline-icon { padding-right: 8px; }
+      .timeline-icon svg { width: 54px; height: 54px; }
+      .timeline-entry { padding: 20px 0 20px 16px; }
+      .timeline-time { font-size: 17px; letter-spacing: 0; }
+      .timeline-item p { font-size: 16px; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } .heart-ring svg { animation: none; } }
   </style>
@@ -410,20 +420,21 @@
         <div class="sponsor-card"><h3 data-key="sponsorLassoTitle">Lasso</h3><p class="sponsor-names lasso-names"><span data-key="nameNorberto">Norberto Sereno Barboza</span><span data-key="nameJoin"> &amp; </span><span data-key="nameYahaira">Yahaira Estefania Esparza</span></p><p data-key="sponsorLassoText">After our vows, our sponsors place a figure eight rosary, ribbon, or floral garland around our shoulders to symbolize our eternal union.</p></div>
       </div>
     </section>
-    <section>
-      <p class="section-kicker" data-key="timelineKicker">Together from beginning to end</p>
-      <h2 data-key="timelineTitle">Our Day</h2>
-      <div class="card">
-        <div class="timeline">
-          <div class="timeline-item"><span class="timeline-time" data-key="scheduleMassTime">12:00 PM</span><h3 data-key="scheduleMassTitle">The Mass</h3><p>Our Lady of Guadalupe Parish</p></div>
-          <div class="timeline-item"><span class="timeline-time" data-key="scheduleDinnerTime">4:30 PM</span><h3 data-key="scheduleDinnerTitle">Dinner Is Served</h3><p>Rancho Casillas</p></div>
-          <div class="timeline-item"><span class="timeline-time" data-key="scheduleMariachiTime">5:00–6:00 PM</span><h3 data-key="scheduleMariachiTitle">Mariachi</h3></div>
-          <div class="timeline-item"><span class="timeline-time" data-key="scheduleDinnerEndTime">6:30 PM</span><h3 data-key="scheduleDinnerEndTitle">Dinner Service Ends</h3></div>
-          <div class="timeline-item"><span class="timeline-time" data-key="scheduleBandaTime">7:00 PM</span><h3 data-key="scheduleBandaTitle">Banda Begins</h3></div>
-          <div class="timeline-item"><span class="timeline-time" data-key="scheduleMoneyDanceTime">8:45 PM</span><h3 data-key="scheduleMoneyDanceTitle">Money Dance</h3></div>
-          <div class="timeline-item"><span class="timeline-time" data-key="scheduleCoffeeTime">9:45 PM</span><h3 data-key="scheduleCoffeeTitle">Coffee &amp; Bread</h3></div>
-          <div class="timeline-item"><span class="timeline-time" data-key="scheduleBandaEndTime">11:00 PM</span><h3 data-key="scheduleBandaEndTitle">Banda Ends</h3></div>
-        </div>
+    <section id="itinerary">
+      <p class="section-kicker" data-key="timelineKicker">Itinerary</p>
+      <h2 class="itinerary-title" data-key="timelineTitle">Wedding Day</h2>
+      <p class="itinerary-date" data-key="dateText">June 4, 2027</p>
+      <div class="card itinerary-paper">
+        <ol class="timeline">
+          <li class="timeline-item"><span class="timeline-icon" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none" stroke="#719db7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="29" cy="43" r="19" fill="#d5eaf6"/><circle cx="49" cy="43" r="19" fill="#e7f3fa"/><circle cx="29" cy="43" r="14"/><circle cx="49" cy="43" r="14"/><path d="M34 12h12l-6 10z M32 11l8-5 8 5"/></svg></span><span class="timeline-marker" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21C9 18 2 13 2 7a5 5 0 0 1 10-1A5 5 0 0 1 22 7c0 6-7 11-10 14Z" fill="#9bc6df" stroke="#fffdf8" stroke-width="3" stroke-linejoin="round"/></svg></span><div class="timeline-entry"><span class="timeline-time" data-key="scheduleMassTime">12:00 PM</span><h3 data-key="scheduleMassTitle">The Mass</h3><p>Our Lady of Guadalupe Parish</p></div></li>
+          <li class="timeline-item"><span class="timeline-icon" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none" stroke="#719db7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="40" cy="42" r="25" fill="#d5eaf6"/><circle cx="40" cy="42" r="19"/><path d="M8 15v19m5-19v19m-10-19v19m0-4q5 8 10 0M8 37v31M70 15v53M70 15q-10 13 0 24"/></svg></span><span class="timeline-marker" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21C9 18 2 13 2 7a5 5 0 0 1 10-1A5 5 0 0 1 22 7c0 6-7 11-10 14Z" fill="#9bc6df" stroke="#fffdf8" stroke-width="3" stroke-linejoin="round"/></svg></span><div class="timeline-entry"><span class="timeline-time" data-key="scheduleDinnerTime">4:30 PM</span><h3 data-key="scheduleDinnerTitle">Dinner Is Served</h3><p>Rancho Casillas</p></div></li>
+          <li class="timeline-item"><span class="timeline-icon" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none" stroke="#719db7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M37 34c-14-8-24 4-18 14-13 6-10 23 3 25 13 2 24-8 22-18 11-4 11-15 2-20L65 11l-8-5z" fill="#d5eaf6"/><circle cx="31" cy="50" r="6" fill="#ffffff"/><path d="M24 66L61 13m-36 52 6 4M57 6l9 7M53 16l7 5"/></svg></span><span class="timeline-marker" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21C9 18 2 13 2 7a5 5 0 0 1 10-1A5 5 0 0 1 22 7c0 6-7 11-10 14Z" fill="#9bc6df" stroke="#fffdf8" stroke-width="3" stroke-linejoin="round"/></svg></span><div class="timeline-entry"><span class="timeline-time" data-key="scheduleMariachiTime">5:00–6:00 PM</span><h3 data-key="scheduleMariachiTitle">Mariachi</h3></div></li>
+          <li class="timeline-item"><span class="timeline-icon" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none" stroke="#719db7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 51h56M18 49a22 22 0 0 1 44 0M37 25v-6h6v6" fill="#e0eff8"/><path d="M18 58h44m-30 7h16"/><path d="m53 18 6 6 11-12"/></svg></span><span class="timeline-marker" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21C9 18 2 13 2 7a5 5 0 0 1 10-1A5 5 0 0 1 22 7c0 6-7 11-10 14Z" fill="#9bc6df" stroke="#fffdf8" stroke-width="3" stroke-linejoin="round"/></svg></span><div class="timeline-entry"><span class="timeline-time" data-key="scheduleDinnerEndTime">6:30 PM</span><h3 data-key="scheduleDinnerEndTitle">Dinner Service Ends</h3></div></li>
+          <li class="timeline-item"><span class="timeline-icon" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none" stroke="#719db7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 43h33l17-14v34L50 49H17z" fill="#d5eaf6"/><path d="M29 49v13q0 8 9 8t9-8V49M20 43V28h8v15M34 43V24h8v19M68 46h6"/><path d="M14 16v12m0-12 12-3v11"/><ellipse cx="10" cy="29" rx="4" ry="3" fill="#b5d6e9"/></svg></span><span class="timeline-marker" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21C9 18 2 13 2 7a5 5 0 0 1 10-1A5 5 0 0 1 22 7c0 6-7 11-10 14Z" fill="#9bc6df" stroke="#fffdf8" stroke-width="3" stroke-linejoin="round"/></svg></span><div class="timeline-entry"><span class="timeline-time" data-key="scheduleBandaTime">7:00 PM</span><h3 data-key="scheduleBandaTitle">Banda Begins</h3></div></li>
+          <li class="timeline-item"><span class="timeline-icon" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none" stroke="#719db7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m11 28 48-13 11 39-48 13z" fill="#d9edf8"/><path d="m17 32 38-10 8 28-38 10z"/><path d="m39 35c-7-8-16 3 6 14 14-20 1-24-6-14z" fill="#a9cfe4"/><path d="M16 14l3-7m47 61 6 3M8 59l-5 4"/></svg></span><span class="timeline-marker" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21C9 18 2 13 2 7a5 5 0 0 1 10-1A5 5 0 0 1 22 7c0 6-7 11-10 14Z" fill="#9bc6df" stroke="#fffdf8" stroke-width="3" stroke-linejoin="round"/></svg></span><div class="timeline-entry"><span class="timeline-time" data-key="scheduleMoneyDanceTime">8:45 PM</span><h3 data-key="scheduleMoneyDanceTitle">Money Dance</h3></div></li>
+          <li class="timeline-item"><span class="timeline-icon" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none" stroke="#719db7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 54h60M17 50a23 23 0 0 1 46 0" fill="#d5eaf6"/><path d="M40 27v-7m-4 0h8"/><path d="M13 61h54"/><path d="m59 10 2-7 2 7 7 2-7 2-2 7-2-7-7-2z" fill="#c2dfee"/><path d="m16 18 2-5 2 5 5 2-5 2-2 5-2-5-5-2z" fill="#e7f3fa"/></svg></span><span class="timeline-marker" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21C9 18 2 13 2 7a5 5 0 0 1 10-1A5 5 0 0 1 22 7c0 6-7 11-10 14Z" fill="#9bc6df" stroke="#fffdf8" stroke-width="3" stroke-linejoin="round"/></svg></span><div class="timeline-entry"><span class="timeline-time" data-key="scheduleSnackTime">9:45 PM</span><h3 data-key="scheduleSnackTitle">Late Night Surprise Snack</h3></div></li>
+          <li class="timeline-item"><span class="timeline-icon" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none" stroke="#719db7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M56 10a26 26 0 1 0 13 44A24 24 0 0 1 56 10z" fill="#d5eaf6"/><path d="M26 39V24l17-4v15"/><ellipse cx="22" cy="40" rx="5" ry="4" fill="#a9cfe4"/><ellipse cx="39" cy="36" rx="5" ry="4" fill="#a9cfe4"/><path d="m65 19 2-5 2 5 5 2-5 2-2 5-2-5-5-2z"/></svg></span><span class="timeline-marker" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21C9 18 2 13 2 7a5 5 0 0 1 10-1A5 5 0 0 1 22 7c0 6-7 11-10 14Z" fill="#9bc6df" stroke="#fffdf8" stroke-width="3" stroke-linejoin="round"/></svg></span><div class="timeline-entry"><span class="timeline-time" data-key="scheduleBandaEndTime">11:00 PM</span><h3 data-key="scheduleBandaEndTitle">Banda Ends</h3></div></li>
+        </ol>
       </div>
     </section>
     <section id="attire">
@@ -578,9 +589,12 @@
     Object.assign(translations.es, {"nameKeily": "Keily", "nameNathan": "Nathan", "nameSonia": "Sonia Valdez", "nameJose": "Jose Luis Valdez", "nameClara": "Clara Park", "nameJohn": "John Lee", "nameLupita": "Lupita Benitez", "nameRicardo": "Ricardo Espinosa", "nameDenisse": "Denisse Mora", "nameCanwin": "Canwin Tso", "nameOlivia": "Olivia Jimenez", "nameMartin": "Martin Jimenez", "nameNorberto": "Norberto Sereno Barboza", "nameYahaira": "Yahaira Estefania Esparza", "familyBrand": "LEE + VALDEZ"});
     Object.assign(translations.ko, {"nameKeily": "케일리", "nameNathan": "남훈", "nameSonia": "소니아 발데스", "nameJose": "호세 루이스 발데스", "nameClara": "클라라 박", "nameJohn": "존 이", "nameLupita": "루피타 베니테스", "nameRicardo": "리카르도 에스피노사", "nameDenisse": "데니스 모라", "nameCanwin": "캔윈 초", "nameOlivia": "올리비아 히메네스", "nameMartin": "마르틴 히메네스", "nameNorberto": "노르베르토 세레노 바르보사", "nameYahaira": "야하이라 에스테파니아 에스파르사", "familyBrand": "이 + 발데스"});
     // Confirmed wedding-day schedule; times are local to the venue.
-    Object.assign(translations.en, {"venueText": "Dinner served: 4:30–6:30 PM", "scheduleMassTime": "12:00 PM", "scheduleMassTitle": "The Mass", "scheduleDinnerTime": "4:30 PM", "scheduleDinnerTitle": "Dinner Is Served", "scheduleMariachiTime": "5:00–6:00 PM", "scheduleMariachiTitle": "Mariachi", "scheduleDinnerEndTime": "6:30 PM", "scheduleDinnerEndTitle": "Dinner Service Ends", "scheduleBandaTime": "7:00 PM", "scheduleBandaTitle": "Banda Begins", "scheduleMoneyDanceTime": "8:45 PM", "scheduleMoneyDanceTitle": "Money Dance", "scheduleCoffeeTime": "9:45 PM", "scheduleCoffeeTitle": "Coffee & Bread", "scheduleBandaEndTime": "11:00 PM", "scheduleBandaEndTitle": "Banda Ends"});
-    Object.assign(translations.es, {"venueText": "Servicio de comida: 4:30–6:30 p. m.", "scheduleMassTime": "12:00 p. m.", "scheduleMassTitle": "La Misa", "scheduleDinnerTime": "4:30 p. m.", "scheduleDinnerTitle": "Comienza el servicio de comida", "scheduleMariachiTime": "5:00–6:00 p. m.", "scheduleMariachiTitle": "Mariachi", "scheduleDinnerEndTime": "6:30 p. m.", "scheduleDinnerEndTitle": "Termina el servicio de comida", "scheduleBandaTime": "7:00 p. m.", "scheduleBandaTitle": "Comienza la banda", "scheduleMoneyDanceTime": "8:45 p. m.", "scheduleMoneyDanceTitle": "Baile de los billetes", "scheduleCoffeeTime": "9:45 p. m.", "scheduleCoffeeTitle": "Café y pan", "scheduleBandaEndTime": "11:00 p. m.", "scheduleBandaEndTitle": "Termina la banda"});
-    Object.assign(translations.ko, {"venueText": "식사 제공: 오후 4시 30분–6시 30분", "scheduleMassTime": "낮 12시", "scheduleMassTitle": "혼인 미사", "scheduleDinnerTime": "오후 4시 30분", "scheduleDinnerTitle": "식사 시작", "scheduleMariachiTime": "오후 5시–6시", "scheduleMariachiTitle": "마리아치 공연", "scheduleDinnerEndTime": "오후 6시 30분", "scheduleDinnerEndTitle": "식사 제공 종료", "scheduleBandaTime": "오후 7시", "scheduleBandaTitle": "반다 공연 시작", "scheduleMoneyDanceTime": "오후 8시 45분", "scheduleMoneyDanceTitle": "축의금 댄스", "scheduleCoffeeTime": "오후 9시 45분", "scheduleCoffeeTitle": "커피와 빵", "scheduleBandaEndTime": "오후 11시", "scheduleBandaEndTitle": "반다 공연 마무리"});
+    Object.assign(translations.en, {"venueText": "Dinner served: 4:30–6:30 PM", "scheduleMassTime": "12:00 PM", "scheduleMassTitle": "The Mass", "scheduleDinnerTime": "4:30 PM", "scheduleDinnerTitle": "Dinner Is Served", "scheduleMariachiTime": "5:00–6:00 PM", "scheduleMariachiTitle": "Mariachi", "scheduleDinnerEndTime": "6:30 PM", "scheduleDinnerEndTitle": "Dinner Service Ends", "scheduleBandaTime": "7:00 PM", "scheduleBandaTitle": "Banda Begins", "scheduleMoneyDanceTime": "8:45 PM", "scheduleMoneyDanceTitle": "Money Dance", "scheduleSnackTime": "9:45 PM", "scheduleSnackTitle": "Late Night Surprise Snack", "scheduleBandaEndTime": "11:00 PM", "scheduleBandaEndTitle": "Banda Ends"});
+    Object.assign(translations.es, {"venueText": "Servicio de comida: 4:30–6:30 p. m.", "scheduleMassTime": "12:00 p. m.", "scheduleMassTitle": "La Misa", "scheduleDinnerTime": "4:30 p. m.", "scheduleDinnerTitle": "Comienza el servicio de comida", "scheduleMariachiTime": "5:00–6:00 p. m.", "scheduleMariachiTitle": "Mariachi", "scheduleDinnerEndTime": "6:30 p. m.", "scheduleDinnerEndTitle": "Termina el servicio de comida", "scheduleBandaTime": "7:00 p. m.", "scheduleBandaTitle": "Comienza la banda", "scheduleMoneyDanceTime": "8:45 p. m.", "scheduleMoneyDanceTitle": "Baile de los billetes", "scheduleSnackTime": "9:45 p. m.", "scheduleSnackTitle": "Antojito sorpresa nocturno", "scheduleBandaEndTime": "11:00 p. m.", "scheduleBandaEndTitle": "Termina la banda"});
+    Object.assign(translations.ko, {"venueText": "식사 제공: 오후 4시 30분–6시 30분", "scheduleMassTime": "낮 12시", "scheduleMassTitle": "혼인 미사", "scheduleDinnerTime": "오후 4시 30분", "scheduleDinnerTitle": "식사 시작", "scheduleMariachiTime": "오후 5시–6시", "scheduleMariachiTitle": "마리아치 공연", "scheduleDinnerEndTime": "오후 6시 30분", "scheduleDinnerEndTitle": "식사 제공 종료", "scheduleBandaTime": "오후 7시", "scheduleBandaTitle": "반다 공연 시작", "scheduleMoneyDanceTime": "오후 8시 45분", "scheduleMoneyDanceTitle": "축의금 댄스", "scheduleSnackTime": "오후 9시 45분", "scheduleSnackTitle": "깜짝 야식", "scheduleBandaEndTime": "오후 11시", "scheduleBandaEndTitle": "반다 공연 마무리"});
+    Object.assign(translations.en, {"timelineKicker": "Itinerary", "timelineTitle": "Wedding Day"});
+    Object.assign(translations.es, {"timelineKicker": "Itinerario", "timelineTitle": "El día de nuestra boda"});
+    Object.assign(translations.ko, {"timelineKicker": "진행 순서", "timelineTitle": "결혼식 일정"});
     let slideshowReady = false;
     const proposalSong = document.getElementById('proposalSong');
     const musicToggle = document.getElementById('musicToggle');
