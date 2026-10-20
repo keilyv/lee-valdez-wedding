@@ -89,6 +89,8 @@
     .photo-caption { max-width: 500px; margin: 30px auto 0; font-size: 25px; }
     .detail-grid { max-width: 930px; margin: 25px auto 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
     .detail-date { max-width: 930px; margin: 0 auto; padding: 26px 25px; }
+    .detail-date .countdown { margin-top: 34px; }
+    .detail-date .countdown-message { margin-top: 28px; }
     .calendar-card { width: min(100%, 390px); margin: 20px auto 0; padding: 24px clamp(15px, 5vw, 31px) 27px; color: #fffaf0; background: radial-gradient(circle at 7% 6%, #ffffff14, transparent 48%), repeating-linear-gradient(35deg, #ffffff08 0 1px, transparent 1px 6px), #718579; box-shadow: 0 11px 28px #23312830; }
     .calendar-month { display: block; margin-bottom: 14px; font-family: 'Great Vibes', 'Cormorant Garamond', serif; font-size: 52px; line-height: 1.05; }
     .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); align-items: center; gap: 4px 0; }
@@ -96,7 +98,7 @@
     .calendar-grid .weekday { min-height: 34px; font-size: 16px; font-weight: 600; border-bottom: 1px solid #fff9; }
     .calendar-grid .wedding-day { position: relative; font-weight: 600; }
     .wedding-day .day-number { position: relative; z-index: 2; }
-    .heart-ring { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; transform: translateY(7px); }
+    .heart-ring { position: absolute; left: 50%; top: calc(50% + 2px); width: 52px; height: 52px; pointer-events: none; transform: translate(-50%, -50%); }
     .heart-ring svg { display: block; width: 52px; height: 52px; overflow: visible; fill: none; stroke: #f6d6cb; stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; transform-origin: 50% 50%; animation: heart-beat 1.8s ease-in-out infinite; }
     @keyframes heart-beat { 0%, 18%, 58%, 100% { transform: scale(1) rotate(0); } 27% { transform: scale(1.12) rotate(-3deg); } 36% { transform: scale(.98) rotate(2deg); } 46% { transform: scale(1.09) rotate(0); } }
     .detail-card { padding: 45px 25px; background: rgba(255,253,248,.82); border: 1px solid rgba(173,97,75,.2); }
@@ -280,13 +282,6 @@
       <div class="fine-rule"></div>
       <p data-key="invite">Together with our families, we look forward to celebrating with you.</p>
       <p class="hero-date" data-key="dateText">June 4, 2027</p>
-      <div class="countdown" id="weddingCountdown" role="timer" aria-label="Countdown to the June 4, 2027 Mass at 12:00 PM Pacific time">
-        <div class="countdown-unit"><strong id="daysLeft">0</strong><span data-key="countDays">Days</span></div>
-        <div class="countdown-unit"><strong id="hoursLeft">00</strong><span data-key="countHours">Hours</span></div>
-        <div class="countdown-unit"><strong id="minutesLeft">00</strong><span data-key="countMinutes">Minutes</span></div>
-        <div class="countdown-unit"><strong id="secondsLeft">00</strong><span data-key="countSeconds">Seconds</span></div>
-      </div>
-      <p class="countdown-message" id="countdownMessage" hidden></p>
       <p class="welcome">환영합니다 · Welcome · Bienvenidos</p>
     </div>
   </div>
@@ -372,6 +367,13 @@
             <span>28</span><span>29</span><span>30</span>
           </div>
         </div>
+      <div class="countdown" id="weddingCountdown" role="timer" aria-label="Countdown to the June 4, 2027 Mass at 12:00 PM Pacific time">
+        <div class="countdown-unit"><strong id="daysLeft">0</strong><span data-key="countDays">Days</span></div>
+        <div class="countdown-unit"><strong id="hoursLeft">00</strong><span data-key="countHours">Hours</span></div>
+        <div class="countdown-unit"><strong id="minutesLeft">00</strong><span data-key="countMinutes">Minutes</span></div>
+        <div class="countdown-unit"><strong id="secondsLeft">00</strong><span data-key="countSeconds">Seconds</span></div>
+      </div>
+      <p class="countdown-message" id="countdownMessage" hidden></p>
       </div>
       <div class="detail-grid">
         <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="massTitle">The Mass</h3><p class="location-name">Our Lady of Guadalupe Parish</p><p data-key="massText">12:00 PM</p>
@@ -380,7 +382,7 @@
             <span class="map-label" data-key="gpsTitle">GPS directions</span><a class="map-link" data-key="massMapText" href="https://maps.app.goo.gl/9eURKswJEdEdyU6J9" target="_blank" rel="noopener noreferrer">Open church in Google Maps</a>
           </div>
         </div>
-        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="venueTitle">The Venue</h3><p class="location-name">Rancho Casillas</p><p data-key="venueText">Reception time to be announced</p>
+        <div class="detail-card"><div class="detail-icon" aria-hidden="true">✧</div><h3 data-key="venueTitle">The Venue</h3><p class="location-name">Rancho Casillas</p><p data-key="venueText">Dinner served: 4:30–6:30 PM</p>
           <div class="map-frame">
             <div class="map-visual"><iframe title="Satellite map search for Rancho Casillas" src="https://www.google.com/maps?q=Rancho+Casillas&amp;t=k&amp;z=17&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><a class="map-preview-link" href="https://maps.app.goo.gl/xWqZdC7xosTLPwLh7" target="_blank" rel="noopener noreferrer">Rancho Casillas</a></div>
             <span class="map-label" data-key="gpsTitle">GPS directions</span><a class="map-link" data-key="venueMapText" href="https://maps.app.goo.gl/xWqZdC7xosTLPwLh7" target="_blank" rel="noopener noreferrer">Open venue in Google Maps</a>
@@ -413,9 +415,14 @@
       <h2 data-key="timelineTitle">Our Day</h2>
       <div class="card">
         <div class="timeline">
-          <div class="timeline-item"><span class="timeline-time" data-key="massText">12:00 PM</span><h3 data-key="timelineOne">The Mass</h3><p>Our Lady of Guadalupe Parish</p></div>
-          <div class="timeline-item"><span class="timeline-time" data-key="timelinePending">Time to be announced</span><h3 data-key="timelineTwo">Reception</h3><p>Rancho Casillas</p></div>
-          <div class="timeline-item"><span class="timeline-time" data-key="timelinePending">Time to be announced</span><h3 data-key="timelineThree">Dancing &amp; Memories</h3><p data-key="timelineThreeText">Celebrate with us on the dance floor</p></div>
+          <div class="timeline-item"><span class="timeline-time" data-key="scheduleMassTime">12:00 PM</span><h3 data-key="scheduleMassTitle">The Mass</h3><p>Our Lady of Guadalupe Parish</p></div>
+          <div class="timeline-item"><span class="timeline-time" data-key="scheduleDinnerTime">4:30 PM</span><h3 data-key="scheduleDinnerTitle">Dinner Is Served</h3><p>Rancho Casillas</p></div>
+          <div class="timeline-item"><span class="timeline-time" data-key="scheduleMariachiTime">5:00–6:00 PM</span><h3 data-key="scheduleMariachiTitle">Mariachi</h3></div>
+          <div class="timeline-item"><span class="timeline-time" data-key="scheduleDinnerEndTime">6:30 PM</span><h3 data-key="scheduleDinnerEndTitle">Dinner Service Ends</h3></div>
+          <div class="timeline-item"><span class="timeline-time" data-key="scheduleBandaTime">7:00 PM</span><h3 data-key="scheduleBandaTitle">Banda Begins</h3></div>
+          <div class="timeline-item"><span class="timeline-time" data-key="scheduleMoneyDanceTime">8:45 PM</span><h3 data-key="scheduleMoneyDanceTitle">Money Dance</h3></div>
+          <div class="timeline-item"><span class="timeline-time" data-key="scheduleCoffeeTime">9:45 PM</span><h3 data-key="scheduleCoffeeTitle">Coffee &amp; Bread</h3></div>
+          <div class="timeline-item"><span class="timeline-time" data-key="scheduleBandaEndTime">11:00 PM</span><h3 data-key="scheduleBandaEndTitle">Banda Ends</h3></div>
         </div>
       </div>
     </section>
@@ -570,6 +577,10 @@
     Object.assign(translations.en, {"nameKeily": "Keily", "nameNathan": "Nathan", "nameSonia": "Sonia Valdez", "nameJose": "Jose Luis Valdez", "nameClara": "Clara Park", "nameJohn": "John Lee", "nameLupita": "Lupita Benitez", "nameRicardo": "Ricardo Espinosa", "nameDenisse": "Denisse Mora", "nameCanwin": "Canwin Tso", "nameOlivia": "Olivia Jimenez", "nameMartin": "Martin Jimenez", "nameNorberto": "Norberto Sereno Barboza", "nameYahaira": "Yahaira Estefania Esparza", "familyBrand": "LEE + VALDEZ"});
     Object.assign(translations.es, {"nameKeily": "Keily", "nameNathan": "Nathan", "nameSonia": "Sonia Valdez", "nameJose": "Jose Luis Valdez", "nameClara": "Clara Park", "nameJohn": "John Lee", "nameLupita": "Lupita Benitez", "nameRicardo": "Ricardo Espinosa", "nameDenisse": "Denisse Mora", "nameCanwin": "Canwin Tso", "nameOlivia": "Olivia Jimenez", "nameMartin": "Martin Jimenez", "nameNorberto": "Norberto Sereno Barboza", "nameYahaira": "Yahaira Estefania Esparza", "familyBrand": "LEE + VALDEZ"});
     Object.assign(translations.ko, {"nameKeily": "케일리", "nameNathan": "남훈", "nameSonia": "소니아 발데스", "nameJose": "호세 루이스 발데스", "nameClara": "클라라 박", "nameJohn": "존 이", "nameLupita": "루피타 베니테스", "nameRicardo": "리카르도 에스피노사", "nameDenisse": "데니스 모라", "nameCanwin": "캔윈 초", "nameOlivia": "올리비아 히메네스", "nameMartin": "마르틴 히메네스", "nameNorberto": "노르베르토 세레노 바르보사", "nameYahaira": "야하이라 에스테파니아 에스파르사", "familyBrand": "이 + 발데스"});
+    // Confirmed wedding-day schedule; times are local to the venue.
+    Object.assign(translations.en, {"venueText": "Dinner served: 4:30–6:30 PM", "scheduleMassTime": "12:00 PM", "scheduleMassTitle": "The Mass", "scheduleDinnerTime": "4:30 PM", "scheduleDinnerTitle": "Dinner Is Served", "scheduleMariachiTime": "5:00–6:00 PM", "scheduleMariachiTitle": "Mariachi", "scheduleDinnerEndTime": "6:30 PM", "scheduleDinnerEndTitle": "Dinner Service Ends", "scheduleBandaTime": "7:00 PM", "scheduleBandaTitle": "Banda Begins", "scheduleMoneyDanceTime": "8:45 PM", "scheduleMoneyDanceTitle": "Money Dance", "scheduleCoffeeTime": "9:45 PM", "scheduleCoffeeTitle": "Coffee & Bread", "scheduleBandaEndTime": "11:00 PM", "scheduleBandaEndTitle": "Banda Ends"});
+    Object.assign(translations.es, {"venueText": "Servicio de comida: 4:30–6:30 p. m.", "scheduleMassTime": "12:00 p. m.", "scheduleMassTitle": "La Misa", "scheduleDinnerTime": "4:30 p. m.", "scheduleDinnerTitle": "Comienza el servicio de comida", "scheduleMariachiTime": "5:00–6:00 p. m.", "scheduleMariachiTitle": "Mariachi", "scheduleDinnerEndTime": "6:30 p. m.", "scheduleDinnerEndTitle": "Termina el servicio de comida", "scheduleBandaTime": "7:00 p. m.", "scheduleBandaTitle": "Comienza la banda", "scheduleMoneyDanceTime": "8:45 p. m.", "scheduleMoneyDanceTitle": "Baile de los billetes", "scheduleCoffeeTime": "9:45 p. m.", "scheduleCoffeeTitle": "Café y pan", "scheduleBandaEndTime": "11:00 p. m.", "scheduleBandaEndTitle": "Termina la banda"});
+    Object.assign(translations.ko, {"venueText": "식사 제공: 오후 4시 30분–6시 30분", "scheduleMassTime": "낮 12시", "scheduleMassTitle": "혼인 미사", "scheduleDinnerTime": "오후 4시 30분", "scheduleDinnerTitle": "식사 시작", "scheduleMariachiTime": "오후 5시–6시", "scheduleMariachiTitle": "마리아치 공연", "scheduleDinnerEndTime": "오후 6시 30분", "scheduleDinnerEndTitle": "식사 제공 종료", "scheduleBandaTime": "오후 7시", "scheduleBandaTitle": "반다 공연 시작", "scheduleMoneyDanceTime": "오후 8시 45분", "scheduleMoneyDanceTitle": "축의금 댄스", "scheduleCoffeeTime": "오후 9시 45분", "scheduleCoffeeTitle": "커피와 빵", "scheduleBandaEndTime": "오후 11시", "scheduleBandaEndTitle": "반다 공연 마무리"});
     let slideshowReady = false;
     const proposalSong = document.getElementById('proposalSong');
     const musicToggle = document.getElementById('musicToggle');
