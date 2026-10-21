@@ -152,8 +152,8 @@
     .sponsor-card .lasso-names { white-space: normal; text-wrap: balance; }
     html[lang="ko"] .sponsor-names { white-space: normal; word-break: keep-all; }
     .attire-grid { max-width: 850px; margin: 0 auto; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
-    .attire-illustration { width: min(100%, 820px); aspect-ratio: 1766 / 1252; margin: -12px auto 28px; overflow: hidden; }
-    .attire-illustration img { display: block; width: 113.25%; max-width: none; height: auto; transform: translate(-6.6%, -18.7%); }
+    .attire-illustration { width: min(100%, 820px); margin: 20px auto 28px; }
+    .attire-illustration img { display: block; width: 100%; height: auto; max-height: 680px; object-fit: contain; }
     .attire-card { padding: 38px 28px; background: rgba(255,253,248,.84); border: 1px solid rgba(173,97,75,.2); }
     .attire-swatch { display: block; width: 36px; height: 36px; margin: 0 auto 15px; border-radius: 50%; background: #2850a4; border: 3px solid white; box-shadow: 0 0 0 1px rgba(40,80,164,.4); }
     .attire-swatch.black { background: linear-gradient(120deg,#171719 0 64%,#2850a4 64%); box-shadow: 0 0 0 1px rgba(23,23,25,.35); }
@@ -440,11 +440,11 @@
     <section id="attire">
       <p class="section-kicker" data-key="attireKicker">Dress for the celebration</p>
       <h2 data-key="attireTitle">Required Attire</h2>
-      <p class="section-intro" data-key="attireIntro">We'd love to celebrate with everyone dressed in our wedding colors.</p>
-      <figure class="attire-illustration"><img src="images/attire.png" alt="Examples of a black suit with a royal blue tie and royal blue dresses" loading="lazy" decoding="async"></figure>
+      <p class="section-intro" data-key="attireIntro">Please follow the required dress code below.</p>
+      <figure class="attire-illustration"><img src="images/attire.png" alt="Royal blue and black attire: a black suit with a blue tie, a royal blue blouse with black dress pants, a blue dress shirt with black slacks, and a royal blue dress" loading="lazy" decoding="async"></figure>
       <div class="attire-grid">
-        <div class="attire-card"><span class="attire-swatch" aria-hidden="true"></span><h3 data-key="attireWomenTitle">Women</h3><ul><li data-key="attireWomenColor">A royal blue dress for our special day</li><li data-key="attireWomenLength">Any dress length is welcome, except mini dresses</li></ul></div>
-        <div class="attire-card"><span class="attire-swatch black" aria-hidden="true"></span><h3 data-key="attireMenTitle">Men</h3><ul><li data-key="attireMenSuit">Black suit or tuxedo with a royal blue tie or bow tie</li><li data-key="attireMenShirt">Or a royal blue dress shirt with black slacks</li></ul></div>
+        <div class="attire-card"><span class="attire-swatch" aria-hidden="true"></span><h3 data-key="attireWomenTitle">Women</h3><ul><li data-key="attireWomenColor">A royal blue dress for our special day</li><li data-key="attireWomenLength">Any dress length is welcome, except mini dresses</li><li data-key="attireWomenPants">Royal blue blouse with black dress pants</li></ul></div>
+        <div class="attire-card"><span class="attire-swatch black" aria-hidden="true"></span><h3 data-key="attireMenTitle">Men</h3><ul><li data-key="attireMenSuit">Black suit or tuxedo with a royal blue tie or bow tie</li><li data-key="attireMenShirt">Royal blue dress shirt with black slacks</li></ul></div>
       </div>
     </section>
     <section>
@@ -557,8 +557,8 @@
       sponsorLassoTitle: 'Lasso', sponsorLassoText: 'After our vows, our sponsors place a figure eight rosary, ribbon, or floral garland around our shoulders to symbolize our eternal union.',
       sponsorRingsTitle: 'Rings', sponsorRingsText: 'Blessed during Mass, our rings symbolize eternal love and fidelity while honoring the union of our families and the faith we share.',
       sponsorCoinsTitle: 'Coins', sponsorCoinsText: 'The groom offers the bride 13 blessed gold coins, recalling Christ and the twelve apostles and promising support and shared prosperity.',
-      attireKicker: 'Dress for the celebration', attireTitle: 'Required Attire', attireIntro: "We'd love to celebrate with everyone dressed in our wedding colors.",
-      attireWomenTitle: 'Women', attireWomenColor: 'A royal blue dress for our special day', attireWomenLength: 'Any dress length is welcome, except mini dresses', attireMenTitle: 'Men', attireMenSuit: 'Black suit or tuxedo with a royal blue tie or bow tie', attireMenShirt: 'Or a royal blue dress shirt with black slacks'
+      attireKicker: 'Dress for the celebration', attireTitle: 'Required Attire', attireIntro: "Please follow the required dress code below.",
+      attireWomenTitle: 'Women', attireWomenColor: 'A royal blue dress for our special day', attireWomenLength: 'Any dress length is welcome, except mini dresses', attireWomenPants: 'Royal blue blouse with black dress pants', attireMenTitle: 'Men', attireMenSuit: 'Black suit or tuxedo with a royal blue tie or bow tie', attireMenShirt: 'Royal blue dress shirt with black slacks'
     });
     Object.assign(translations.es, {
       parentsKicker: 'El amor que nos trajo hasta aquí', parentsTitle: 'Nuestros Padres', parentsIntro: 'Con todo nuestro cariño, honramos a las familias que nos criaron y forman parte de nuestra historia.',
@@ -569,8 +569,8 @@
       sponsorLassoTitle: 'Lazo', sponsorLassoText: 'Después de los votos, nuestros padrinos colocan un rosario, cinta o guirnalda en forma de ocho sobre nuestros hombros como símbolo de unión eterna.',
       sponsorRingsTitle: 'Anillos', sponsorRingsText: 'Bendecidos durante la misa, nuestros anillos simbolizan amor eterno y fidelidad, y honran la unión de nuestras familias y la fe que compartimos.',
       sponsorCoinsTitle: 'Arras', sponsorCoinsText: 'El novio entrega a la novia 13 monedas de oro bendecidas, en recuerdo de Cristo y los doce apóstoles, como promesa de apoyo y prosperidad compartida.',
-      attireKicker: 'Viste para celebrar', attireTitle: 'Código de vestimenta', attireIntro: 'Nos encantará celebrar con todos vestidos con los colores de nuestra boda.',
-      attireWomenTitle: 'Mujeres', attireWomenColor: 'Un vestido azul rey para celebrar con nosotros', attireWomenLength: 'Cualquier largo es bienvenido, excepto los vestidos mini', attireMenTitle: 'Hombres', attireMenSuit: 'Traje negro o esmoquin con corbata o moño azul rey', attireMenShirt: 'O camisa de vestir azul rey con pantalón de vestir negro'
+      attireKicker: 'Viste para celebrar', attireTitle: 'Vestimenta obligatoria', attireIntro: 'Les pedimos seguir el código de vestimenta obligatorio indicado a continuación.',
+      attireWomenTitle: 'Mujeres', attireWomenColor: 'Un vestido azul rey para celebrar con nosotros', attireWomenLength: 'Cualquier largo es bienvenido, excepto los vestidos mini', attireWomenPants: 'Blusa azul rey con pantalón de vestir negro', attireMenTitle: 'Hombres', attireMenSuit: 'Traje negro o esmoquin con corbata o moño azul rey', attireMenShirt: 'Camisa de vestir azul rey con pantalón de vestir negro'
     });
     Object.assign(translations.ko, {
       parentsKicker: '오늘의 저희를 있게 한 사랑', parentsTitle: '저희 부모님', parentsIntro: '저희를 키워 주시고 지금의 이야기를 만들어 주신 가족에게 사랑과 감사를 전합니다.',
@@ -581,8 +581,8 @@
       sponsorLassoTitle: '혼인 라소', sponsorLassoText: '서약 후 후견인들이 묵주나 리본, 꽃장식을 8자 모양으로 두 사람의 어깨에 둘러 영원한 결합을 상징합니다.',
       sponsorRingsTitle: '결혼반지', sponsorRingsText: '미사 중 축복받은 반지는 영원한 사랑과 신의를 상징하며, 두 가족의 결합과 함께 나누는 믿음을 기립니다.',
       sponsorCoinsTitle: '혼인 동전', sponsorCoinsText: '신랑이 신부에게 건네는 축복받은 금화 13개는 그리스도와 열두 사도를 떠올리게 하며, 서로 돕고 풍요를 나누겠다는 약속을 담습니다.',
-      attireKicker: '함께 빛나는 날', attireTitle: '필수 복장 안내', attireIntro: '결혼식 색상에 맞춰 함께해 주시면 감사하겠습니다.',
-      attireWomenTitle: '여성', attireWomenColor: '특별한 날을 위한 로열 블루 드레스', attireWomenLength: '미니 드레스를 제외하고 길이는 자유롭게 선택해 주세요', attireMenTitle: '남성', attireMenSuit: '검은색 정장 또는 턱시도에 로열 블루 넥타이나 나비넥타이', attireMenShirt: '또는 로열 블루 드레스 셔츠에 검은색 정장 바지'
+      attireKicker: '함께 빛나는 날', attireTitle: '필수 복장 안내', attireIntro: '아래의 필수 복장 규정을 지켜 주세요.',
+      attireWomenTitle: '여성', attireWomenColor: '특별한 날을 위한 로열 블루 드레스', attireWomenLength: '미니 드레스를 제외하고 길이는 자유롭게 선택해 주세요', attireWomenPants: '로열 블루 블라우스에 검은색 정장 바지', attireMenTitle: '남성', attireMenSuit: '검은색 정장 또는 턱시도에 로열 블루 넥타이나 나비넥타이', attireMenShirt: '로열 블루 드레스 셔츠에 검은색 정장 바지'
     });
     // Names use the same language switch as the invitation copy.
     Object.assign(translations.en, {"nameKeily": "Keily", "nameNathan": "Nathan", "nameSonia": "Sonia Valdez", "nameJose": "Jose Luis Valdez", "nameClara": "Clara Park", "nameJohn": "John Lee", "nameLupita": "Lupita Benitez", "nameRicardo": "Ricardo Espinosa", "nameDenisse": "Denisse Mora", "nameCanwin": "Canwin Tso", "nameOlivia": "Olivia Jimenez", "nameMartin": "Martin Jimenez", "nameNorberto": "Norberto Sereno Barboza", "nameYahaira": "Yahaira Estefania Esparza", "familyBrand": "LEE + VALDEZ"});
