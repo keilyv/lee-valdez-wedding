@@ -152,7 +152,8 @@
     .sponsor-card .lasso-names { white-space: normal; text-wrap: balance; }
     html[lang="ko"] .sponsor-names { white-space: normal; word-break: keep-all; }
     .attire-grid { max-width: 850px; margin: 0 auto; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
-    .attire-illustration { width: min(100%, 820px); margin: 20px auto 28px; }
+    #attire > .section-intro { margin-bottom: 0; }
+    .attire-illustration { width: min(100%, 820px); margin: clamp(-80px, -9vw, -28px) auto clamp(-70px, -7vw, -22px); }
     .attire-illustration img { display: block; width: 100%; height: auto; max-height: 680px; object-fit: contain; }
     .attire-card { padding: 38px 28px; background: rgba(255,253,248,.84); border: 1px solid rgba(173,97,75,.2); }
     .attire-swatch { display: block; width: 36px; height: 36px; margin: 0 auto 15px; border-radius: 50%; background: #2850a4; border: 3px solid white; box-shadow: 0 0 0 1px rgba(40,80,164,.4); }
@@ -250,7 +251,11 @@
       .timeline-time { font-size: 17px; letter-spacing: 0; }
       .timeline-item p { font-size: 16px; }
     }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } .heart-ring svg { animation: none; } }
+    .scroll-reveal { opacity: 0; transform: translateY(24px); transition: opacity .75s ease var(--reveal-delay, 0ms), transform .75s cubic-bezier(.2,.65,.3,1) var(--reveal-delay, 0ms); }
+    .scroll-reveal.is-revealed, .scroll-reveal:focus-within { opacity: 1; transform: none; }
+    .scroll-reveal:focus-within { transition-delay: 0s; }
+    @media print { .scroll-reveal { opacity: 1 !important; transform: none !important; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } .heart-ring svg { animation: none; } .scroll-reveal { opacity: 1; transform: none; } }
   </style>
 </head>
 <body>
@@ -447,7 +452,7 @@
         <div class="attire-card"><span class="attire-swatch black" aria-hidden="true"></span><h3 data-key="attireMenTitle">Men</h3><ul><li data-key="attireMenSuit">Black suit or tuxedo with a royal blue tie or bow tie</li><li data-key="attireMenShirt">Royal blue dress shirt with black slacks</li></ul></div>
       </div>
     </section>
-    <section>
+    <section id="rsvp">
       <p class="section-kicker" data-key="rsvpKicker">We hope to see you</p>
       <h2 data-key="rsvpTitle">RSVP</h2>
       <div class="card">
@@ -699,6 +704,7 @@
         cover.hidden = true;
         document.body.classList.remove('invitation-closed');
         window.scrollTo({ top: 0, behavior: 'instant' });
+        initializeScrollReveals();
         const hero = document.getElementById('top');
         hero.tabIndex = -1;
         hero.focus({ preventScroll: true });
@@ -870,6 +876,52 @@
       } catch (error) {
         statusLine.textContent = translations[document.documentElement.lang][error.message === 'RSVP locked' ? 'lockedError' : 'unavailable'];
       } finally { button.disabled = false; }
+    });
+    let revealObserver = null;
+    let scrollRevealsStarted = false;
+    function revealEverything() {
+      if (revealObserver) revealObserver.disconnect();
+      document.querySelectorAll('.scroll-reveal').forEach(element => element.classList.add('is-revealed'));
+    }
+    function initializeScrollReveals() {
+      if (scrollRevealsStarted || reducedMotion.matches || !('IntersectionObserver' in window)) return;
+      scrollRevealsStarted = true;
+      const selectors = [
+        'main .section-kicker', 'main section > h2', 'main section > .section-intro',
+        '.itinerary-date', '.moment-photos', '.photo-caption', '.story-photos',
+        '.story-layout .card > p', '.story-layout .card > .fine-rule',
+        '.story-song', '.story-gallery', '.detail-card', '.parent-card',
+        '.sponsor-card', '.timeline-item', '.attire-illustration', '.attire-card', '#rsvp > .card'
+      ];
+      try {
+        revealObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-revealed');
+            revealObserver.unobserve(entry.target);
+          });
+        }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+        const groupPositions = new Map();
+        document.querySelectorAll(selectors.join(', ')).forEach(element => {
+          const position = groupPositions.get(element.parentElement) || 0;
+          groupPositions.set(element.parentElement, position + 1);
+          element.style.setProperty('--reveal-delay', `${Math.min(position, 3) * 65}ms`);
+          element.classList.add('scroll-reveal');
+          revealObserver.observe(element);
+        });
+      } catch (_) { revealEverything(); }
+    }
+    // Keyboard navigation must reveal interactive content immediately too.
+    document.querySelector('main').addEventListener('focusin', event => {
+      const element = event.target.closest('.scroll-reveal');
+      if (!element) return;
+      element.style.setProperty('--reveal-delay', '0ms');
+      element.classList.add('is-revealed');
+      if (revealObserver) revealObserver.unobserve(element);
+    });
+    reducedMotion.addEventListener('change', event => {
+      if (event.matches) revealEverything();
+      else if (!document.body.classList.contains('invitation-closed')) initializeScrollReveals();
     });
   </script>
 </body>
